@@ -1,0 +1,5 @@
+data/** -text
+config/** -text
+results/** -text
+*.csv -text
+*.json -text

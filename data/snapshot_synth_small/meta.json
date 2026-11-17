@@ -1,0 +1,15 @@
+{
+  "class_speed_kmh": {
+    "0": 60,
+    "1": 50,
+    "2": 40,
+    "3": 30
+  },
+  "earth_radius_m": 6371008.8,
+  "edges": 5609,
+  "format": 1,
+  "nodes": 1600,
+  "seed": 1,
+  "sha256": "33c696312cd0abd202e37841a0cd93a90782ec388440e4b2c46770408067f939",
+  "source": "SYNTHETIC (dev only)"
+}
