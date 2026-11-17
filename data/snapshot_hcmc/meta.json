@@ -1,0 +1,22 @@
+{
+  "class_speed_kmh": {
+    "0": 60,
+    "1": 50,
+    "2": 40,
+    "3": 30
+  },
+  "drivable_rule": "osmnx 'drive' exclusions re-applied in tools/export_graph.py:is_drivable",
+  "earth_radius_m": 6371008.8,
+  "edges": 427793,
+  "export_date_utc": "2026-11-17T14:28:35+00:00",
+  "format": 1,
+  "method": "osm_file",
+  "nodes": 195823,
+  "osm_file_name": "hcmc.osm",
+  "osm_file_sha256": "fb0a73659780a7893cd48370646ee71fc15a59d205d96cbbc32e017c3097c3ab",
+  "osmnx_version": "2.1.1",
+  "raw_edges": 770981,
+  "raw_nodes": 289609,
+  "sha256": "f0981c73dc996e19b047db1603a71c148a7141d7d7f5f093d3ece1adf7da4038",
+  "source": "OpenStreetMap via osmnx"
+}

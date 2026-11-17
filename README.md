@@ -3,11 +3,11 @@
 ```
 include/astar/  graph.h  heuristic.h  openlist.h  search.h      (C++17, header-only core)
 src/bench_main.cpp      one configuration -> CSV rows
-tests/                  test_astar.cpp  test_oracle.py  check_gaps.py  run_tests.sh
-tools/                  export_graph.py  snapshot_io.py  synth_graph.py  make_profile.py
+tests/                  test_astar.cpp  test_oracle.py  test_export.py  check_gaps.py  run_tests.sh
+tools/                  export_graph.py  check_osm_access.py  snapshot_io.py  synth_graph.py  make_profile.py
                         make_queries.py  oracle.py  inspect_platform.py  pilot.py
 config/profile.csv      speed multipliers        data/  snapshots (synthetic = DEV ONLY)
-docs/                   SPEC_1..3, INTERFACES, PARAMETERS, TASKS, REPORT, REPORT_vi
+docs/                   SPEC_1..3, INTERFACES, PARAMETERS, TASKS, REPORT, REPORT_vi, EXPORT_HELP
 ```
 Prerequisite: copy the Assignment-1 `lock.h` to `include/lock.h`.
 Build: `make` (Linux/WSL2/macOS) or CMake (Windows native). Test: `./tests/run_tests.sh` (add `make test-tsan` on Linux).

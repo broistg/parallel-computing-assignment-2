@@ -1,30 +1,21 @@
 Extract this zip over the root of your repository (parallel-computing-assignment-2).
+It contains only files that changed since the previous zip.
 
 New files:
-  docs/REPORT.md
-  docs/REPORT_vi.md
-  docs/TASKS.md
-  tests/check_gaps.py
+  docs/EXPORT_HELP.md
+  tests/test_export.py
+  tools/check_osm_access.py
 
 Changed files (overwrite):
   Makefile
   README.md
-  docs/INTERFACES.md
-  docs/PARAMETERS.md
-  docs/SPEC_2_parallel_contract.md
-  docs/SPEC_3_reference.md
-  include/astar/graph.h
-  include/astar/heuristic.h
-  include/astar/openlist.h
-  include/astar/search.h
-  src/bench_main.cpp
+  docs/REPORT.md
+  docs/REPORT_vi.md
+  docs/TASKS.md
   tests/run_tests.sh
   tests/test_astar.cpp
-  tools/make_profile.py
-  tools/oracle.py
-  tools/pilot.py
+  tools/export_graph.py
 
-Removed files (delete by hand if present):
-  (none)
+Removed files: (none)
 
-After extracting: copy the A1 lock.h to include/lock.h, then run ./tests/run_tests.sh
+Then: ./tests/run_tests.sh   and   python tools/check_osm_access.py

@@ -13,6 +13,9 @@ python3 tools/make_profile.py config/profile.csv >/dev/null
 [ -d data/snapshot_synth_large ] || python3 tools/synth_graph.py --rows 220 --cols 220 --seed 2 --out data/snapshot_synth_large
 python3 tools/snapshot_io.py data/snapshot_synth_small
 
+echo "== L0b exporter (drivable rule + offline file route; skipped if osmnx is not installed)"
+if python3 -c "import osmnx" 2>/dev/null; then python3 tests/test_export.py; else echo "osmnx not installed: skipped"; fi
+
 echo "== L1 oracle vs brute force"
 python3 tests/test_oracle.py
 
