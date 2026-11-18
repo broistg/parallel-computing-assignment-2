@@ -181,6 +181,13 @@ static void test_search(const Graph& graph, const SpeedProfile& profile, const c
                 SearchResult seq_result = seq_astar(problem, seq_workspace);
                 CHECK(seq_result.found && seq_result.reported_cost == ref && seq_result.checked_cost == ref, "seq %s q=%d ref=%lld got=%lld", name, q,
                       (long long)ref, (long long)seq_result.reported_cost);
+                if (num_threads == 1) {  // same sorted list, no lock, one thread: must expand exactly like the heap version
+                    SearchResult list_result = seq_astar_list<CoarseList<NullLock>>(problem, seq_workspace);
+                    CHECK(list_result.found && list_result.reported_cost == ref && list_result.checked_cost == ref &&
+                          list_result.counters.expansions == seq_result.counters.expansions,
+                          "seqlist %s q=%d ref=%lld got=%lld exp=%llu vs %llu", name, q, (long long)ref, (long long)list_result.reported_cost,
+                          (unsigned long long)list_result.counters.expansions, (unsigned long long)seq_result.counters.expansions);
+                }
                 for (int rep = 0; rep < kSearchRepeats; ++rep) {  // repeat: interleavings differ run to run
                     SearchResult par_result = par_astar<L>(problem, pool, par_workspace);
                     CHECK(par_result.found && par_result.reported_cost == ref && par_result.checked_cost == ref,

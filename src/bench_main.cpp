@@ -148,7 +148,9 @@ int main(int argc, char** argv) try {
     if (algorithm == "par")
         for (const ListEntry& entry : kListRegistry) if (list_name == entry.list_name) list_entry = &entry;
     if (algorithm == "par" && !list_entry) throw std::runtime_error("unknown list " + list_name);
-    if (algorithm == "seq") num_threads = 1;
+    const bool is_sequential = (algorithm == "seq" || algorithm == "seqlist");
+    if (algorithm != "par" && !is_sequential) throw std::runtime_error("unknown algo " + algorithm + " (seq | seqlist | par)");
+    if (is_sequential) num_threads = 1;
 
     ThreadPool pool(num_threads, algorithm == "par" ? cpu_ids : std::vector<int>{});
     ParWorkspace par_workspace;
@@ -166,7 +168,9 @@ int main(int argc, char** argv) try {
     for (int repetition = 0; repetition <= repetitions; ++repetition) {  // repetition 0 = warm-up
         for (const Query& query : queries) {
             Problem problem{&graph, &profile, objective, query.source, query.target, query.departure_ms, heuristic_config};
-            SearchResult result = (algorithm == "seq") ? seq_astar(problem, seq_workspace) : list_entry->search(problem, pool, par_workspace);
+            SearchResult result = algorithm == "seq" ? seq_astar(problem, seq_workspace)
+                                  : algorithm == "seqlist" ? seq_astar_list<CoarseList<NullLock>>(problem, seq_workspace)
+                                                           : list_entry->search(problem, pool, par_workspace);
             auto golden_it = golden_cost_of_query.find(query.id);
             int64_t golden_cost = golden_it != golden_cost_of_query.end() ? golden_it->second : -1;
             bool path_ok = result.found && result.checked_cost >= 0 && result.checked_cost <= result.reported_cost;
@@ -178,7 +182,8 @@ int main(int argc, char** argv) try {
             std::fprintf(out, "1,%s,%s,%d,%s,%s,%s,%d,%d,%s,%d,%d,%d,%d,%u,%u,%lld,%d,%d,%lld,%lld,%d,%lld,%lld,%lld,%s,%d,"
                               "%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%ld\n",
                 config_id.c_str(), platform_name.c_str(), is_smoke_run, algorithm.c_str(),
-                algorithm == "seq" ? "pq" : list_entry->list_name, algorithm == "seq" ? "none" : list_entry->lock_name, num_threads,
+                algorithm == "seq" ? "pq" : algorithm == "seqlist" ? "sorted_nolock" : list_entry->list_name,
+                is_sequential ? "none" : list_entry->lock_name, num_threads,
                 pool.pinned() ? 1 : 0, objective == Objective::Time ? "time" : "dist", heuristic_config.noise_permille,
                 heuristic_config.inflation_percent, query.id, query.distance_bin, query.source, query.target, (long long)query.departure_ms,
                 repetition, repetition == 0 ? 1 : 0, (long long)result.search_ns, (long long)result.init_ns, result.found ? 1 : 0,

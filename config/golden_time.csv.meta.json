@@ -1,8 +1,8 @@
 {
   "mode": "golden",
-  "num_queries": 250,
+  "num_queries": 450,
   "objective": "time",
   "profile_fnv": "0f58888ee7f0641a",
-  "queries_fnv": "7a821952a8926da4",
+  "queries_fnv": "9bccecdfbdb468fd",
   "snapshot_fnv": "15e70d22a5ffe403"
 }

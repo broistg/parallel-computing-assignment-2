@@ -187,6 +187,52 @@ inline SearchResult seq_astar(const Problem& problem, SeqWorkspace& workspace) {
     return result;
 }
 
+// Sequential A* over the SAME sorted open list as the parallel code (instantiate with CoarseList<NullLock>):
+// identical to seq_astar except for the data structure, so (seqlist - seq) = cost of the sorted list and
+// (par at 1 thread - seqlist) = cost of locking, atomics and the termination counter.
+template <class List>
+SearchResult seq_astar_list(const Problem& problem, SeqWorkspace& workspace) {
+    using Clock = std::chrono::steady_clock;
+    const Graph& graph = *problem.graph;
+    SearchResult result;
+    auto init_start = Clock::now();
+    workspace.cost_and_pred.assign(graph.num_nodes, pack_cost_and_pred(kInfiniteCost, 0));
+    workspace.expanded_before.assign(graph.num_nodes, 0);
+    auto search_start = Clock::now();
+    Heuristic heuristic(graph, problem.target, problem.objective, problem.heuristic_config);
+    InstrumentedList<List> open_list;
+    std::vector<uint64_t>& state = workspace.cost_and_pred;
+    state[problem.source] = pack_cost_and_pred(0, problem.source);
+    open_list.add({heuristic(problem.source, problem.arrival_ms(0)), problem.source, 0});
+    Counters& counters = result.counters;
+    OpenItem item;
+    while (open_list.pop_min(item)) {
+        uint32_t node = item.node;
+        if (cost_of(state[node]) != item.g_cost) { counters.stale_skips++; continue; }
+        if (item.f_value >= int64_t(cost_of(state[problem.target]))) { counters.pruned++; continue; }
+        counters.expansions++;
+        if (workspace.expanded_before[node]) counters.reopens++;
+        workspace.expanded_before[node] = 1;
+        for (uint32_t edge = graph.first_edge[node]; edge < graph.first_edge[node + 1]; ++edge) {
+            uint32_t neighbor = graph.edge_target[edge];
+            int64_t new_cost = int64_t(item.g_cost) + problem.edge_cost(edge, item.g_cost);
+            if (new_cost >= int64_t(kInfiniteCost) || new_cost >= int64_t(cost_of(state[neighbor]))) continue;
+            state[neighbor] = pack_cost_and_pred(uint32_t(new_cost), node);
+            counters.improvements++;
+            int64_t f_value = new_cost + heuristic(neighbor, problem.arrival_ms(new_cost));
+            if (f_value >= int64_t(cost_of(state[problem.target]))) { counters.pruned++; continue; }
+            if (open_list.add({f_value, neighbor, uint32_t(new_cost)})) counters.inserts++;
+        }
+    }
+    auto search_end = Clock::now();
+    std::mutex flush_mutex;
+    open_list.flush(result.list_stats, flush_mutex);
+    result.init_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(search_start - init_start).count();
+    result.search_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(search_end - search_start).count();
+    extract_result(problem, state, result);
+    return result;
+}
+
 // ---------------------------------------------------------------------------
 // Persistent thread pool: run(job) executes job(thread_id) for thread_id = 0..num_threads-1
 // (the caller is thread 0).  Threads are created once so start-up never pollutes per-query timings.

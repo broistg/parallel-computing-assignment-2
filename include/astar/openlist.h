@@ -39,6 +39,14 @@ inline bool operator==(const OpenItem& a, const OpenItem& b) { return a.f_value 
 // Coarse-grained list: one lock for the whole list (lock type is a template parameter,
 // any lock from lock.h works).  Reference implementation, also used by the tests.
 // ---------------------------------------------------------------------------
+// A lock that does nothing: CoarseList<NullLock> is the sorted list WITHOUT any synchronisation. Only valid with one
+// thread; it exists so the sequential baseline with the same data structure (seqlist) separates the cost of the sorted
+// list from the cost of locking.
+struct NullLock {
+    void lock() {}
+    void unlock() {}
+};
+
 template <class Lock>
 class CoarseList {
     struct Node {

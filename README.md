@@ -5,7 +5,7 @@ include/astar/  graph.h  heuristic.h  openlist.h  search.h      (C++17, header-o
 src/bench_main.cpp      one configuration -> CSV rows
 tests/                  test_astar.cpp  test_oracle.py  test_export.py  check_gaps.py  run_tests.sh
 tools/                  export_graph.py  check_osm_access.py  snapshot_io.py  synth_graph.py  make_profile.py
-                        make_queries.py  oracle.py  inspect_platform.py  pilot.py
+                        make_queries.py  oracle.py  inspect_platform.py  pilot.py  summarize.py
 config/profile.csv      speed multipliers        data/  snapshots (synthetic = DEV ONLY)
 docs/                   SPEC_1..3, INTERFACES, PARAMETERS, TASKS, REPORT, REPORT_vi, EXPORT_HELP
 ```
