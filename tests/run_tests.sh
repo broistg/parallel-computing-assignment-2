@@ -25,6 +25,9 @@ make all LOCK_INC="${LOCK_INC:-include}" >/dev/null
 echo "== L2-L5 C++ (data invariants, lists, CAS-min, search vs Dijkstra, stress)"
 tout ./build/test_astar data/snapshot_synth_small config/profile.csv data/snapshot_synth_large
 
+echo "== L2-L5 C++ vector (Pareto) A*: front == independent label-correcting reference, sequential and parallel"
+tout ./build/test_pareto data/snapshot_synth_small config/profile.csv data/snapshot_synth_large
+
 echo "== L6 C++ vs Python golden file"
 TMP=$(mktemp -d)
 python3 tools/make_queries.py --snapshot data/snapshot_synth_small --per-bin 6 --bins-km 0.3,1,2,4,100 --seed 7 --out "$TMP/q.csv" >/dev/null
@@ -47,4 +50,14 @@ if ./build/bench --snapshot data/snapshot_synth_small --profile "$TMP/profile288
 else
   grep -q "does not match its inputs" "$TMP/err.txt" && echo "stale golden rejected: OK"
 fi
+echo "== L6d vector A*: C++ fronts == Python Martins oracle fronts (exact mode), relaxed mode valid"
+python3 tools/oracle.py pareto --snapshot data/snapshot_synth_small --profile config/profile.csv --queries "$TMP/q.csv" --out "$TMP/gp.csv" >/dev/null
+for cfg in "seq 1 coarse_ttas" "par 1 coarse_ttas" "par 4 coarse_ttas" "par 4 coarse_std_mutex"; do
+  set -- $cfg
+  tout ./build/bench_pareto --snapshot data/snapshot_synth_small --queries "$TMP/q.csv" --golden "$TMP/gp.csv" --algo "$1" --threads "$2" --list "$3" --reps 3 --platform test --smoke --out "$TMP/rp.csv"
+done
+python3 tests/check_pareto.py "$TMP/rp.csv"
+tout ./build/bench_pareto --snapshot data/snapshot_synth_small --queries "$TMP/q.csv" --golden "$TMP/gp.csv" --algo par --threads 4 --rho 250 --w 130 --reps 2 --platform test --smoke --out "$TMP/rpr.csv"
+python3 tests/check_pareto.py "$TMP/rpr.csv" --relaxed
+
 echo "ALL TESTS PASSED  (optional: make test-tsan)"

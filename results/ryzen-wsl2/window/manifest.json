@@ -1,0 +1,18 @@
+{
+ "git": {
+  "commit": "15a58711ab03216db0a74a4e2e188f25590bc5e8",
+  "dirty": true
+ },
+ "platform": "ryzen-wsl2",
+ "configs": {
+  "par_win_coarse_ttas_T1_pin_wd256_wb16_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 25.5,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 1 --list win_coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/window/par_win_coarse_ttas_T1_pin_wd256_wb16_time_rho0_w100_s1.csv --cpus 0 --window-div 256 --batch 16",
+   "threads": 1,
+   "pinned": true
+  }
+ }
+}

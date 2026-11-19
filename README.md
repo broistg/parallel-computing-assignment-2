@@ -2,7 +2,8 @@
 
 ```
 include/astar/  graph.h  heuristic.h  openlist.h  search.h      (C++17, header-only core)
-src/bench_main.cpp      one configuration -> CSV rows
+src/bench_main.cpp      one scalar configuration -> CSV rows
+src/bench_pareto.cpp    one vector (Pareto) configuration -> CSV rows (include/astar/pareto.h)
 tests/                  test_astar.cpp  test_oracle.py  test_export.py  check_gaps.py  run_tests.sh
 tools/                  export_graph.py  check_osm_access.py  snapshot_io.py  synth_graph.py  make_profile.py
                         make_queries.py  oracle.py  inspect_platform.py  pilot.py  summarize.py

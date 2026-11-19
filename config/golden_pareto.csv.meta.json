@@ -1,0 +1,14 @@
+{
+  "mode": "pareto",
+  "num_queries": 57,
+  "num_queries_solved": 57,
+  "objective": "pareto",
+  "profile_fnv": "0f58888ee7f0641a",
+  "queries_fnv": "d0bcbd45a80b57a1",
+  "skipped_query_ids": [
+    "358",
+    "402",
+    "411"
+  ],
+  "snapshot_fnv": "15e70d22a5ffe403"
+}

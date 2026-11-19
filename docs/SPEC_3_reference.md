@@ -14,7 +14,7 @@ Principle: **exact ground truth is separate from the guided baseline.**
 | 3 | List | matches `std::set` sequentially; no loss/duplication under 2-8 threads | `test_list` |
 | 4 | CAS-min | final value = global min under 16-thread hammer | `test_try_lower_cost` |
 | 5 | Search | seq and par (T=1..16, repeated) equal an in-test Dijkstra; relaxed mode never beats optimum | `test_search`, `test_stress` |
-| 6 | Cross-language | C++ cost == Python golden file on the frozen query set, for two bucket widths; a golden file from different inputs is rejected | `tests/run_tests.sh` |
+| 6 | Cross-language | C++ cost == Python golden file on the frozen query set, for two bucket widths; a golden file from different inputs is rejected; vector search: C++ fronts == Python Martins fronts (L6d) | `tests/run_tests.sh` |
 | 7 | Platform | all of the above on all three machines; TSan on x86 | `make test-tsan` |
 
 ## Golden file

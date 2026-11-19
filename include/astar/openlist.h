@@ -18,6 +18,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <mutex>
+#include <vector>
 
 namespace astar {
 
@@ -123,6 +124,50 @@ public:
         return true;
     }
 
+    // OPTIONAL batch operations (not part of the frozen API; searches use them only through list_add_batch / list_pop_batch,
+    // which fall back to add / pop_min for lists without them).  One lock acquisition and one traversal for the whole batch.
+    // add_batch: items must be sorted ascending; returns how many were inserted (equal items already present are skipped).
+    size_t add_batch(const OpenItem* items, size_t n) {
+        std::vector<Node*> fresh(n);
+        for (size_t i = 0; i < n; ++i) fresh[i] = new Node{items[i], nullptr};  // allocate outside the critical section
+        size_t inserted = 0;
+        lock_.lock();
+        Node* p = head_;
+        for (size_t i = 0; i < n; ++i) {
+            while (p->next && p->next->item < items[i]) p = p->next;
+            if (p->next && p->next->item == items[i]) { delete fresh[i]; continue; }
+            fresh[i]->next = p->next;
+            p->next = fresh[i];
+            p = fresh[i];
+            ++inserted;
+        }
+        size_.fetch_add(inserted, std::memory_order_relaxed);
+        lock_.unlock();
+        return inserted;
+    }
+    // pop_batch: removes up to k smallest items (ascending into out); returns how many.
+    size_t pop_batch(OpenItem* out, size_t k) {
+        lock_.lock();
+        Node* first = head_->next;
+        Node* last = nullptr;
+        size_t taken = 0;
+        for (Node* q = first; q && taken < k; q = q->next) { last = q; ++taken; }
+        if (taken) {
+            head_->next = last->next;
+            last->next = nullptr;
+            size_.fetch_sub(taken, std::memory_order_relaxed);
+        }
+        lock_.unlock();
+        size_t i = 0;
+        for (Node* q = first; q;) {
+            Node* next = q->next;
+            out[i++] = q->item;
+            delete q;
+            q = next;
+        }
+        return taken;
+    }
+
     size_t size_approx() const { return size_.load(std::memory_order_relaxed); }
 
 private:
@@ -152,6 +197,22 @@ inline std::atomic<bool>& list_latency_sampling() {
     static std::atomic<bool> on{false};
     return on;
 }
+
+// Optional batch operations of a list (see CoarseList); the helpers below fall back to add / pop_min.
+template <class T, class = void>
+struct has_add_batch : std::false_type {};
+template <class T>
+struct has_add_batch<T, std::void_t<decltype(std::declval<T&>().add_batch(static_cast<const OpenItem*>(nullptr), size_t(0)))>> : std::true_type {};
+template <class T, class = void>
+struct has_pop_batch : std::false_type {};
+template <class T>
+struct has_pop_batch<T, std::void_t<decltype(std::declval<T&>().pop_batch(static_cast<OpenItem*>(nullptr), size_t(0)))>> : std::true_type {};
+
+// Detects lists that take a window size from the search (WindowedList); used by InstrumentedList::configure_window.
+template <class T, class = void>
+struct has_set_window : std::false_type {};
+template <class T>
+struct has_set_window<T, std::void_t<decltype(std::declval<T&>().set_window(int64_t(0)))>> : std::true_type {};
 
 template <class L>
 class InstrumentedList {
@@ -191,6 +252,9 @@ public:
     bool remove(const OpenItem& x) { return impl_.remove(x); }
     bool contains(const OpenItem& x) { return impl_.contains(x); }
     size_t size_approx() const { return impl_.size_approx(); }
+    // Lists that keep a bounded shared window (WindowedList) take its size from the search; for every other list this is a no-op.
+    template <class Window>
+    void configure_window(Window delta) { if constexpr (has_set_window<L>::value) impl_.set_window(delta); }
 
     // Move this thread's counters into `total` (call once at the end of a worker) and reset them.
     template <class Mutex>

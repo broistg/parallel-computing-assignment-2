@@ -19,12 +19,13 @@ Time-dependent cost: `t` = departure time `t0` + time already travelled (ms sinc
 ## Scalar search (implemented)
 f = g + h(v, t). Objective 1 or 2 chosen per run. Goal: minimum-cost path for the departure time `t0`.
 
-## Vector search (specified; sequential and parallel implementations pending)
+## Vector search (implemented in `include/astar/pareto.h`: sequential and parallel)
 * Cost vector `c = (time_ms, dist_dm)`. Label = (node, g_time, g_dist, pred).
 * **Dominance:** `a` dominates `b` iff `a_i <= b_i` for both i and `a != b`. Equal vectors are duplicates (keep one).
 * A label at node v is discarded if some existing label at v dominates it, and it evicts every label it dominates. Valid because dist is static and time obeys FIFO: an earlier-arriving, shorter label can never be worse after any extension.
 * Answer to a query = the set of non-dominated labels at the target (the Pareto front), each with its path.
 * Open list key: lexicographic `(f_time, f_dist, node)`, where `f_i = g_i + h_i`. Pruning: a label is dropped if the vector `(f_time, f_dist)` is dominated by a label already at the target (NAMOA* rule).
+* Implementation notes: labels are kept in an append-only arena; the per-node label sets are protected by one spin lock each; pruning uses WEAK dominance (a label whose f vector is <= a target label in both components cannot add a new front point); the open-list item is `OpenItem{(f_time << 31) | f_dist, label id, 0}` so every open list works unchanged; an evicted label that is already queued is skipped when popped. Tested against an independent label-correcting reference and the Python Martins oracle (`tests/test_pareto.cpp`, `tests/run_tests.sh` L6d).
 * Scalarised variant (weighted sum `w*time + (1-w)*dist`, integer weights): finds only the convex part of the front; reported separately as a cheap approximation.
 
 ## Heuristics (dynamic / uncertain)

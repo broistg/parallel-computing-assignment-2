@@ -1,33 +1,36 @@
 {
   "platform": "ryzen-wsl2",
   "median_seq_ms_per_bin": {
-    "0": 0.2114,
-    "1": 0.8195,
-    "2": 3.6375,
-    "3": 9.3967,
-    "4": 15.5367
+    "0": 0.1655,
+    "1": 0.6781,
+    "2": 3.0469,
+    "3": 6.8867,
+    "4": 10.998
   },
   "recommended_pairs_per_bin": 50,
   "bins_below_20ms_batch_floor_with_50_pairs": {
-    "0": 10.57
+    "0": 8.276
   },
   "floor_advice": "drop or merge these bins (short queries measure the timer, not the algorithm), or use a larger graph",
   "par_time_over_seq_time_median_over_bins": {
-    "coarse_ttas_T1": 2.3,
-    "coarse_ttas_T2": 3.48,
-    "coarse_ttas_T4": 5.4,
-    "coarse_ttas_T8": 6.43,
-    "coarse_ticket_T1": 2.72,
-    "coarse_ticket_T2": 3.84,
-    "coarse_ticket_T4": 6.13,
-    "coarse_ticket_T8": 9.45,
-    "coarse_std_mutex_T1": 2.36,
-    "coarse_std_mutex_T2": 7.91,
-    "coarse_std_mutex_T4": 12.43,
-    "coarse_std_mutex_T8": 18.38
+    "coarse_ttas_T1": 2.65,
+    "coarse_ttas_T2": 4.07,
+    "coarse_ttas_T4": 5.97,
+    "coarse_ttas_T6": 7.11,
+    "coarse_ttas_T12": 9.94,
+    "coarse_ticket_T1": 2.74,
+    "coarse_ticket_T2": 4.24,
+    "coarse_ticket_T4": 6.61,
+    "coarse_ticket_T6": 8.56,
+    "coarse_ticket_T12": 12.32,
+    "coarse_std_mutex_T1": 2.64,
+    "coarse_std_mutex_T2": 8.58,
+    "coarse_std_mutex_T4": 13.34,
+    "coarse_std_mutex_T6": 16.56,
+    "coarse_std_mutex_T12": 28.17
   },
   "reps": 10,
-  "projected_hours_for_this_grid": 0.469,
+  "projected_hours_for_this_grid": 0.638,
   "budget_hours": 5.0,
   "fits_budget": true,
   "note": "pilot numbers are for planning only; smoke runs are excluded from the report"

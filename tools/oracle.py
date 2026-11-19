@@ -138,12 +138,23 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--obj", default="time", choices=["time", "dist"])
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--resume", action="store_true", help="pareto: keep the rows already in --out and only compute the missing queries")
+    ap.add_argument("--skip-over-budget", action="store_true",
+                    help="pareto: a query that exceeds --max-labels is skipped (its id goes to <out>.skipped) instead of stopping the run")
+    ap.add_argument("--max-labels", type=int, default=5_000_000, help="pareto: label budget of one query (memory is about 100 bytes per label)")
     a = ap.parse_args()
     net = Net(a.snapshot, a.profile)
     qs = read_queries(a.queries)
     if a.limit:
         qs = qs[: a.limit]
-    with open(a.out, "w", newline="\n") as f:
+    solved, skipped = set(), []
+    if a.mode == "pareto" and a.resume and os.path.exists(a.out):
+        with open(a.out) as g:
+            solved = {r["query_id"] for r in csv.DictReader(g)}
+        if os.path.exists(a.out + ".skipped"):
+            skipped = [x for x in open(a.out + ".skipped").read().split() if x]
+        print("resume: %d queries already solved, %d known to exceed the budget" % (len(solved), len(skipped)), file=sys.stderr)
+    with open(a.out, "a" if solved else "w", newline="\n") as f:
         w = csv.writer(f, lineterminator="\n")
         if a.mode == "golden":
             w.writerow(["query_id", "obj", "cost"])
@@ -151,14 +162,32 @@ def main():
                 c = dijkstra(net, int(q["src"]), int(q["dst"]), int(q["dep_ms"]), a.obj)
                 w.writerow([q["query_id"], a.obj, c])
         else:
-            w.writerow(["query_id", "idx", "time_ms", "dist_dm"])
-            for q in qs:
-                fr = martins(net, int(q["src"]), int(q["dst"]), int(q["dep_ms"]))
-                for i, (t, d) in enumerate(fr):
-                    w.writerow([q["query_id"], i, t, d])
+            if not solved:
+                w.writerow(["query_id", "idx", "time_ms", "dist_dm"])
+            import time
+            for n, q in enumerate(qs, 1):
+                if q["query_id"] in solved or q["query_id"] in skipped:
+                    continue
+                t0 = time.time()
+                try:
+                    fr = martins(net, int(q["src"]), int(q["dst"]), int(q["dep_ms"]), a.max_labels)
+                except RuntimeError:
+                    if not a.skip_over_budget:
+                        raise
+                    skipped.append(q["query_id"])
+                    with open(a.out + ".skipped", "a") as sk:
+                        sk.write(q["query_id"] + "\n")
+                    print("query %d/%d (id %s, bin %s): over the label budget, skipped, %.1f s" % (n, len(qs), q["query_id"], q.get("bin", "?"), time.time() - t0), file=sys.stderr)
+                    continue
+                f.write("".join("%s,%d,%d,%d\n" % (q["query_id"], i, t, d) for i, (t, d) in enumerate(fr)))
+                f.flush()
+                solved.add(q["query_id"])
+                print("query %d/%d (id %s, bin %s): %d front points, %.1f s" % (n, len(qs), q["query_id"], q.get("bin", "?"), len(fr), time.time() - t0), file=sys.stderr)
     import json
     meta = input_hashes(a.snapshot, a.profile, a.queries)
     meta.update({"mode": a.mode, "objective": a.obj if a.mode == "golden" else "pareto", "num_queries": len(qs)})
+    if a.mode == "pareto":
+        meta.update({"num_queries_solved": len(solved), "skipped_query_ids": sorted(skipped, key=int)})
     with open(a.out + ".meta.json", "w", newline="\n") as f:
         json.dump(meta, f, indent=2, sort_keys=True)
         f.write("\n")

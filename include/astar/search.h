@@ -19,6 +19,7 @@
 #include "graph.h"
 #include "heuristic.h"
 #include "openlist.h"
+#include "windowed_list.h"
 
 #if defined(__linux__)
 #include <pthread.h>
@@ -342,7 +343,11 @@ SearchResult par_astar(const Problem& problem, ThreadPool& pool, ParWorkspace& w
     std::atomic<uint64_t>& target_word = state[problem.target];  // its cost is the incumbent
     state[problem.source].store(pack_cost_and_pred(0, problem.source), std::memory_order_relaxed);
     pending_items.store(1);
-    open_list.add({heuristic(problem.source, problem.arrival_ms(0)), problem.source, 0});
+    {
+        int64_t source_f = heuristic(problem.source, problem.arrival_ms(0));
+        open_list.configure_window(source_f / window_divisor().load(std::memory_order_relaxed));  // no-op unless the list is a WindowedList
+        open_list.add({source_f, problem.source, 0});
+    }
     auto search_start = Clock::now();
 
     pool.run([&](int thread_id) {

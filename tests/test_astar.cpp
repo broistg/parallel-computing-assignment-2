@@ -240,6 +240,36 @@ static void test_stress(const Graph& graph, const SpeedProfile& profile, const c
 }
 
 // Runs one test stage and prints how long it took (flushed, so a slow or stuck stage is visible while it runs).
+// Optional batch operations of CoarseList against a std::set model (sequential), including duplicates and k larger than the size.
+static void test_batch_ops() {
+    std::mt19937_64 rng(99);
+    CoarseList<lock_ttas_pause> list;
+    std::set<OpenItem> model;
+    for (int round = 0; round < 2000; ++round) {
+        if (rng() % 2) {
+            std::vector<OpenItem> batch;
+            for (int i = 0, n = 1 + int(rng() % 12); i < n; ++i) batch.push_back({int64_t(rng() % 300), uint32_t(rng() % 5), uint32_t(rng() % 3)});
+            std::sort(batch.begin(), batch.end());
+            batch.erase(std::unique(batch.begin(), batch.end()), batch.end());
+            size_t expected = 0;
+            for (const OpenItem& x : batch) expected += model.insert(x).second;
+            size_t inserted = list.add_batch(batch.data(), batch.size());
+            CHECK(inserted == expected, "add_batch inserted %zu expected %zu", inserted, expected);
+        } else {
+            size_t k = 1 + rng() % 10;
+            OpenItem out[16];
+            size_t got = list.pop_batch(out, k);
+            size_t expected = std::min(k, model.size());
+            CHECK(got == expected, "pop_batch got %zu expected %zu", got, expected);
+            for (size_t i = 0; i < got; ++i) {
+                CHECK(out[i] == *model.begin(), "pop_batch order");
+                model.erase(model.begin());
+            }
+        }
+        CHECK(list.size_approx() == model.size(), "size after batch ops");
+    }
+}
+
 template <class Fn>
 static void stage(const char* name, Fn fn) {
     auto start = std::chrono::steady_clock::now();
@@ -265,12 +295,25 @@ int main(int argc, char** argv) {
     stage("search coarse_ttas", [&] { test_search<CoarseList<lock_ttas_pause>>(graph, profile, "coarse_ttas"); });
     stage("search coarse_ticket (<=cores)", [&] { test_search<CoarseList<lock_ticket>>(graph, profile, "coarse_ticket", cores); });
     stage("search coarse_std_mutex", [&] { test_search<CoarseList<std::mutex>>(graph, profile, "coarse_std_mutex"); });
+    stage("batch ops of CoarseList", [&] { test_batch_ops(); });
+    // WindowedList: short shared list + per-thread bags (+ batching). Small divisors make the window tiny (bags used heavily).
+    for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 1}, {16, 4}, {64, 8}, {1024, 16}}) {
+        window_divisor().store(divisor); window_batch().store(batch);
+        std::string label = "search win_coarse_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
+        stage(label.c_str(), [&] { test_search<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas"); });
+    }
+    window_divisor().store(16); window_batch().store(4);
+    stage("search win_coarse_ticket (<=cores)", [&] { test_search<WindowedList<CoarseList<lock_ticket>>>(graph, profile, "win_coarse_ticket", cores); });
+    stage("search win_coarse_std_mutex", [&] { test_search<WindowedList<CoarseList<std::mutex>>>(graph, profile, "win_coarse_std_mutex"); });
     if (argc > 3) {
         Graph stress_graph; stress_graph.load(argv[3], profile);
         std::printf("stress graph: %u nodes\n", stress_graph.num_nodes);
         stage("stress coarse_ttas", [&] { test_stress<CoarseList<lock_ttas_pause>>(stress_graph, profile, "coarse_ttas", 16); });
         stage("stress coarse_std_mutex", [&] { test_stress<CoarseList<std::mutex>>(stress_graph, profile, "coarse_std_mutex", 16); });
         stage("stress coarse_ticket (<=cores)", [&] { test_stress<CoarseList<lock_ticket>>(stress_graph, profile, "coarse_ticket", cores); });
+        window_divisor().store(64); window_batch().store(8);
+        stage("stress win_coarse_ttas", [&] { test_stress<WindowedList<CoarseList<lock_ttas_pause>>>(stress_graph, profile, "win_coarse_ttas", 16); });
+        stage("stress win_coarse_std_mutex", [&] { test_stress<WindowedList<CoarseList<std::mutex>>>(stress_graph, profile, "win_coarse_std_mutex", 16); });
     }
     std::printf("%d checks, %d failures\n", g_checks.load(), g_fail.load());
     return g_fail.load() ? 1 : 0;
