@@ -28,7 +28,7 @@ Grids:
   pareto    vector (Pareto) search, reduced grid (build/bench_pareto, config/queries_pareto.csv, config/golden_pareto.csv):
             sequential, parallel x lists x {1, 2, physical cores} pinned, and a short noise/inflation set; 5 repetitions.
             Output in results/<platform>/pareto_run<k>/ (its CSV schema differs from the scalar one).
-  window        sweep of the windowed open list (divisor 64..4096 x batch 1..32, 1 and physical-core threads) vs seq and coarse_ttas.
+  window        sweep of the windowed open list (divisor 64..4096 x batch 1..32, 1 and physical-core threads) vs seq (and, scalar only, plain coarse_ttas / fine_ttas).
                 Output in results/<platform>/window/.   pareto-window: the same for the vector search (pareto_window/).
   pareto-smoke  two configurations, 2 repetitions, writes to results/<platform>/pareto_smoke/.
 """
@@ -65,7 +65,7 @@ def query_bin_counts(path):
 
 
 class Config:
-    def __init__(self, algo, lst, threads, pinned, obj, rho, w, seed, vector=False, wdiv=64, wbatch=1):
+    def __init__(self, algo, lst, threads, pinned, obj, rho, w, seed, vector=False, wdiv=4096, wbatch=8):
         self.wdiv, self.wbatch = wdiv, wbatch  # only used by win_* lists
         self.algo, self.list, self.threads, self.pinned = algo, lst, threads, pinned
         self.obj, self.rho, self.w, self.seed, self.vector = obj, rho, w, seed, vector
@@ -82,7 +82,8 @@ class Config:
         return self.rho == 0 and self.w == 100
 
 
-def build_grid(kind, platform, lists, threads):
+def build_grid(kind, platform, lists, threads, window=None):
+    window = window or {}
     phys = platform.get("physical_cores") or max(threads)
     logical = platform.get("logical_cores") or max(threads)
     can_pin = bool(platform.get("pinning_possible"))
@@ -97,12 +98,14 @@ def build_grid(kind, platform, lists, threads):
         obj = "vector" if vec else "time"
         cfgs.append(Config("seq", "pq", 1, False, obj, 0, 100, 1, vector=vec))
         wl = [l for l in lists if l.startswith("win_")] or ["win_coarse_ttas"]
-        for lst in wl[:1]:
-            for t in sorted({1, phys}):
-                for wdiv in (64, 256, 1024, 4096):
-                    for wb in (1, 8, 16, 32):
+        for lst in wl:  # every win_ list given in --lists
+            for t in window.get("threads") or sorted({1, phys}):
+                for wdiv in window.get("divs") or (64, 256, 1024, 4096):
+                    for wb in window.get("batches") or (1, 8, 16, 32):
                         cfgs.append(Config("par", lst, t, can_pin, obj, 0, 100, 1, vector=vec, wdiv=wdiv, wbatch=wb))
-        cfgs.append(Config("par", "coarse_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
+        if not vec:  # plain lists on the vector search need about 11 minutes per pass on the long bins: measured separately (TASKS A.13)
+            cfgs.append(Config("par", "coarse_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
+            cfgs.append(Config("par", "fine_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
         return cfgs
 
     if kind in ("pareto", "pareto-smoke"):
@@ -244,10 +247,14 @@ def main():
     ap.add_argument("--golden-pareto", dest="golden_pareto", default=os.path.join(ROOT, "config", "golden_pareto.csv"))
     ap.add_argument("--lists", default="coarse_ttas,coarse_ticket,coarse_std_mutex",
                     help="open lists to measure (Section-2 lists: add their registry names here)")
+    ap.add_argument("--window-divs", default="", help="window grids only: comma list of window divisors (default 64,256,1024,4096)")
+    ap.add_argument("--window-batches", default="", help="window grids only: comma list of batch sizes (default 1,8,16,32)")
+    ap.add_argument("--window-threads", default="", help="window grids only: comma list of thread counts (default 1 and the physical core count)")
     ap.add_argument("--threads", default="", help="comma list; default = suggested_thread_counts of the platform file")
     ap.add_argument("--reps", type=int, default=0, help="repetitions per configuration (default 10; 5 for the Pareto grid)")
     ap.add_argument("--passes", type=int, default=1)
     ap.add_argument("--shuffle-seed", type=int, default=2026)
+    ap.add_argument("--skip-timeouts", action="store_true", help="do not retry configurations the manifest records as timed out (default: retry them)")
     ap.add_argument("--timeout-min", type=float, default=45.0, help="kill one configuration after this many minutes")
     ap.add_argument("--only", default="", help="run only configurations whose name contains this text")
     ap.add_argument("--out", default=os.path.join(ROOT, "results"))
@@ -262,7 +269,9 @@ def main():
     platform = load_platform(a.platform)
     threads = [int(x) for x in a.threads.split(",")] if a.threads else list(platform["suggested_thread_counts"])
     lists = a.lists.split(",")
-    cfgs = build_grid(a.grid, platform, lists, threads)
+    as_ints = lambda text: [int(x) for x in text.split(",") if x.strip()]
+    cfgs = build_grid(a.grid, platform, lists, threads,
+                      {"divs": as_ints(a.window_divs), "batches": as_ints(a.window_batches), "threads": as_ints(a.window_threads)})
     if a.only:
         cfgs = [c for c in cfgs if a.only in c.name]
     names = [c.name for c in cfgs]
@@ -291,8 +300,11 @@ def main():
         t_start = time.time()
         for n, c in enumerate(order, 1):
             csv_path = os.path.join(run_dir, c.name + ".csv")
-            if manifest["configs"].get(c.name, {}).get("status") == "done" and os.path.exists(csv_path):
+            previous = manifest["configs"].get(c.name, {}).get("status")
+            if previous == "done" and os.path.exists(csv_path):
                 continue
+            if previous == "timeout" and a.skip_timeouts:
+                continue  # known to exceed --timeout-min: do not spend the time again
             for stale in (csv_path, csv_path + ".partial"):
                 if os.path.exists(stale):
                     os.remove(stale)

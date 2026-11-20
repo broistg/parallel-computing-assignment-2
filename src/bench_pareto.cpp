@@ -54,8 +54,9 @@ int main(int argc, char** argv) try {
     heuristic_config.inflation_percent = std::stoi(option("w", "100"));
     heuristic_config.noise_seed = std::stoull(option("seed", "1"));
     list_latency_sampling().store(options.count("latency") > 0);
-    window_divisor().store(std::stoi(option("window-div", "64")));
-    window_batch().store(std::stoi(option("batch", "1")));  // WindowedList lists only: items per shared-list access  // WindowedList lists only: window = f(source) / divisor
+    list_insert_profiling().store(options.count("list-profile") > 0);  // extra file <out>.listprof.csv
+    window_divisor().store(std::stoi(option("window-div", "4096")));
+    window_batch().store(std::stoi(option("batch", "8")));  // WindowedList lists only: items per shared-list access  // WindowedList lists only: window = f(source) / divisor
     std::vector<int> cpu_ids;
     {
         std::stringstream cpu_list(option("cpus", ""));
@@ -142,6 +143,8 @@ int main(int argc, char** argv) try {
             }
             const ParetoCounters& c = result.counters;
             const ListOpStats& l = result.list_stats;
+            if (list_insert_profiling().load() && repetition > 0)
+                append_list_profile(output_path + ".listprof.csv", config_id, algorithm == "seq" ? "pq" : list_entry->list_name, num_threads, query.id, query.distance_bin, repetition, l);
             auto u = [](uint64_t value) { return static_cast<unsigned long long>(value); };
             std::fprintf(out, "1,%s,%s,%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%u,%u,%lld,%d,%d,%lld,%lld,%zu,%lld,%lld,%lld,%lld,%d,%d,"
                               "%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%ld\n",

@@ -29,3 +29,6 @@ Result CSV (header written by `bench_pareto`): `pareto_schema_ver, config_id, pl
 
 ## 4. Configuration and `config_id`
 `config_id` = FNV-1a over: schema version, snapshot bytes hash, profile hash, full query file, objective, rho, w, seed, reps. It excludes platform, threads, list, pinning (those are the swept axes), so the same experiment has the **same id on every machine**; analysis refuses to join files with different ids. Golden files carry a sidecar `*.meta.json` with the same kind of fingerprints and are verified before use. Canonical command lines live in `config/experiment.sh` (to be written after the freeze), committed before any measurement.
+
+## Insert profile (optional diagnostic, not part of the frozen schemas)
+`bench` and `bench_pareto` with `--list-profile` also write `<out>.listprof.csv` (one row per measured query and repetition): `config_id,list,threads,query_id,bin,rep,list_adds,list_pops,ins_profiled,ins_steps,ins_size_sum,ins_size_max,pos0..pos7`. `ins_steps` = list nodes walked past by inserts, `ins_size_sum` = sum of the list length at each insert, `pos0..pos7` = number of inserts that landed in each eighth of the list (pos0 near the head). Only lists that call `record_insert_profile` (CoarseList) fill it; others write zeros.

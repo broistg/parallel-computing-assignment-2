@@ -11,6 +11,7 @@
 #include <string>
 
 #include "graph.h"
+#include "openlist.h"
 
 #if defined(_WIN32)
 #include <psapi.h>
@@ -67,5 +68,23 @@ inline void verify_golden_provenance(const std::string& golden_path, const Graph
                                      "): regenerate it with tools/oracle.py");
 }
 
+
+// Insert profile (--list-profile): one row per measured (query, repetition) in <out>.listprof.csv; the main result CSV keeps its frozen schema.
+// pos0..pos7 = how many inserts landed in the 1st..8th eighth of the list (pos0 = near the head, pos7 = near the tail).
+inline void append_list_profile(const std::string& path, const std::string& config_id, const char* list_name, int threads, int query_id, int bin,
+                                int repetition, const ListOpStats& l) {
+    bool is_new_file = !std::ifstream(path).good();
+    FILE* f = std::fopen(path.c_str(), "a");
+    if (!f) return;
+    if (is_new_file)
+        std::fprintf(f, "config_id,list,threads,query_id,bin,rep,list_adds,list_pops,ins_profiled,ins_steps,ins_size_sum,ins_size_max,"
+                        "pos0,pos1,pos2,pos3,pos4,pos5,pos6,pos7\n");
+    auto u = [](uint64_t v) { return static_cast<unsigned long long>(v); };
+    std::fprintf(f, "%s,%s,%d,%d,%d,%d,%llu,%llu,%llu,%llu,%llu,%llu", config_id.c_str(), list_name, threads, query_id, bin, repetition, u(l.adds),
+                 u(l.pops), u(l.ins_profiled), u(l.ins_steps), u(l.ins_size_sum), u(l.ins_size_max));
+    for (int i = 0; i < ListOpStats::kPositionBuckets; ++i) std::fprintf(f, ",%llu", u(l.ins_position[i]));
+    std::fprintf(f, "\n");
+    std::fclose(f);
+}
 
 }  // namespace astar

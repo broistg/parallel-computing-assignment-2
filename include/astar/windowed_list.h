@@ -29,14 +29,14 @@ namespace astar {
 
 // Window = delta added to the f_value of the first item (usually the source). The divisor is set from the command line.
 inline std::atomic<int>& window_divisor() {
-    static std::atomic<int> divisor{64};
+    static std::atomic<int> divisor{4096};  // measured optimum on the HCMC graph, 6 cores (REPORT section 4)
     return divisor;
 }
 
 // Number of items a thread buffers before it touches the shared list (adds) and takes from it per lock acquisition (pops).
 // 1 = no batching.  Set from the command line (--batch).  Batching uses add_batch / pop_batch when the list has them.
 inline std::atomic<int>& window_batch() {
-    static std::atomic<int> batch{1};
+    static std::atomic<int> batch{8};  // measured optimum: 8-16 scalar, 4-8 vector
     return batch;
 }
 

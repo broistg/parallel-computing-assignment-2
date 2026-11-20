@@ -40,6 +40,52 @@ inline bool operator==(const OpenItem& a, const OpenItem& b) { return a.f_value 
 // Coarse-grained list: one lock for the whole list (lock type is a template parameter,
 // any lock from lock.h works).  Reference implementation, also used by the tests.
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Operation statistics (per thread, summed into the search result at the end of a worker).
+// Insert profile (opt-in, --list-profile): how many list nodes each insert walked past, the list length at that moment, and WHERE in
+// the list the item landed (steps / length in eighths: bucket 0 = within the first eighth = near the head, bucket 7 = near the tail).
+// It answers "is the O(length) insert traversal the cost, and would a tail pointer or a hint shorten it".
+// ---------------------------------------------------------------------------
+struct ListOpStats {
+    static constexpr int kPositionBuckets = 8;
+    uint64_t adds = 0, add_dups = 0, pops = 0, pop_empty = 0;
+    uint64_t add_ns = 0, add_samples = 0, pop_ns = 0, pop_samples = 0;
+    uint64_t ins_profiled = 0, ins_steps = 0, ins_size_sum = 0, ins_size_max = 0;
+    uint64_t ins_position[kPositionBuckets] = {};
+    void operator+=(const ListOpStats& o) {
+        adds += o.adds; add_dups += o.add_dups; pops += o.pops; pop_empty += o.pop_empty;
+        add_ns += o.add_ns; add_samples += o.add_samples; pop_ns += o.pop_ns; pop_samples += o.pop_samples;
+        ins_profiled += o.ins_profiled; ins_steps += o.ins_steps; ins_size_sum += o.ins_size_sum;
+        if (o.ins_size_max > ins_size_max) ins_size_max = o.ins_size_max;
+        for (int i = 0; i < kPositionBuckets; ++i) ins_position[i] += o.ins_position[i];
+    }
+};
+
+inline ListOpStats& tls_list_stats() {
+    static thread_local ListOpStats s;
+    return s;
+}
+inline std::atomic<bool>& list_latency_sampling() {
+    static std::atomic<bool> on{false};
+    return on;
+}
+inline std::atomic<bool>& list_insert_profiling() {
+    static std::atomic<bool> on{false};
+    return on;
+}
+// Called by a list inside its critical section after an insert that walked `steps` nodes in a list of `size` items.
+// `steps` = nodes walked for this insert (for a batch item: since the previous item), `position` = nodes from the head to the insert point.
+inline void record_insert_profile(uint64_t steps, uint64_t position, uint64_t size) {
+    if (!list_insert_profiling().load(std::memory_order_relaxed)) return;
+    ListOpStats& stats = tls_list_stats();
+    stats.ins_profiled++;
+    stats.ins_steps += steps;
+    stats.ins_size_sum += size;
+    if (size > stats.ins_size_max) stats.ins_size_max = size;
+    int bucket = size == 0 ? 0 : int(position * ListOpStats::kPositionBuckets / (size + 1));
+    stats.ins_position[bucket >= ListOpStats::kPositionBuckets ? ListOpStats::kPositionBuckets - 1 : bucket]++;
+}
+
 // A lock that does nothing: CoarseList<NullLock> is the sorted list WITHOUT any synchronisation. Only valid with one
 // thread; it exists so the sequential baseline with the same data structure (seqlist) separates the cost of the sorted
 // list from the cost of locking.
@@ -71,7 +117,8 @@ public:
         Node* fresh = new Node{x, nullptr};  // allocate outside the critical section
         lock_.lock();
         Node* p = head_;
-        while (p->next && p->next->item < x) p = p->next;
+        uint64_t steps = 0;
+        while (p->next && p->next->item < x) { p = p->next; ++steps; }
         if (p->next && p->next->item == x) {
             lock_.unlock();
             delete fresh;
@@ -79,6 +126,7 @@ public:
         }
         fresh->next = p->next;
         p->next = fresh;
+        record_insert_profile(steps, steps, size_.load(std::memory_order_relaxed));
         size_.fetch_add(1, std::memory_order_relaxed);
         lock_.unlock();
         return true;
@@ -133,12 +181,16 @@ public:
         size_t inserted = 0;
         lock_.lock();
         Node* p = head_;
+        uint64_t steps = 0, walked = 0;  // steps: since the previous item (the walk is shared); walked: from the head
+        const uint64_t size_before = size_.load(std::memory_order_relaxed);
         for (size_t i = 0; i < n; ++i) {
-            while (p->next && p->next->item < items[i]) p = p->next;
+            while (p->next && p->next->item < items[i]) { p = p->next; ++steps; ++walked; }
             if (p->next && p->next->item == items[i]) { delete fresh[i]; continue; }
             fresh[i]->next = p->next;
             p->next = fresh[i];
             p = fresh[i];
+            record_insert_profile(steps, walked, size_before + inserted);
+            steps = 0;
             ++inserted;
         }
         size_.fetch_add(inserted, std::memory_order_relaxed);
@@ -177,27 +229,9 @@ private:
 };
 
 // ---------------------------------------------------------------------------
-// Instrumentation wrapper: operation mix (always) and sampled operation latency (opt-in).
+// Instrumentation wrapper: operation mix (always), sampled operation latency (opt-in), insert profile (opt-in, see above).
 // Per-thread counters live in a thread_local struct; call flush() at the end of a worker.
 // ---------------------------------------------------------------------------
-struct ListOpStats {
-    uint64_t adds = 0, add_dups = 0, pops = 0, pop_empty = 0;
-    uint64_t add_ns = 0, add_samples = 0, pop_ns = 0, pop_samples = 0;
-    void operator+=(const ListOpStats& o) {
-        adds += o.adds; add_dups += o.add_dups; pops += o.pops; pop_empty += o.pop_empty;
-        add_ns += o.add_ns; add_samples += o.add_samples; pop_ns += o.pop_ns; pop_samples += o.pop_samples;
-    }
-};
-
-inline ListOpStats& tls_list_stats() {
-    static thread_local ListOpStats s;
-    return s;
-}
-inline std::atomic<bool>& list_latency_sampling() {
-    static std::atomic<bool> on{false};
-    return on;
-}
-
 // Optional batch operations of a list (see CoarseList); the helpers below fall back to add / pop_min.
 template <class T, class = void>
 struct has_add_batch : std::false_type {};

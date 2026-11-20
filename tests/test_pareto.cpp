@@ -6,6 +6,7 @@
 #include <deque>
 #include <random>
 
+#include "astar/fine_list.h"
 #include "astar/pareto.h"
 #include "lock.h"
 
@@ -187,10 +188,17 @@ int main(int argc, char** argv) {
     stage("pareto par coarse_ttas", [&] { test_parallel<CoarseList<lock_ttas_pause>>(graph, profile, "coarse_ttas", 8); });
     stage("pareto par coarse_ticket (<=cores)", [&] { test_parallel<CoarseList<lock_ticket>>(graph, profile, "coarse_ticket", cores); });
     stage("pareto par coarse_std_mutex", [&] { test_parallel<CoarseList<std::mutex>>(graph, profile, "coarse_std_mutex", 8); });
+    stage("pareto par fine_ttas", [&] { test_parallel<FineList<lock_ttas_pause>>(graph, profile, "fine_ttas", 8); });
+    stage("pareto par fine_std_mutex", [&] { test_parallel<FineList<std::mutex>>(graph, profile, "fine_std_mutex", 8); });
     for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 4}, {1024, 16}}) {
         window_divisor().store(divisor); window_batch().store(batch);
         std::string label = "pareto par win_coarse_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
         stage(label.c_str(), [&] { test_parallel<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas", 8); });
+    }
+    for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 4}, {1024, 16}}) {
+        window_divisor().store(divisor); window_batch().store(batch);
+        std::string label = "pareto par win_fine_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
+        stage(label.c_str(), [&] { test_parallel<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
     }
     if (argc > 3) {
         Graph stress_graph; stress_graph.load(argv[3], profile);

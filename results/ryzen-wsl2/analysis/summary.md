@@ -45,6 +45,42 @@ Batch time = sum of search times of the queries of one bin in one repetition; me
 |---|---|---|---|---|---|
 | speedup (eff.) | 0.235 (1.000) | 0.170 (0.361) | 0.119 (0.127) | 0.098 (0.070) | 0.077 (0.027) |
 
+## Parallel fine_std_mutex, unpinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.062 (1.000) | 0.032 (0.260) | 0.012 (0.050) | 0.012 (0.032) |  |
+
+## Parallel fine_std_mutex, pinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.062 (1.000) | 0.034 (0.273) | 0.013 (0.051) | 0.012 (0.033) |  |
+
+## Parallel fine_ticket, unpinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.064 (1.000) | 0.101 (0.786) | 0.133 (0.521) | 0.126 (0.328) |  |
+
+## Parallel fine_ticket, pinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.060 (1.000) | 0.109 (0.914) | 0.132 (0.553) | 0.127 (0.355) |  |
+
+## Parallel fine_ttas, unpinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.085 (1.000) | 0.128 (0.751) | 0.173 (0.508) | 0.186 (0.364) |  |
+
+## Parallel fine_ttas, pinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.082 (1.000) | 0.127 (0.777) | 0.175 (0.537) | 0.186 (0.379) |  |
+
 ## Heuristic sensitivity (time objective; mean over noise seeds; parallel = ('coarse_ttas', 6, 1))
 
 | algo | noise permille | inflation % | configs | mean gap ppm | non-optimal % | expansions/query |
