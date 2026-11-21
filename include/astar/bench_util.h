@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstring>
 #include <fstream>
+#include <initializer_list>
 #include <map>
 #include <sstream>
 #include <stdexcept>
@@ -46,6 +47,27 @@ inline std::map<std::string, std::string> parse_command_line(int argc, char** ar
         else options[key] = "1";
     }
     return options;
+}
+
+// A misspelt or unsupported option must stop the run: silently ignoring it once produced results for the wrong configuration
+// (a stale binary that did not know --window-skip-empty).  Each main lists every option it understands.
+inline std::string known_options_text(std::initializer_list<const char*> known) {
+    std::string text;
+    for (const char* key : known) text += std::string(text.empty() ? "" : " ") + key;
+    return text;
+}
+
+inline void require_known_options(const std::map<std::string, std::string>& options, std::initializer_list<const char*> known) {
+    for (const auto& entry : options) {
+        bool is_known = false;
+        for (const char* key : known) is_known = is_known || entry.first == key;
+        if (!is_known) throw std::runtime_error("unknown option --" + entry.first + " (--version lists the options of this build)");
+    }
+}
+
+// --version output: build time and the options this binary understands (tools/run_experiments.py checks both before it starts).
+inline void print_version(const char* program, std::initializer_list<const char*> known) {
+    std::printf("%s build %s %s\noptions: %s\n", program, __DATE__, __TIME__, known_options_text(known).c_str());
 }
 
 // Reads one quoted hex value such as  "snapshot_fnv": "00ff..."  from the small golden sidecar JSON.

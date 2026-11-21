@@ -246,10 +246,10 @@ def analyze(platform, rows, out_dir, make_figures):
     return len(by_config)
 
 
-def load_pareto(results, platform):
+def load_pareto(results, platform, pattern="pareto_run*"):
     """Rows of the finished vector (Pareto) configurations; same rules as load_platform."""
     rows = []
-    for run_dir in sorted(glob.glob(os.path.join(results, platform, "pareto_run*"))):
+    for run_dir in sorted(glob.glob(os.path.join(results, platform, pattern))):
         man_path = os.path.join(run_dir, "manifest.json")
         done = None
         if os.path.exists(man_path):
@@ -417,8 +417,18 @@ def main():
         if prows:
             n = analyze_pareto(p, prows, out_dir)
             print("%s: %d vector configurations, %d rows -> %s" % (p, n, len(prows), out_dir))
-        elif not glob.glob(os.path.join(a.results, p, "run*")):
+        elif not glob.glob(os.path.join(a.results, p, "run*")) and not glob.glob(os.path.join(a.results, p, "pareto_plain")):
             sys.exit("no run* or pareto_run* directory under %s" % os.path.join(a.results, p))
+        # plain lists on the short vector bins: its own query set, so it is analysed apart (a shared config name would mix query sets)
+        plain = load_pareto(a.results, p, "pareto_plain")
+        if plain:
+            n = analyze_pareto(p, plain, os.path.join(out_dir, "pareto_plain"))
+            print("%s: %d plain-list vector configurations, %d rows -> %s" % (p, n, len(plain), os.path.join(out_dir, "pareto_plain")))
+        # windowed-list sweeps and thread curves (results/<platform>/window, pareto_window) are summarised by tools/analyze_window.py
+        if os.path.isdir(os.path.join(a.results, p, "window")) or os.path.isdir(os.path.join(a.results, p, "pareto_window")):
+            import subprocess
+            subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "analyze_window.py"), "--platform", p,
+                            "--results", a.results], check=False)
 
 
 if __name__ == "__main__":

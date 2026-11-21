@@ -17,8 +17,6 @@
     X("fine_ticket", "ticket", FineList<lock_ticket>)                    \
     X("fine_std_mutex", "std_mutex", FineList<std::mutex>)               \
     X("win_coarse_ttas", "ttas_pause", WindowedList<CoarseList<lock_ttas_pause>>) /* windowed: short shared list + per-thread bags */ \
-    X("win_fine_ttas", "ttas_pause", WindowedList<FineList<lock_ttas_pause>>) /* windowed on top of the fine-grained list */ \
-    X("win_fine_ticket", "ticket", WindowedList<FineList<lock_ticket>>)       \
-    X("win_fine_std_mutex", "std_mutex", WindowedList<FineList<std::mutex>>)  \
-    X("win_coarse_ticket", "ticket", WindowedList<CoarseList<lock_ticket>>)       \
-    X("win_coarse_std_mutex", "std_mutex", WindowedList<CoarseList<std::mutex>>)
+    X("win_fine_ttas", "ttas_pause", WindowedList<FineList<lock_ttas_pause>>) /* windowed on top of the fine-grained list */
+/* Windowed lists exist with the TTAS lock only. The ticket and std::mutex windowed variants were implemented and tested but never
+   measured; the group decided (21 Nov) to drop them rather than spend a run on them. */

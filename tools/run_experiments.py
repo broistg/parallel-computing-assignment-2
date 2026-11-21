@@ -44,6 +44,15 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+
+
+def default_binary(name):
+    """build/<name> (make), or the CMake locations on native Windows."""
+    for rel in (name, name + ".exe", os.path.join("Release", name + ".exe"), os.path.join("Release", name)):
+        path = os.path.join(ROOT, "build", rel)
+        if os.path.exists(path):
+            return path
+    return os.path.join(ROOT, "build", name)
 RHOS = [0, 100, 250, 500]
 WEIGHTS = [100, 120, 150]
 NOISE_SEEDS = [1, 2, 3]
@@ -64,9 +73,23 @@ def query_bin_counts(path):
     return counts
 
 
+def load_presets():
+    path = os.path.join(ROOT, "config", "presets.json")
+    with open(path) as f:
+        return json.load(f)
+
+
+PRESETS = load_presets()
+
+
 class Config:
-    def __init__(self, algo, lst, threads, pinned, obj, rho, w, seed, vector=False, wdiv=4096, wbatch=8, wslack=-1, wskip=False):
-        self.wdiv, self.wbatch, self.wslack, self.wskip = wdiv, wbatch, wslack, wskip  # only used by win_* lists (wslack -1 = off)
+    def __init__(self, algo, lst, threads, pinned, obj, rho, w, seed, vector=False, wdiv=None, wbatch=None, wslack=None, wskip=None):
+        # Window settings (win_* lists only; wslack -1 = off). Anything not given explicitly comes from config/presets.json.
+        preset = PRESETS["vector" if vector else "scalar"]
+        self.wdiv = preset["window_div"] if wdiv is None else wdiv
+        self.wbatch = preset["batch"] if wbatch is None else wbatch
+        self.wslack = preset["slack"] if wslack is None else wslack
+        self.wskip = preset["skip_empty"] if wskip is None else wskip
         self.algo, self.list, self.threads, self.pinned = algo, lst, threads, pinned
         self.obj, self.rho, self.w, self.seed, self.vector = obj, rho, w, seed, vector
 
@@ -111,6 +134,15 @@ def build_grid(kind, platform, lists, threads, window=None):
         if not vec:  # plain lists on the vector search need about 11 minutes per pass on the long bins: measured separately (TASKS A.13)
             cfgs.append(Config("par", "coarse_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
             cfgs.append(Config("par", "fine_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
+        return cfgs
+
+    if kind == "pareto-plain":
+        # Plain (unwindowed) lists on the vector search: only the short bins (queries file cut by main()), 1 and physical-core threads.
+        # A plain list needs minutes per query on the long bins, so the study is small on purpose; timeouts are recorded, not hidden.
+        cfgs.append(Config("seq", "pq", 1, False, "vector", 0, 100, 1, vector=True))
+        for lst in [l for l in lists if not l.startswith("win_")]:
+            for t in sorted({1, phys}):
+                cfgs.append(Config("par", lst, t, can_pin, "vector", 0, 100, 1, vector=True))
         return cfgs
 
     if kind in ("pareto", "pareto-smoke"):
@@ -191,7 +223,8 @@ def git_state():
             return subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT).stdout.strip()
         except OSError:
             return ""
-    return {"commit": out("git", "rev-parse", "HEAD"), "dirty": bool(out("git", "status", "--porcelain"))}
+    return {"commit": out("git", "rev-parse", "HEAD"), "describe": out("git", "describe", "--always", "--dirty", "--tags"),
+            "dirty": bool(out("git", "status", "--porcelain"))}
 
 
 def command_for(c, a, platform, csv_path):
@@ -209,6 +242,8 @@ def command_for(c, a, platform, csv_path):
                 cmd += ["--window-skip-empty"]
         if a.grid == "pareto-smoke":
             cmd += ["--smoke"]
+        if a.grid == "pareto-plain":
+            cmd += ["--allow-unverified-golden"]  # the short query file is a subset of the fingerprinted one; costs are still compared per query
         return cmd
     cmd = [a.bench, "--snapshot", a.snapshot, "--profile", a.profile, "--queries", a.queries,
            "--golden", a.golden_dist if c.obj == "dist" else a.golden_time,
@@ -245,17 +280,40 @@ def verdict(csv_path, exact, vector=False):
     return rows, bad
 
 
+def check_binary(binary, commands):
+    """Stop before the first run if the binary is older than the sources or does not know an option the grid uses.
+    (Two earlier runs used a stale binary that silently ignored new options.)"""
+    newest = 0.0
+    for folder, suffixes in (("include", (".h",)), ("src", (".cpp",))):
+        for dirpath, _, files in os.walk(os.path.join(ROOT, folder)):
+            for name in files:
+                if name.endswith(suffixes):
+                    newest = max(newest, os.path.getmtime(os.path.join(dirpath, name)))
+    if os.path.getmtime(binary) < newest - 1:
+        sys.exit("%s is older than the sources: run make (or cmake --build) first" % binary)
+    try:
+        out = subprocess.run([binary, "--version"], capture_output=True, text=True, timeout=30).stdout
+    except (OSError, subprocess.TimeoutExpired) as error:
+        sys.exit("cannot run %s --version: %s" % (binary, error))
+    known = set(out.split("options:")[1].split()) if "options:" in out else set()
+    used = {tok[2:] for cmd in commands for tok in cmd if tok.startswith("--")}
+    unknown = sorted(used - known)
+    if unknown:
+        sys.exit("%s does not know the options %s: rebuild it from the current sources" % (binary, ", ".join(unknown)))
+    return out.splitlines()[0] if out else ""
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--platform", required=True)
-    ap.add_argument("--grid", choices=["headline", "smoke", "pareto", "pareto-smoke", "window", "pareto-window"], default="headline")
+    ap.add_argument("--grid", choices=["headline", "smoke", "pareto", "pareto-smoke", "pareto-plain", "window", "pareto-window"], default="headline")
     ap.add_argument("--snapshot", default=os.path.join(ROOT, "data", "snapshot_hcmc"))
     ap.add_argument("--profile", default=os.path.join(ROOT, "config", "profile.csv"))
     ap.add_argument("--queries", default=os.path.join(ROOT, "config", "queries.csv"))
     ap.add_argument("--golden-time", dest="golden_time", default=os.path.join(ROOT, "config", "golden_time.csv"))
     ap.add_argument("--golden-dist", dest="golden_dist", default=os.path.join(ROOT, "config", "golden_dist.csv"))
-    ap.add_argument("--bench", default=os.path.join(ROOT, "build", "bench"))
-    ap.add_argument("--bench-pareto", dest="bench_pareto", default=os.path.join(ROOT, "build", "bench_pareto"))
+    ap.add_argument("--bench", default=default_binary("bench"))
+    ap.add_argument("--bench-pareto", dest="bench_pareto", default=default_binary("bench_pareto"))
     ap.add_argument("--queries-pareto", dest="queries_pareto", default=os.path.join(ROOT, "config", "queries_pareto.csv"))
     ap.add_argument("--golden-pareto", dest="golden_pareto", default=os.path.join(ROOT, "config", "golden_pareto.csv"))
     ap.add_argument("--lists", default="coarse_ttas,coarse_ticket,coarse_std_mutex",
@@ -265,7 +323,7 @@ def main():
     ap.add_argument("--window-slacks", default="", help="window grids only: comma list of window slacks K, off = no limit (default off), e.g. off,8,16; see docs/INTERFACES.md")
     ap.add_argument("--window-skip-empty", dest="window_skip_empty", action="store_true", help="window grids only: run every win_ configuration with --window-skip-empty (names get the suffix _se)")
     ap.add_argument("--window-threads", default="", help="window grids only: comma list of thread counts (default 1 and the physical core count)")
-    ap.add_argument("--threads", default="", help="comma list; default = suggested_thread_counts of the platform file")
+    ap.add_argument("--threads", default="", help="comma list, or \"phys\" = the suggested counts that do not exceed the physical cores; default = suggested_thread_counts of the platform file")
     ap.add_argument("--reps", type=int, default=0, help="repetitions per configuration (default 10; 5 for the Pareto grid)")
     ap.add_argument("--passes", type=int, default=1)
     ap.add_argument("--shuffle-seed", type=int, default=2026)
@@ -282,7 +340,10 @@ def main():
         a.reps = min(a.reps, 2)
 
     platform = load_platform(a.platform)
-    threads = [int(x) for x in a.threads.split(",")] if a.threads else list(platform["suggested_thread_counts"])
+    if a.threads == "phys":
+        threads = [t for t in platform["suggested_thread_counts"] if t <= (platform.get("physical_cores") or 1)]
+    else:
+        threads = [int(x) for x in a.threads.split(",")] if a.threads else list(platform["suggested_thread_counts"])
     lists = a.lists.split(",")
     as_ints = lambda text: [int(x) for x in text.split(",") if x.strip()]
     cfgs = build_grid(a.grid, platform, lists, threads,
@@ -304,12 +365,26 @@ def main():
     if not os.path.exists(binary):
         sys.exit("benchmark binary not found at %s (run make)" % binary)
 
+    if a.grid == "pareto-plain":  # short bins only
+        short = os.path.join(a.out, a.platform, "pareto_plain", "queries_pareto_short.csv")
+        os.makedirs(os.path.dirname(short), exist_ok=True)
+        with open(a.queries_pareto) as src, open(short, "w", newline="") as dst:
+            rows = list(csv.reader(src))
+            writer = csv.writer(dst, lineterminator="\n")
+            writer.writerow(rows[0])
+            writer.writerows(r for r in rows[1:] if int(r[1]) <= 1)
+        a.queries_pareto = short
+    binary_stamp = check_binary(binary, [command_for(c, a, platform, "x.csv") for c in cfgs])
+
     failures = []
     for k in range(1, a.passes + 1):
-        run_dir = os.path.join(a.out, a.platform, {"smoke": "smoke", "pareto-smoke": "pareto_smoke", "window": "window", "pareto-window": "pareto_window"}.get(a.grid, ("pareto_run%d" if vector_grid else "run%d") % k))
+        run_dir = os.path.join(a.out, a.platform, {"smoke": "smoke", "pareto-smoke": "pareto_smoke", "window": "window", "pareto-window": "pareto_window", "pareto-plain": "pareto_plain"}.get(a.grid, ("pareto_run%d" if vector_grid else "run%d") % k))
         os.makedirs(run_dir, exist_ok=True)
         man_path = os.path.join(run_dir, "manifest.json")
         manifest = json.load(open(man_path)) if os.path.exists(man_path) else {"git": git_state(), "platform": a.platform, "configs": {}}
+        manifest["binary"] = binary_stamp  # build time of the binary used for this invocation
+        manifest["presets"] = PRESETS
+        manifest["git_now"] = git_state()  # a resumed run on another commit shows up here
         order = list(cfgs)
         random.Random(a.shuffle_seed + k).shuffle(order)
         t_start = time.time()

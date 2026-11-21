@@ -1,0 +1,5 @@
+{
+  "_comment": "Windowed-list settings used by every grid unless a window sweep overrides them (docs/REPORT.md decision 31, TASKS A.22-A.23). Change only with a note in the report; a per-platform tuned best is reported separately.",
+  "scalar": {"window_div": 4096,  "batch": 8,  "slack": -1, "skip_empty": true},
+  "vector": {"window_div": 16384, "batch": 12, "slack": 64, "skip_empty": true}
+}

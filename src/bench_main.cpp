@@ -40,6 +40,9 @@ static const ListEntry kListRegistry[] = {ASTAR_OPEN_LISTS(ASTAR_REGISTER_LIST)}
 
 int main(int argc, char** argv) try {
     auto options = parse_command_line(argc, argv);
+    const auto kKnownOptions = {"snapshot", "profile", "queries", "golden", "algo", "list", "out", "platform", "threads", "reps", "smoke", "rho", "w", "seed", "latency", "list-profile", "diag", "window-div", "window-skip-empty", "window-slack", "batch", "cpus", "allow-unverified-golden", "version", "obj"};
+    if (options.count("version")) { print_version("bench", kKnownOptions); return 0; }
+    require_known_options(options, kKnownOptions);
     auto option = [&](const char* key, const char* fallback) { return options.count(key) ? options[key] : std::string(fallback); };
     std::string snapshot_dir = option("snapshot", "data/snapshot_hcmc"), profile_path = option("profile", "config/profile.csv"),
                 queries_path = option("queries", "config/queries.csv"), golden_path = option("golden", ""),

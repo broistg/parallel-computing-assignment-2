@@ -1,6 +1,6 @@
 # Tasks to do in parallel with Section 2 (concurrent lists)
 
-Updated 19 Nov 2026. No owners/dates assigned (as requested). "Blocked by" shows real dependencies.
+Updated 21 Nov 2026. No owners/dates assigned (as requested). "Blocked by" shows real dependencies.
 
 ## A. What to run on your own machine (in this order)
 
@@ -98,6 +98,14 @@ python3 tests/check_gaps.py results/diag_dist.csv
    Vector (slack does nothing at 1 thread, it is included only so that the curve is complete; 12 threads = all logical cores, where we do not know yet how slack behaves):
    `python3 tools/run_experiments.py --platform ryzen-wsl2 --grid pareto-window --lists win_coarse_ttas,win_fine_ttas --window-divs 16384 --window-batches 12 --window-threads 1,2,3,4,5,6,12 --window-slacks 64 --window-skip-empty --skip-timeouts --dry-run` (then without `--dry-run`).
    Then `python3 tools/analyze_window.py --platform ryzen-wsl2` and send `window_summary.md`.
+   **Result (21 Nov, done; all cells present, 0 path failures).** Speedup vs the sequential heap at 1/2/3/4/5/6/12 threads, all bins: scalar `win_coarse_ttas` 0.65 / 0.96 / 1.26 / 1.49 / 1.53 / 1.54 / 0.80, `win_fine_ttas` 0.54 / 0.81 / 1.03 / 1.21 / 1.27 / 1.25 / 1.05; vector `win_coarse_ttas` 0.78 / 1.30 / 1.66 / 2.23 / 2.51 / 2.84 / 2.94, `win_fine_ttas` 0.73 / 1.26 / 1.68 / 2.14 / 2.44 / 2.85 / 2.47. At 12 threads the vector runs show 15-17 stalls (slack 64 does not fully protect when threads outnumber cores) and bin 0 gets slower (0.46x, 0.32x): report 12 threads as oversubscribed.
+
+24. **Check the refactored tooling (21 Nov, changes_30).** Extract the zip, then (every machine; native Windows: use the same commands, `python` instead of `python3` if needed):
+   `python3 tools/experiment.py --platform <id> --stages setup,tests,inspect,smoke` (build, tests, platform record, one-minute check; see `docs/RUNBOOK.md`),
+   then `python3 tools/experiment.py --platform <id> --dry-run` and send me the configuration counts per stage. On ryzen-wsl2 nothing needs to be rerun yet: the final runs come after the freeze, from one tagged commit.
+   New behaviour to expect: `bench` / `bench_pareto` stop on an unknown option and answer `--version`; the driver refuses a stale binary; `config/presets.json` holds the window settings; the vector `pareto` grid and the new `pareto-plain` grid use windowed lists / the short bins as described in the stage list of `tools/experiment.py`.
+   Regression check on ryzen-wsl2 after the smoke stage: `./build/bench --snapshot data/snapshot_hcmc --queries config/queries.csv --golden config/golden_time.csv --algo seq --reps 1 --platform ryzen-wsl2 --smoke --out /tmp/reg.csv` then `python3 tests/check_gaps.py /tmp/reg.csv` (0 mismatches); expansions per query of the sequential heap must still be 23,026 on average (e.g. `python3 tools/summarize.py /tmp/reg.csv --include-smoke`, column `exp/q`).
+   **Native Windows machine:** run the same four stages and send the full output, including any compile error (the CMake path and the native affinity / memory code have never been run).
 
 ## B. Shared task list
 
@@ -116,8 +124,8 @@ python3 tests/check_gaps.py results/diag_dist.csv
 | 11 | `tools/run_experiments.py`: block-randomised order, one process per configuration, pinned vs unpinned tagged separately, writes `results/<platform>/run<k>/`, resumable, flags incorrect results. **Written 18 Nov, tested on the synthetic graph (79 configurations, resume, forced-failure check); not yet run on a real platform** | 5 | written |
 | 12 | Analysis: `tools/analyze.py --platform <id>` writes tables (time, speedup, quality, memory, list ops), `summary.md` and figures to `results/<id>/analysis/`; every number is computed from the CSVs; one speedup was cross-checked by hand on the synthetic run. **Written 18 Nov.** Still missing: hypervolume (needs the Pareto search), cross-platform comparison table, list micro-benchmark plots | 11 | written |
 | 13 | Why parallel is slower than sequential: **diagnosed on the real graph (18 Nov)**: same expansions; (i) sorted-list insert is O(frontier) vs binary heap (par at 1 thread already 0.22-0.89x of seq); (ii) lock contention (threads spend ~100% of time in list ops; 0.42-0.54x of T1 at 4 threads). Remaining: re-measure with the Section-2 lists, add a sequential-with-sorted-list baseline (row 21), and the FIFO-lock convoy (real `lock_ticket` 16x slower than TTAS when threads outnumber cores, report section 4) | 10 | diagnosed |
-| 14 | Decide landmark heuristic (ALT) by 22 Nov; contraction hierarchies skipped, to be explained in the report | - | open decision |
-| 15 | Decide Windows policy: WSL2 only, or also a native MSVC/MinGW build (CMake file exists, untested) | 3 | open decision |
+| 14 | ALT landmark heuristic: **decided 21 Nov: only after a clean submission is complete** (optional per spec); contraction hierarchies skipped, to be explained in the report | - | deferred |
+| 15 | Windows policy: **decided 21 Nov: one group machine runs native Windows** (CMake build, native affinity and memory paths); tests and smoke through `tools/experiment.py` (A.24) | 3 | decided, not yet run |
 | 16 | Open parameters (PARAMETERS.md), incl. bucket width and fixed departures | - | **confirmed 18 Nov** |
 | 17 | Report skeleton, submission checklist (zip = PDF report + sources), deadline 5 Dec 2026. Refactor plan and group decisions of 20 Nov: `claude/a2_submission_plan.md` (not executed until the freeze) | - | plan written |
 | 18 | (a)/(b) **coded 19 Nov** as `WindowedList` + optional `add_batch`/`pop_batch` (decision 29); sweep pending (A.12). Original note: parallel-A* design ideas to test once Section-2 lists exist (the pilot shows no speedup with the single-lock list, and per-node work is tiny compared with a lock round trip): (a) batch insertion: add all successors of an expansion in one list traversal/lock acquisition; (b) pop several items per lock acquisition (extra out-of-order expansions are safe thanks to reopening); (c) cheaper pruning before insertion; (d) heavier per-node work (vector objective, noisy heuristic) improves parallel efficiency. A.8 confirmed the list is the bottleneck, so these are now justified; (a) and (b) need an optional `add_batch` / `pop_k` in the list API (default = loop of `add` / `pop_min`) so frozen Section-2 lists still work | 10 | justified, not coded |
@@ -130,4 +138,5 @@ python3 tests/check_gaps.py results/diag_dist.csv
 * The profile (rush-hour curve) is invented; say so in the report.
 * The Windows-native and macOS code paths (affinity, memory measurement) and the macOS/Windows branches of `inspect_platform.py` are written but untested.
 * Vector (Pareto) search is tested on the synthetic graph only; nothing has run on the real graph yet. The Python oracle solved 57 of 60 vector queries in bins 0-4 (ids 358, 402, 411 skipped over the label budget and dropped from the query file); see A.11.
+* Refactor (21 Nov): presets, driver checks, `tools/experiment.py`, `tools/make_submission.py`, README / RUNBOOK / COMPLIANCE are written (changes_30); `docs/COMPLIANCE.md` lists open spec items: a stand-alone list micro-benchmark for Section 2 is not written, the Apple M3 and the native Windows runs are still open.
 * Windowed list and batching: first parallel speedups measured on the Ryzen machine (A.12-A.16); the other two platforms are not measured. Vector batch >= 12 is unstable on bins 2-4 (A.18).

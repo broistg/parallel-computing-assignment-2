@@ -310,8 +310,6 @@ int main(int argc, char** argv) {
         std::string label = "search win_fine_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
         stage(label.c_str(), [&] { test_search<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas"); });
     }
-    stage("search win_fine_ticket (<=cores)", [&] { test_search<WindowedList<FineList<lock_ticket>>>(graph, profile, "win_fine_ticket", cores); });
-    stage("search win_fine_std_mutex", [&] { test_search<WindowedList<FineList<std::mutex>>>(graph, profile, "win_fine_std_mutex"); });
     // WindowedList: short shared list + per-thread bags (+ batching). Small divisors make the window tiny (bags used heavily).
     for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 1}, {16, 4}, {64, 8}, {1024, 16}}) {
         window_divisor().store(divisor); window_batch().store(batch);
@@ -333,8 +331,6 @@ int main(int argc, char** argv) {
     stage("search win_coarse_ttas skip_empty slack=1", [&] { test_search<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas", 8); });
     stage("search win_fine_ttas skip_empty slack=1", [&] { test_search<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
     window_skip_empty().store(false); window_slack().store(-1);
-    stage("search win_coarse_ticket (<=cores)", [&] { test_search<WindowedList<CoarseList<lock_ticket>>>(graph, profile, "win_coarse_ticket", cores); });
-    stage("search win_coarse_std_mutex", [&] { test_search<WindowedList<CoarseList<std::mutex>>>(graph, profile, "win_coarse_std_mutex"); });
     if (argc > 3) {
         Graph stress_graph; stress_graph.load(argv[3], profile);
         std::printf("stress graph: %u nodes\n", stress_graph.num_nodes);
@@ -348,7 +344,6 @@ int main(int argc, char** argv) {
         stage("stress win_coarse_ttas global-min", [&] { test_stress<WindowedList<CoarseList<lock_ttas_pause>>>(stress_graph, profile, "win_coarse_ttas", 16); });
         window_slack().store(-1);
         stage("stress win_coarse_ttas", [&] { test_stress<WindowedList<CoarseList<lock_ttas_pause>>>(stress_graph, profile, "win_coarse_ttas", 16); });
-        stage("stress win_coarse_std_mutex", [&] { test_stress<WindowedList<CoarseList<std::mutex>>>(stress_graph, profile, "win_coarse_std_mutex", 16); });
         stage("stress win_fine_ttas", [&] { test_stress<WindowedList<FineList<lock_ttas_pause>>>(stress_graph, profile, "win_fine_ttas", 16); });
     }
     std::printf("%d checks, %d failures\n", g_checks.load(), g_fail.load());
