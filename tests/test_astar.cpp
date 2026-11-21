@@ -318,7 +318,21 @@ int main(int argc, char** argv) {
         std::string label = "search win_coarse_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
         stage(label.c_str(), [&] { test_search<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas"); });
     }
+    // Window opened around the global bag minimum (--window-global-min): result must stay exact either way.
+    for (int slack : {-1, 0, 4}) {
+        window_divisor().store(16); window_batch().store(4); window_slack().store(slack);
+        std::string label = "search win_coarse_ttas slack=" + std::to_string(slack);
+        stage(label.c_str(), [&] { test_search<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas", 8); });
+        label = "search win_fine_ttas slack=" + std::to_string(slack);
+        stage(label.c_str(), [&] { test_search<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
+    }
+    window_slack().store(-1);
     window_divisor().store(16); window_batch().store(4);
+    // Skip the lock on an empty shared list, together with slack: still exact.
+    window_skip_empty().store(true); window_slack().store(1);
+    stage("search win_coarse_ttas skip_empty slack=1", [&] { test_search<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas", 8); });
+    stage("search win_fine_ttas skip_empty slack=1", [&] { test_search<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
+    window_skip_empty().store(false); window_slack().store(-1);
     stage("search win_coarse_ticket (<=cores)", [&] { test_search<WindowedList<CoarseList<lock_ticket>>>(graph, profile, "win_coarse_ticket", cores); });
     stage("search win_coarse_std_mutex", [&] { test_search<WindowedList<CoarseList<std::mutex>>>(graph, profile, "win_coarse_std_mutex"); });
     if (argc > 3) {
@@ -330,6 +344,9 @@ int main(int argc, char** argv) {
         stage("stress fine_ttas", [&] { test_stress<FineList<lock_ttas_pause>>(stress_graph, profile, "fine_ttas", 16); });
         stage("stress fine_std_mutex", [&] { test_stress<FineList<std::mutex>>(stress_graph, profile, "fine_std_mutex", 16); });
         window_divisor().store(64); window_batch().store(8);
+        window_slack().store(2);  // stress with the window opened around the global bag minimum
+        stage("stress win_coarse_ttas global-min", [&] { test_stress<WindowedList<CoarseList<lock_ttas_pause>>>(stress_graph, profile, "win_coarse_ttas", 16); });
+        window_slack().store(-1);
         stage("stress win_coarse_ttas", [&] { test_stress<WindowedList<CoarseList<lock_ttas_pause>>>(stress_graph, profile, "win_coarse_ttas", 16); });
         stage("stress win_coarse_std_mutex", [&] { test_stress<WindowedList<CoarseList<std::mutex>>>(stress_graph, profile, "win_coarse_std_mutex", 16); });
         stage("stress win_fine_ttas", [&] { test_stress<WindowedList<FineList<lock_ttas_pause>>>(stress_graph, profile, "win_fine_ttas", 16); });

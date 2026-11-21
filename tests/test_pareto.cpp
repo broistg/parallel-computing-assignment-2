@@ -200,6 +200,18 @@ int main(int argc, char** argv) {
         std::string label = "pareto par win_fine_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
         stage(label.c_str(), [&] { test_parallel<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
     }
+    for (int slack : {-1, 0, 4}) {
+        window_divisor().store(16); window_batch().store(4); window_slack().store(slack);
+        std::string label = "pareto par win_coarse_ttas slack=" + std::to_string(slack);
+        stage(label.c_str(), [&] { test_parallel<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas", 8); });
+        label = "pareto par win_fine_ttas slack=" + std::to_string(slack);
+        stage(label.c_str(), [&] { test_parallel<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
+    }
+    window_slack().store(-1);
+    window_skip_empty().store(true); window_slack().store(1);
+    stage("pareto par win_coarse_ttas skip_empty slack=1", [&] { test_parallel<WindowedList<CoarseList<lock_ttas_pause>>>(graph, profile, "win_coarse_ttas", 8); });
+    stage("pareto par win_fine_ttas skip_empty slack=1", [&] { test_parallel<WindowedList<FineList<lock_ttas_pause>>>(graph, profile, "win_fine_ttas", 8); });
+    window_skip_empty().store(false); window_slack().store(-1);
     if (argc > 3) {
         Graph stress_graph; stress_graph.load(argv[3], profile);
         std::printf("stress graph: %u nodes\n", stress_graph.num_nodes);

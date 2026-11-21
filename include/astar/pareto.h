@@ -312,13 +312,28 @@ ParetoResult par_pareto_astar(const Problem& problem, ThreadPool& pool, ParetoWo
         ParetoCounters& counters = per_thread[thread_id].counters;
         OpenItem item;
         unsigned idle_polls = 0;
+        const bool diag = list_diagnostics().load(std::memory_order_relaxed);
+        Clock::time_point idle_start{};
+        auto end_idle = [&](bool final_wait) {  // --diag: close the current empty-list wait
+            ListOpStats& stats = tls_list_stats();
+            uint64_t ns = uint64_t(std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - idle_start).count());
+            stats.idle_episodes++;
+            stats.idle_ns += ns;
+            if (ns > stats.idle_max_ns) stats.idle_max_ns = ns;
+            if (final_wait) stats.idle_final_ns += ns;
+        };
         for (;;) {
             if (!open_list.pop_min(item)) {
-                if (pending_items.load(std::memory_order_acquire) == 0) break;
+                if (diag && idle_polls == 0) idle_start = Clock::now();
+                if (pending_items.load(std::memory_order_acquire) == 0) {
+                    if (diag && idle_polls > 0) end_idle(true);
+                    break;
+                }
                 counters.idle_spins++;
                 if (++idle_polls > 256) std::this_thread::yield(); else cpu_pause_hint();
                 continue;
             }
+            if (diag && idle_polls > 0) end_idle(false);
             idle_polls = 0;
             if (!workspace.arena.get(item.node).alive.load(std::memory_order_acquire)) counters.dead_pops++;
             else if (detail::target_blocks(ctx, key_time(item.f_value), key_dist(item.f_value))) counters.pruned++;

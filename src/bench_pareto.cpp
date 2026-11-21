@@ -55,7 +55,10 @@ int main(int argc, char** argv) try {
     heuristic_config.noise_seed = std::stoull(option("seed", "1"));
     list_latency_sampling().store(options.count("latency") > 0);
     list_insert_profiling().store(options.count("list-profile") > 0);  // extra file <out>.listprof.csv
+    list_diagnostics().store(options.count("diag") > 0);                // extra file <out>.diag.csv (stall diagnostics)
     window_divisor().store(std::stoi(option("window-div", "4096")));
+    window_skip_empty().store(options.count("window-skip-empty") > 0);          // WindowedList: do not lock an empty shared list
+    window_slack().store(std::stoi(option("window-slack", "-1")));  // WindowedList: cap on how far above the global bag minimum a window may open (-1 = off)
     window_batch().store(std::stoi(option("batch", "8")));  // WindowedList lists only: items per shared-list access  // WindowedList lists only: window = f(source) / divisor
     std::vector<int> cpu_ids;
     {
@@ -145,6 +148,8 @@ int main(int argc, char** argv) try {
             const ListOpStats& l = result.list_stats;
             if (list_insert_profiling().load() && repetition > 0)
                 append_list_profile(output_path + ".listprof.csv", config_id, algorithm == "seq" ? "pq" : list_entry->list_name, num_threads, query.id, query.distance_bin, repetition, l);
+            if (list_diagnostics().load() && repetition > 0)
+                append_list_diag(output_path + ".diag.csv", config_id, algorithm == "seq" ? "pq" : list_entry->list_name, num_threads, query.id, query.distance_bin, repetition, (long long)result.search_ns, l);
             auto u = [](uint64_t value) { return static_cast<unsigned long long>(value); };
             std::fprintf(out, "1,%s,%s,%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%u,%u,%lld,%d,%d,%lld,%lld,%zu,%lld,%lld,%lld,%lld,%d,%d,"
                               "%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%ld\n",

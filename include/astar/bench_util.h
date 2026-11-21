@@ -87,4 +87,22 @@ inline void append_list_profile(const std::string& path, const std::string& conf
     std::fclose(f);
 }
 
+// --diag sidecar <out>.diag.csv: where threads wait (lock, empty list) and who holds work while a thread is idle.
+inline void append_list_diag(const std::string& path, const std::string& config_id, const char* list_name, int threads, int query_id, int bin,
+                             int repetition, long long search_ns, const ListOpStats& l) {
+    bool is_new_file = !std::ifstream(path).good();
+    FILE* f = std::fopen(path.c_str(), "a");
+    if (!f) return;
+    if (is_new_file)
+        std::fprintf(f, "config_id,list,threads,query_id,bin,rep,search_ns,lock_acq,lock_wait_ns,lock_wait_max_ns,idle_episodes,idle_ns,idle_max_ns,"
+                        "idle_final_ns,idle_samples,hoard_sum,hoard_max,held_sum,shared_sum,takes,take_items,take_short,hold_ns,hold_max_ns,hold_ge100us,hold_ge1ms,hold_ge1ms_add,hold_ge1ms_size_sum,list_size_sum,list_size_max,list_size_ge1ms_max,promotes,promoted_items,promoted_max,advances,advance_gap_sum,advance_gap_max,advance_far\n");
+    auto u = [](uint64_t v) { return static_cast<unsigned long long>(v); };
+    std::fprintf(f, "%s,%s,%d,%d,%d,%d,%lld,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu,%llu\n", config_id.c_str(), list_name,
+                 threads, query_id, bin, repetition, search_ns, u(l.lock_acq), u(l.lock_wait_ns), u(l.lock_wait_max_ns), u(l.idle_episodes), u(l.idle_ns),
+                 u(l.idle_max_ns), u(l.idle_final_ns), u(l.idle_samples), u(l.hoard_sum), u(l.hoard_max), u(l.held_sum), u(l.shared_sum), u(l.takes),
+                 u(l.take_items), u(l.take_short), u(l.hold_ns), u(l.hold_max_ns), u(l.hold_ge100us), u(l.hold_ge1ms), u(l.hold_ge1ms_add),
+                 u(l.hold_ge1ms_size_sum), u(l.list_size_sum), u(l.list_size_max), u(l.list_size_ge1ms_max), u(l.promotes), u(l.promoted_items), u(l.promoted_max), u(l.advances), u(l.advance_gap_sum), u(l.advance_gap_max), u(l.advance_far));
+    std::fclose(f);
+}
+
 }  // namespace astar

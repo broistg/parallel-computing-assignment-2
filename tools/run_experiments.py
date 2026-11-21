@@ -65,8 +65,8 @@ def query_bin_counts(path):
 
 
 class Config:
-    def __init__(self, algo, lst, threads, pinned, obj, rho, w, seed, vector=False, wdiv=4096, wbatch=8):
-        self.wdiv, self.wbatch = wdiv, wbatch  # only used by win_* lists
+    def __init__(self, algo, lst, threads, pinned, obj, rho, w, seed, vector=False, wdiv=4096, wbatch=8, wslack=-1, wskip=False):
+        self.wdiv, self.wbatch, self.wslack, self.wskip = wdiv, wbatch, wslack, wskip  # only used by win_* lists (wslack -1 = off)
         self.algo, self.list, self.threads, self.pinned = algo, lst, threads, pinned
         self.obj, self.rho, self.w, self.seed, self.vector = obj, rho, w, seed, vector
 
@@ -75,6 +75,10 @@ class Config:
         base = "%s" % self.algo if self.algo != "par" else "par_%s_T%d_%s" % (self.list, self.threads, "pin" if self.pinned else "free")
         if self.algo == "par" and self.list.startswith("win_"):
             base += "_wd%d_wb%d" % (self.wdiv, self.wbatch)
+            if self.wslack >= 0:  # off = no suffix, so the names of finished configurations stay valid
+                base += "_sl%d" % self.wslack
+            if self.wskip:
+                base += "_se"
         return "%s%s_%s_rho%d_w%d_s%d" % ("pareto_" if self.vector else "", base, self.obj, self.rho, self.w, self.seed)
 
     @property
@@ -102,7 +106,8 @@ def build_grid(kind, platform, lists, threads, window=None):
             for t in window.get("threads") or sorted({1, phys}):
                 for wdiv in window.get("divs") or (64, 256, 1024, 4096):
                     for wb in window.get("batches") or (1, 8, 16, 32):
-                        cfgs.append(Config("par", lst, t, can_pin, obj, 0, 100, 1, vector=vec, wdiv=wdiv, wbatch=wb))
+                        for sl in window.get("slacks") or (-1,):
+                            cfgs.append(Config("par", lst, t, can_pin, obj, 0, 100, 1, vector=vec, wdiv=wdiv, wbatch=wb, wslack=sl, wskip=window.get("skip", False)))
         if not vec:  # plain lists on the vector search need about 11 minutes per pass on the long bins: measured separately (TASKS A.13)
             cfgs.append(Config("par", "coarse_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
             cfgs.append(Config("par", "fine_ttas", phys, can_pin, obj, 0, 100, 1, vector=vec))
@@ -198,6 +203,10 @@ def command_for(c, a, platform, csv_path):
             cmd += ["--cpus", ",".join(str(x) for x in platform["pin_order_physical_first"][:c.threads])]
         if c.algo == "par" and c.list.startswith("win_"):
             cmd += ["--window-div", str(c.wdiv), "--batch", str(c.wbatch)]
+            if c.wslack >= 0:
+                cmd += ["--window-slack", str(c.wslack)]
+            if c.wskip:
+                cmd += ["--window-skip-empty"]
         if a.grid == "pareto-smoke":
             cmd += ["--smoke"]
         return cmd
@@ -210,6 +219,10 @@ def command_for(c, a, platform, csv_path):
         cmd += ["--cpus", ",".join(str(x) for x in platform["pin_order_physical_first"][:c.threads])]
     if c.algo == "par" and c.list.startswith("win_"):
         cmd += ["--window-div", str(c.wdiv), "--batch", str(c.wbatch)]
+        if c.wslack >= 0:
+            cmd += ["--window-slack", str(c.wslack)]
+        if c.wskip:
+            cmd += ["--window-skip-empty"]
     if a.grid == "smoke":
         cmd += ["--smoke"]
     return cmd
@@ -249,6 +262,8 @@ def main():
                     help="open lists to measure (Section-2 lists: add their registry names here)")
     ap.add_argument("--window-divs", default="", help="window grids only: comma list of window divisors (default 64,256,1024,4096)")
     ap.add_argument("--window-batches", default="", help="window grids only: comma list of batch sizes (default 1,8,16,32)")
+    ap.add_argument("--window-slacks", default="", help="window grids only: comma list of window slacks K, off = no limit (default off), e.g. off,8,16; see docs/INTERFACES.md")
+    ap.add_argument("--window-skip-empty", dest="window_skip_empty", action="store_true", help="window grids only: run every win_ configuration with --window-skip-empty (names get the suffix _se)")
     ap.add_argument("--window-threads", default="", help="window grids only: comma list of thread counts (default 1 and the physical core count)")
     ap.add_argument("--threads", default="", help="comma list; default = suggested_thread_counts of the platform file")
     ap.add_argument("--reps", type=int, default=0, help="repetitions per configuration (default 10; 5 for the Pareto grid)")
@@ -271,7 +286,7 @@ def main():
     lists = a.lists.split(",")
     as_ints = lambda text: [int(x) for x in text.split(",") if x.strip()]
     cfgs = build_grid(a.grid, platform, lists, threads,
-                      {"divs": as_ints(a.window_divs), "batches": as_ints(a.window_batches), "threads": as_ints(a.window_threads)})
+                      {"divs": as_ints(a.window_divs), "batches": as_ints(a.window_batches), "threads": as_ints(a.window_threads), "skip": a.window_skip_empty, "slacks": [-1 if x.strip() == "off" else int(x) for x in a.window_slacks.split(",") if x.strip()]})
     if a.only:
         cfgs = [c for c in cfgs if a.only in c.name]
     names = [c.name for c in cfgs]

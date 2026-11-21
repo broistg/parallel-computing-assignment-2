@@ -40,6 +40,25 @@ inline std::atomic<int>& window_batch() {
     return batch;
 }
 
+// Window slack (--window-slack K; -1 = off, the default and the original behaviour). A thread that finds the shared list empty opens
+// the window around its OWN smallest bag item. That is what gives the other threads speculative work, but a thread whose bag holds only
+// large-f items can push the threshold far past the real front: every later successor below the threshold then goes straight into the
+// shared list, which grows to thousands of items and saturates its lock (REPORT section 4, vector stalls). With K >= 0 the base of the
+// window is min(own smallest, global smallest + K * window), where global = minimum over all threads' published bag minima. K = 0 follows
+// the global minimum exactly (short list, but threads starve: measured), large K approaches the original behaviour.
+inline std::atomic<int>& window_slack() {
+    static std::atomic<int> k{-1};
+    return k;
+}
+
+// --window-skip-empty: before locking the shared list to take items, read its (atomic) size and skip the lock when it is 0. Idle threads
+// otherwise lock the list on every poll and delay the threads that have work. A stale 0 only delays a poll; termination is decided by the
+// search's pending counter, not by this check.
+inline std::atomic<bool>& window_skip_empty() {
+    static std::atomic<bool> on{false};
+    return on;
+}
+
 template <class List>
 class WindowedList {
 public:
@@ -64,21 +83,49 @@ public:
             return true;
         }
         bag.items.push_back(item);
-        bag.min_f = std::min(bag.min_f, item.f_value);
+        if (item.f_value < bag.min_f) { bag.min_f = item.f_value; bag.pub_min.store(bag.min_f, std::memory_order_relaxed); }
+        if (list_diagnostics().load(std::memory_order_relaxed)) publish(bag);
         return true;
     }
 
     bool pop_min(OpenItem& out) {
+        if (pop_min_impl(out)) return true;
+        if (list_diagnostics().load(std::memory_order_relaxed)) sample_holders();
+        return false;
+    }
+
+    bool pop_min_impl(OpenItem& out) {
         Bag& bag = my_bag();
-        if (!bag.prefetched.empty()) { out = bag.prefetched.back(); bag.prefetched.pop_back(); return true; }  // no shared-list access
+        if (!bag.prefetched.empty()) {  // no shared-list access
+            out = bag.prefetched.back(); bag.prefetched.pop_back();
+            publish(bag);
+            return true;
+        }
         flush_adds(bag);  // publish this thread's buffered successors before looking for work
         int64_t threshold = threshold_.load(std::memory_order_acquire);
         if (!bag.items.empty() && threshold != bag.seen_threshold && bag.min_f <= threshold) promote(bag, threshold);  // another thread advanced
         bag.seen_threshold = threshold;
         if (take(bag, out)) return true;
         if (bag.items.empty()) return false;
-        // shared list empty: advance the window from this thread's smallest item
-        int64_t wanted = bag.min_f + window_;
+        // shared list empty: advance the window from the smallest bag item (global: of all threads; default: of this thread)
+        int64_t base = bag.min_f;
+        const int slack = window_slack().load(std::memory_order_relaxed);
+        if (slack >= 0 || list_diagnostics().load(std::memory_order_relaxed)) {
+            const int64_t gmin = std::min(bag.min_f, other_bag_min(bag));
+            if (list_diagnostics().load(std::memory_order_relaxed)) {
+                ListOpStats& stats = tls_list_stats();
+                const uint64_t gap = uint64_t(bag.min_f - gmin);
+                stats.advances++;
+                stats.advance_gap_sum += gap;
+                if (gap > stats.advance_gap_max) stats.advance_gap_max = gap;
+                if (gap > uint64_t(window_)) stats.advance_far++;
+            }
+            if (slack >= 0) {
+                const int64_t limit = gmin > INT64_MAX - (int64_t(slack) + 1) * window_ ? INT64_MAX : gmin + int64_t(slack) * window_;
+                base = std::min(base, limit);
+            }
+        }
+        const int64_t wanted = base + window_;
         threshold = threshold_.load(std::memory_order_acquire);
         while (threshold < wanted && !threshold_.compare_exchange_weak(threshold, wanted, std::memory_order_acq_rel)) {}
         threshold = std::max(threshold, wanted);
@@ -100,6 +147,10 @@ private:
         std::vector<OpenItem> items;       // beyond the window
         int64_t min_f = INT64_MAX;
         int64_t seen_threshold = kUnset;
+        std::atomic<uint32_t> pub_prefetched{0};  // --diag only: sizes published so an idle thread can see who holds work
+        std::atomic<uint32_t> pub_items{0};
+        uint32_t idle_polls = 0;
+        std::atomic<int64_t> pub_min{INT64_MAX};  // smallest f in `items`, published for other threads' window advances
     };
     using Bag = PaddedBag;
 
@@ -126,6 +177,7 @@ private:
     }
     // Takes the smallest item (and, with batching and a list that supports it, up to batch-1 more into the prefetch buffer).
     bool take(Bag& bag, OpenItem& out) {
+        if (window_skip_empty().load(std::memory_order_relaxed) && list_.size_approx() == 0) return false;
         const size_t batch = size_t(window_batch().load(std::memory_order_relaxed));
         if constexpr (has_pop_batch<List>::value) {
             if (batch > 1) {
@@ -134,21 +186,68 @@ private:
                 if (n == 0) return false;
                 out = got[0];
                 for (size_t i = n; i-- > 1;) bag.prefetched.push_back(got[i]);  // largest first, so back() is the smallest remaining
+                if (list_diagnostics().load(std::memory_order_relaxed)) {
+                    ListOpStats& stats = tls_list_stats();
+                    stats.takes++; stats.take_items += n; if (n < batch) stats.take_short++;
+                    publish(bag);
+                }
                 return true;
             }
         }
         return list_.pop_min(out);
     }
+    // Smallest bag minimum published by the OTHER threads (INT64_MAX when none).
+    int64_t other_bag_min(const Bag& me) const {
+        const int slots = std::min(next_slot_.load(std::memory_order_relaxed), kMaxSlots);
+        int64_t m = INT64_MAX;
+        for (int i = 0; i < slots; ++i) {
+            if (&bags_[i] == &me) continue;
+            m = std::min(m, bags_[i].pub_min.load(std::memory_order_relaxed));
+        }
+        return m;
+    }
+    // Moves every bag item with f <= threshold to the shared list.
     void promote(Bag& bag, int64_t threshold) {
-        size_t kept = 0;
+        size_t kept = 0, moved = 0;
         int64_t new_min = INT64_MAX;
         for (size_t i = 0; i < bag.items.size(); ++i) {
-            if (bag.items[i].f_value <= threshold) bag.adds.push_back(bag.items[i]);
+            if (bag.items[i].f_value <= threshold) { bag.adds.push_back(bag.items[i]); ++moved; }
             else { new_min = std::min(new_min, bag.items[i].f_value); bag.items[kept++] = bag.items[i]; }
         }
         bag.items.resize(kept);
         bag.min_f = new_min;
+        bag.pub_min.store(new_min, std::memory_order_relaxed);
         flush_adds(bag);
+        if (list_diagnostics().load(std::memory_order_relaxed)) {
+            ListOpStats& stats = tls_list_stats();
+            stats.promotes++;
+            stats.promoted_items += moved;
+            if (moved > stats.promoted_max) stats.promoted_max = moved;
+            publish(bag);
+        }
+    }
+    void publish(Bag& bag) {
+        bag.pub_prefetched.store(uint32_t(bag.prefetched.size()), std::memory_order_relaxed);
+        bag.pub_items.store(uint32_t(bag.items.size()), std::memory_order_relaxed);
+    }
+    // --diag: called when a thread found no work. Every 8th call, sums what the OTHER threads hold privately (prefetch buffers and
+    // beyond-window bags) next to the shared list size: "work exists but this thread cannot see it" versus "nothing is left".
+    void sample_holders() {
+        Bag& me = my_bag();
+        if ((me.idle_polls++ & 7u) != 0) return;
+        const int slots = std::min(next_slot_.load(std::memory_order_relaxed), kMaxSlots);
+        uint64_t hoard = 0, held = 0;
+        for (int i = 0; i < slots; ++i) {
+            if (&bags_[i] == &me) continue;
+            hoard += bags_[i].pub_prefetched.load(std::memory_order_relaxed);
+            held += bags_[i].pub_items.load(std::memory_order_relaxed);
+        }
+        ListOpStats& stats = tls_list_stats();
+        stats.idle_samples++;
+        stats.hoard_sum += hoard;
+        if (hoard > stats.hoard_max) stats.hoard_max = hoard;
+        stats.held_sum += held;
+        stats.shared_sum += list_.size_approx();
     }
 
     List list_;

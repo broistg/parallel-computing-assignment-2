@@ -787,6 +787,546 @@
    "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 12 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T12_pin_wd16384_wb8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,1,3,5,7,9,11 --window-div 16384 --batch 8",
    "threads": 12,
    "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.1,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.9,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.1,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.4,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 19.9,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.9,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.9,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.6,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.6,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 27.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl8_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl8_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 8",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.3,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.9,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl16_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl16_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 16",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl64_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.4,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl64_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 64",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 25.8,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.6,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.8,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 15.4,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 19.1,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.8,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.3,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 15.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb8_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb8_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 8 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 15.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb12_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 12 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.6,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl16_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.8,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T6_pin_wd16384_wb4_sl16_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 16 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 6 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T6_pin_wd16384_wb4_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10 --window-div 16384 --batch 4 --window-slack 64 --window-skip-empty",
+   "threads": 6,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T4_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 21.9,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 4 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T4_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 4,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T4_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.3,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 4 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T4_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 4,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 62.2,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 1 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 1,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T2_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 36.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 2 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T2_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 2,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T5_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.7,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 5 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T5_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 5,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T3_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 26.8,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 3 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T3_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 3,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T2_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 35.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 2 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T2_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 2,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T5_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.1,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 5 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T5_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 5,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T3_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 26.6,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 3 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T3_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 3,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T12_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.5,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 12 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_fine_ttas_T12_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,1,3,5,7,9,11 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 12,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T12_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 19.1,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 12 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T12_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,1,3,5,7,9,11 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 12,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 58.0,
+   "rows": 285,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench_pareto --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries_pareto.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_pareto.csv --algo par --threads 1 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 5 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/pareto_window/pareto_par_win_coarse_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 1,
+   "pinned": true
   }
  }
 }

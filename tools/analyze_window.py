@@ -34,6 +34,8 @@ def load(dir_path):
             continue
         per = defaultdict(lambda: defaultdict(int))
         exp, rows, bad = [], 0, 0
+        worst = 0.0  # slowest single query repetition / median of that query's repetitions (stall detector)
+        by_query = defaultdict(list)
         with open(path) as f:
             for r in csv.DictReader(f):
                 if r["warmup"] == "1" or r["smoke"] == "1":
@@ -44,20 +46,22 @@ def load(dir_path):
                 per[int(r["bin"])][int(r["rep"])] += int(r["search_ns"])
                 per["all"][int(r["rep"])] += int(r["search_ns"])
                 exp.append(int(r["expansions"]))
+                by_query[r["query_id"]].append(int(r["search_ns"]))
         if rows:
+            stalls = sum(1 for v in by_query.values() for x in v if len(v) >= 3 and x > 2 * statistics.median(v) and x > 20e6)
             out[name] = {"rows": rows, "bad": bad, "batch": {b: statistics.median(v / 1e6 for v in reps.values()) for b, reps in per.items()},
-                         "exp": statistics.mean(exp)}
+                         "worst_rep": max(per["all"].values()) / 1e6, "stalls": stalls, "exp": statistics.mean(exp)}
     return out
 
 
 def describe(name):
-    m = re.match(r"(?:pareto_)?(seq|par)(?:_(.+?)_T(\d+)_(pin|free)(?:_wd(\d+)_wb(\d+))?)?_(?:time|dist|vector)_", name)
+    m = re.match(r"(?:pareto_)?(seq|par)(?:_(.+?)_T(\d+)_(pin|free)(?:_wd(\d+)_wb(\d+)(?:_sl(\d+))?(_se)?)?)?_(?:time|dist|vector)_", name)
     if not m:
-        return name, 0, "", ""
-    algo, lst, threads, pin, wd, wb = m.groups()
+        return name, 0, "", "", ""
+    algo, lst, threads, pin, wd, wb, sl, se = m.groups()
     if algo == "seq":
-        return "seq (heap)", 1, "", ""
-    return lst, int(threads), wd or "", wb or ""
+        return "seq (heap)", 1, "", "", ""
+    return lst, int(threads), wd or "", wb or "", ("" if wd is None else (sl if sl is not None else "off") + (" +skip" if se else ""))
 
 
 def table(title, data, lines):
@@ -67,20 +71,21 @@ def table(title, data, lines):
     seq = next((v for n, v in data.items() if describe(n)[0] == "seq (heap)"), None)
     bins = sorted(b for b in next(iter(data.values()))["batch"] if b != "all") + ["all"]
     lines.append("## %s\n" % title)
-    lines.append("Batch time in ms (median over repetitions); in brackets the speedup vs the sequential heap of this sweep.\n")
-    lines.append("| list | threads | window div | batch | " + " | ".join("bin %s" % b for b in bins) + " | exp/query | path fails |")
-    lines.append("|" + "---|" * (len(bins) + 6))
+    lines.append("Batch time in ms (median over repetitions); in brackets the speedup vs the sequential heap of this sweep. "
+                 "`stalls` = query repetitions that took more than twice that query's median (and over 20 ms); `worst rep` = slowest repetition of the whole batch, ms.\n")
+    lines.append("| list | threads | window div | batch | slack | " + " | ".join("bin %s" % b for b in bins) + " | worst rep | stalls | exp/query | path fails |")
+    lines.append("|" + "---|" * (len(bins) + 9))
     def key(item):
-        lst, t, wd, wb = describe(item[0])
-        return (lst != "seq (heap)", lst, t, int(wd or 0), int(wb or 0))
+        lst, t, wd, wb, sl = describe(item[0])
+        return (lst != "seq (heap)", lst, t, int(wd or 0), int(wb or 0), -1 if sl in ("", "off") or sl.startswith("off") else int(sl.split()[0]), "+skip" in sl)
     for name, v in sorted(data.items(), key=key):
-        lst, t, wd, wb = describe(name)
+        lst, t, wd, wb, sl = describe(name)
         cells = []
         for b in bins:
             ms = v["batch"].get(b)
             ref = seq["batch"].get(b) if seq else None
             cells.append("" if ms is None else ("%.1f (%.2f)" % (ms, ref / ms) if ref else "%.1f" % ms))
-        lines.append("| %s | %d | %s | %s | %s | %.0f | %d |" % (lst, t, wd, wb, " | ".join(cells), v["exp"], v["bad"]))
+        lines.append("| %s | %d | %s | %s | %s | %s | %.0f | %d | %.0f | %d |" % (lst, t, wd, wb, sl, " | ".join(cells), v["worst_rep"], v["stalls"], v["exp"], v["bad"]))
     lines.append("")
 
 
