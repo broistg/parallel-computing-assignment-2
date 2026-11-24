@@ -26,4 +26,8 @@ public:
     void print() {
         return strategy->print();
     }
+
+    bool validateStructure(int expected_size = -1) {
+        return strategy->validateStructure(expected_size);
+    }
 };

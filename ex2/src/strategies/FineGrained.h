@@ -107,4 +107,46 @@ public:
         }
         std::cout <<"\n";
     }
+
+    bool validateStructure(int expected_size = -1) override {
+        // 1. Kiểm tra lính canh head và tail không bao giờ null
+        if (head == nullptr || tail == nullptr) {
+            return false;
+        }
+        // 2. Kiểm tra lính canh head và tail không bị thay đổi
+        if (head->id != INT_MIN || tail->id != INT_MAX || tail->next != nullptr) {
+            return false;
+        }
+        // 3. Kiểm tra vòng lặp (Cycle) bằng hai con trỏ slow/fast
+        FineGrainedNode* slow = head;
+        FineGrainedNode* fast = head;
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) {
+                return false;
+            }
+        }
+        // 4. Duyệt từ head tới tail kiểm tra thứ tự khóa và tính liên thông
+        FineGrainedNode* curr = head;
+        int actual_size = 0;
+
+        while (curr != tail) {
+            if (curr->next == nullptr) {
+                return false;
+            }
+            if (curr->id >= curr->next->id) {
+                return false;
+            }
+            if (curr != head) {
+                actual_size++;
+            }
+            curr = curr->next;
+        }
+        // 5. Kiểm tra số lượng phần tử thực tế (nếu có truyền vào expected_size)
+        if (expected_size != -1 && actual_size != expected_size) {
+            return false;
+        }
+        return true;
+    }
 };
