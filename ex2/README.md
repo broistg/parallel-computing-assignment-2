@@ -1,30 +1,36 @@
-# Concurrent Linked List (Strategy Design Pattern)
+# Section 2: Concurrent sorted linked list (Strategy design pattern)
 
-Dự án cài đặt cấu trúc dữ liệu **Danh sách liên kết đồng thời (Concurrent Linked List)** bằng ngôn ngữ C++, áp dụng **Strategy Design Pattern** để linh hoạt chuyển đổi giữa các chiến thuật đồng bộ hóa đa luồng tại thời điểm chạy (runtime).
+A concurrent set implemented as a sorted linked list in C++ with a runtime-selectable synchronisation strategy
+(Strategy design pattern). Two variants of the assignment's list are implemented: **fine-grained locking**
+(hand-over-hand, one mutex per node) and **optimistic synchronisation** (lock-free walk, lock two nodes, validate, retry).
+Each variant has `add`, `remove`, `contains`, `print` and `validateStructure` (an offline structural check: sentinels intact, no cycle,
+strictly increasing keys, expected element count).
 
-## Điều kiện tiên quyết (Prerequisites)
+## Source layout
+```
+ex2/src/
+  IListStrategy.h            interface of a strategy; sentinel keys kKeyMin / kKeyMax (user keys: any int strictly between)
+  ConcurrentList.h           context class holding the strategy (std::unique_ptr)
+  strategies/FineGrained.h   fine-grained synchronisation
+  strategies/Optimistic.h    optimistic synchronisation
+  main.cpp                   test program: sequential check against std::set, sentinel keys, concurrent warm-up, 8-thread stress
+```
 
-Để biên dịch và chạy dự án, hệ thống cần đáp ứng các yêu cầu sau:
+## Build and run
+Needs a C++14 compiler and pthreads.
+```
+g++ -std=c++14 -O2 -pthread ex2/src/main.cpp -o ex2_list      # Linux / macOS (WSL2: same)
+ex2_list both            # or: fine | optimistic   (no argument: asks on stdin)
+```
+Native Windows: `g++ -std=c++14 -O2 ex2/src/main.cpp -o ex2_list.exe` or the `ex2_list` target of the CMake build.
+`make` and `./tests/run_tests.sh` of the repository build and run it too (`make test-tsan` runs it under ThreadSanitizer).
+The program exits with 0 and prints `ALL EX2 CHECKS PASSED` when every check passes.
 
-* **Trình biên dịch hỗ trợ chuẩn C++14 trở lên:** Bắt buộc để sử dụng `std::make_unique`, smart pointers (`std::unique_ptr`) và biểu thức lambda (ví dụ: `g++ >= 5.0`, `clang++ >= 3.4`, hoặc MSVC 2015+).
-* **Thư viện đa luồng chuẩn C++ (`<thread>`, `<mutex>`):** Phục vụ việc khởi tạo luồng thực thi (`std::thread`) và cơ chế khóa tương tranh (`std::mutex`, `std::unique_lock`).
-* **POSIX Threads (`pthread`):** Cần thiết trên các hệ điều hành nhân Linux/Unix/macOS khi liên kết trình biên dịch với cờ `-pthread`.
-
-## Cấu trúc mã nguồn
-
-.
-├── ConcurrentList.h    # Lớp Context quản lý con trỏ chiến thuật (std::unique_ptr)[cite: 1]
-├── IListStrategy.h     # Lớp Interface quản lý class chiến thuật (std::unique_ptr)[cite: 1]
-├── strategies
-    ├── FineGrained.h       # Cài đặt chiến thuật Fine-Grained Synchronization[cite: 1]
-    ├── Optimistic.h        # Cài đặt chiến thuật Optimistic Synchronization[cite: 1]
-└── main.cpp            # Chương trình chính: chọn chiến thuật và kiểm thử 4 luồng[cite: 1]
-
-## Lệnh chạy mã nguồn
-Trên Linux / macOS (GCC / Clang)
-    g++ -std=c++14 -O2 -pthread main.cpp -o concurrent_list
-    ./concurrent_list
-
-Trên Windows
-    g++ -std=c++14 -O2 main.cpp -o concurrent_list.exe
-    concurrent_list.exe
+## Notes on the implementation
+* Fine-grained: locks are taken in list order (pred, then curr); a removed node is deleted right after its locks are released, which is
+  safe because a node can only be reached through its locked predecessor.
+* Optimistic: the walk takes no lock, so a thread may stand on a node that another thread unlinks. `next` pointers are `std::atomic`,
+  and unlinked nodes are not deleted but kept on a retired list that is freed in the destructor (the textbook version relies on garbage
+  collection). Cost: memory for removed nodes is held until the list is destroyed.
+* The same two algorithms also exist in the A* framework, adapted to the open-list interface (`include/astar/fine_list.h`,
+  `include/astar/optimistic_list.h`, lock type as a template parameter, optional batch operations), where the report measures them.

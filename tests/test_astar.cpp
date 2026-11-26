@@ -7,6 +7,7 @@
 #include <set>
 
 #include "astar/fine_list.h"
+#include "astar/optimistic_list.h"
 #include "astar/search.h"
 #include "lock.h"
 
@@ -163,6 +164,37 @@ static void test_list(const char* name, int max_threads = 16) {  // see test_str
         }
         CHECK(popped == num_threads * per, "%s lost items: %d of %d (num_threads=%d)", name, popped.load(), num_threads * per, num_threads);
     }
+    // concurrent add / remove / contains on a small key range (many collisions, items removed while others walk past them):
+    // successful adds minus successful removes must equal what is left, the rest drains in sorted order, size_approx agrees
+    for (int num_threads : {2, 4, 8}) {
+        if (num_threads > max_threads) continue;
+        L l;
+        std::atomic<long> net{0};
+        std::vector<std::thread> th;
+        for (int t = 0; t < num_threads; ++t)
+            th.emplace_back([&, t] {
+                std::mt19937 rng(900 + t);
+                long local = 0;
+                for (int i = 0; i < kListOpsPerThread; ++i) {
+                    OpenItem x{int64_t(rng() % 48), uint32_t(rng() % 4), 0};
+                    int op = rng() % 3;
+                    if (op == 0) local += l.add(x) ? 1 : 0;
+                    else if (op == 1) local -= l.remove(x) ? 1 : 0;
+                    else (void)l.contains(x);
+                }
+                net += local;
+            });
+        for (auto& x : th) x.join();
+        CHECK(long(l.size_approx()) == net.load(), "%s size_approx %ld != net %ld after mixed ops (num_threads=%d)", name, long(l.size_approx()), net.load(), num_threads);
+        OpenItem y, prev{-1, 0, 0};
+        long left = 0;
+        while (l.pop_min(y)) {
+            CHECK(left == 0 || prev < y, "%s drain not strictly sorted after mixed ops", name);
+            prev = y;
+            ++left;
+        }
+        CHECK(left == net.load(), "%s mixed ops left %ld items, expected %ld (num_threads=%d)", name, left, net.load(), num_threads);
+    }
 }
 
 template <class L>
@@ -297,12 +329,17 @@ int main(int argc, char** argv) {
     stage("list fine_ttas", [&] { test_list<FineList<lock_ttas_pause>>("fine_ttas"); });
     stage("list fine_ticket (<=cores)", [&] { test_list<FineList<lock_ticket>>("fine_ticket", cores); });
     stage("list fine_std_mutex", [&] { test_list<FineList<std::mutex>>("fine_std_mutex"); });
+    stage("list opt_ttas", [&] { test_list<OptimisticList<lock_ttas_pause>>("opt_ttas"); });
+    stage("list opt_std_mutex", [&] { test_list<OptimisticList<std::mutex>>("opt_std_mutex"); });
     stage("search coarse_ttas", [&] { test_search<CoarseList<lock_ttas_pause>>(graph, profile, "coarse_ttas"); });
     stage("search coarse_ticket (<=cores)", [&] { test_search<CoarseList<lock_ticket>>(graph, profile, "coarse_ticket", cores); });
     stage("search coarse_std_mutex", [&] { test_search<CoarseList<std::mutex>>(graph, profile, "coarse_std_mutex"); });
     stage("search fine_ttas", [&] { test_search<FineList<lock_ttas_pause>>(graph, profile, "fine_ttas"); });
     stage("search fine_ticket (<=cores)", [&] { test_search<FineList<lock_ticket>>(graph, profile, "fine_ticket", cores); });
     stage("search fine_std_mutex", [&] { test_search<FineList<std::mutex>>(graph, profile, "fine_std_mutex"); });
+    stage("search opt_ttas", [&] { test_search<OptimisticList<lock_ttas_pause>>(graph, profile, "opt_ttas"); });
+    stage("search opt_std_mutex", [&] { test_search<OptimisticList<std::mutex>>(graph, profile, "opt_std_mutex"); });
+    stage("search win_opt_ttas", [&] { test_search<WindowedList<OptimisticList<lock_ttas_pause>>>(graph, profile, "win_opt_ttas", 8); });
     stage("batch ops of CoarseList", [&] { test_batch_ops<CoarseList<lock_ttas_pause>>(); });
     stage("batch ops of FineList", [&] { test_batch_ops<FineList<lock_ttas_pause>>(); });
     for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 4}, {1024, 16}}) {
@@ -339,6 +376,9 @@ int main(int argc, char** argv) {
         stage("stress coarse_ticket (<=cores)", [&] { test_stress<CoarseList<lock_ticket>>(stress_graph, profile, "coarse_ticket", cores); });
         stage("stress fine_ttas", [&] { test_stress<FineList<lock_ttas_pause>>(stress_graph, profile, "fine_ttas", 16); });
         stage("stress fine_std_mutex", [&] { test_stress<FineList<std::mutex>>(stress_graph, profile, "fine_std_mutex", 16); });
+        stage("stress opt_ttas", [&] { test_stress<OptimisticList<lock_ttas_pause>>(stress_graph, profile, "opt_ttas", 16); });
+        stage("stress opt_std_mutex", [&] { test_stress<OptimisticList<std::mutex>>(stress_graph, profile, "opt_std_mutex", 16); });
+        stage("stress win_opt_ttas", [&] { test_stress<WindowedList<OptimisticList<lock_ttas_pause>>>(stress_graph, profile, "win_opt_ttas", 16); });
         window_divisor().store(64); window_batch().store(8);
         window_slack().store(2);  // stress with the window opened around the global bag minimum
         stage("stress win_coarse_ttas global-min", [&] { test_stress<WindowedList<CoarseList<lock_ttas_pause>>>(stress_graph, profile, "win_coarse_ttas", 16); });

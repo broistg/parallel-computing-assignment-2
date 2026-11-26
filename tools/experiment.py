@@ -15,6 +15,7 @@ Stages (each one is resumable; run the same command again after an interruption)
   main          scalar study: sequential heap and sorted list, plain coarse lists x threads x pinned/unpinned, distance objective,
                 heuristic sensitivity                                                       -> results/<id>/run1
   fine          fine-grained lists (threads up to the physical core count)                  -> results/<id>/run1
+  optimistic    the group's optimistic list (opt_*, plain and windowed at the preset; scalar and vector thread curves)  -> results/<id>/run1, window, pareto_window
   vector        vector (Pareto) study: sequential and windowed lists at the preset, 5 reps   -> results/<id>/pareto_run1
   vector-plain  plain lists on the short vector bins (timeouts are recorded)                -> results/<id>/pareto_plain
   window-sweep  windowed-list parameter sweep (divisor x batch) at 1 and physical-core threads, scalar and vector
@@ -33,7 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PY = sys.executable
 IS_WINDOWS = os.name == "nt"
-STAGES = ["setup", "tests", "inspect", "smoke", "main", "fine", "vector", "vector-plain", "window-sweep", "window-threads", "analyze"]
+STAGES = ["setup", "tests", "inspect", "smoke", "main", "fine", "optimistic", "vector", "vector-plain", "window-sweep", "window-threads", "analyze"]
 
 
 def run(cmd, what, allow_codes=(0,)):
@@ -114,6 +115,15 @@ def stage_fine(a):
     driver(["--grid", "headline", "--lists", "coarse_ttas,fine_ttas,fine_ticket,fine_std_mutex", "--threads", "phys", "--only", "fine_"], "fine-grained lists", a)
 
 
+def stage_optimistic(a):
+    threads = ",".join(str(t) for t in platform_info(a)["suggested_thread_counts"])
+    driver(["--grid", "headline", "--lists", "coarse_ttas,opt_ttas,opt_std_mutex", "--threads", "phys", "--only", "opt_"], "optimistic lists, plain (scalar)", a)
+    driver(["--grid", "window", "--lists", "win_opt_ttas", "--window-divs", "4096", "--window-batches", "8", "--window-threads", threads,
+            "--window-slacks", "off", "--window-skip-empty", "--skip-timeouts"], "optimistic list, windowed thread curve, scalar preset", a)
+    driver(["--grid", "pareto-window", "--lists", "win_opt_ttas", "--window-divs", "16384", "--window-batches", "12", "--window-threads", threads,
+            "--window-slacks", "64", "--window-skip-empty", "--skip-timeouts"], "optimistic list, windowed thread curve, vector preset", a)
+
+
 def stage_vector(a):
     driver(["--grid", "pareto", "--lists", "win_coarse_ttas,win_fine_ttas"], "vector study (windowed lists at the preset)", a)
 
@@ -146,7 +156,7 @@ def stage_analyze(a):
 
 
 FUNCS = {"setup": stage_setup, "tests": stage_tests, "inspect": stage_inspect, "smoke": stage_smoke, "main": stage_main, "fine": stage_fine,
-         "vector": stage_vector, "vector-plain": stage_vector_plain, "window-sweep": stage_window_sweep, "window-threads": stage_window_threads,
+         "optimistic": stage_optimistic, "vector": stage_vector, "vector-plain": stage_vector_plain, "window-sweep": stage_window_sweep, "window-threads": stage_window_threads,
          "analyze": stage_analyze}
 
 

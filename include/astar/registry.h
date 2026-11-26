@@ -6,6 +6,7 @@
 
 #include "fine_list.h"
 #include "lock.h"  // Assignment 1 lock family
+#include "optimistic_list.h"
 #include "openlist.h"
 #include "windowed_list.h"
 
@@ -16,7 +17,10 @@
     X("fine_ttas", "ttas_pause", FineList<lock_ttas_pause>)              /* fine-grained: one lock per node, hand-over-hand */ \
     X("fine_ticket", "ticket", FineList<lock_ticket>)                    \
     X("fine_std_mutex", "std_mutex", FineList<std::mutex>)               \
+    X("opt_ttas", "ttas_pause", OptimisticList<lock_ttas_pause>)         /* optimistic: lock-free walk, lock two nodes, validate */ \
+    X("opt_std_mutex", "std_mutex", OptimisticList<std::mutex>)          \
     X("win_coarse_ttas", "ttas_pause", WindowedList<CoarseList<lock_ttas_pause>>) /* windowed: short shared list + per-thread bags */ \
-    X("win_fine_ttas", "ttas_pause", WindowedList<FineList<lock_ttas_pause>>) /* windowed on top of the fine-grained list */
+    X("win_fine_ttas", "ttas_pause", WindowedList<FineList<lock_ttas_pause>>) /* windowed on top of the fine-grained list */ \
+    X("win_opt_ttas", "ttas_pause", WindowedList<OptimisticList<lock_ttas_pause>>) /* windowed on top of the optimistic list */
 /* Windowed lists exist with the TTAS lock only. The ticket and std::mutex windowed variants were implemented and tested but never
    measured; the group decided (21 Nov) to drop them rather than spend a run on them. */

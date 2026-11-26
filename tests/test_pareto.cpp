@@ -7,6 +7,7 @@
 #include <random>
 
 #include "astar/fine_list.h"
+#include "astar/optimistic_list.h"
 #include "astar/pareto.h"
 #include "lock.h"
 
@@ -190,6 +191,9 @@ int main(int argc, char** argv) {
     stage("pareto par coarse_std_mutex", [&] { test_parallel<CoarseList<std::mutex>>(graph, profile, "coarse_std_mutex", 8); });
     stage("pareto par fine_ttas", [&] { test_parallel<FineList<lock_ttas_pause>>(graph, profile, "fine_ttas", 8); });
     stage("pareto par fine_std_mutex", [&] { test_parallel<FineList<std::mutex>>(graph, profile, "fine_std_mutex", 8); });
+    stage("pareto par opt_ttas", [&] { test_parallel<OptimisticList<lock_ttas_pause>>(graph, profile, "opt_ttas", 8); });
+    stage("pareto par opt_std_mutex", [&] { test_parallel<OptimisticList<std::mutex>>(graph, profile, "opt_std_mutex", 8); });
+    stage("pareto par win_opt_ttas", [&] { test_parallel<WindowedList<OptimisticList<lock_ttas_pause>>>(graph, profile, "win_opt_ttas", 8); });
     for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 4}, {1024, 16}}) {
         window_divisor().store(divisor); window_batch().store(batch);
         std::string label = "pareto par win_coarse_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);

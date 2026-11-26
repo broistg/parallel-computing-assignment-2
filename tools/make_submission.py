@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
 TOP_FILES = ["README.md", "Makefile", "CMakeLists.txt"]
-TREES = ["include", "src", "tests", "tools", "config"]
+TREES = ["include", "src", "tests", "tools", "config", "ex2"]
 EXCLUDE_TOOLS = {"summarize.py", "check_osm_access.py", "pilot.py"}  # internal helpers; pilot.py is only a planning aid
 EXCLUDE_NAMES = {"__pycache__", ".DS_Store"}
 RAW_DIRS = ("run", "pareto_run", "window", "pareto_window", "pareto_plain", "smoke", "pareto_smoke", "diag")

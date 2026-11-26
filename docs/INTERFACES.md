@@ -54,3 +54,6 @@ The driver passes it with `--window-skip-empty` (window grids only; names get th
 
 ## Command line and presets (added 21 Nov)
 `bench` and `bench_pareto` stop with an error on any option they do not know and print their build time and option list for `--version`; `tools/run_experiments.py` runs `--version` first and refuses a binary that is older than the sources or lacks an option the grid passes. Windowed-list settings that a grid does not state explicitly come from `config/presets.json` (`scalar` and `vector` entries); the preset used is stored in each run's `manifest.json` next to the git commit and the binary build time. `tools/experiment.py` runs the stages (setup, tests, inspect, smoke, main, fine, vector, vector-plain, window-sweep, window-threads, analyze) of one platform.
+
+## Registered lists (26 Nov)
+`coarse_{ttas,ticket,std_mutex}`, `fine_{ttas,ticket,std_mutex}`, `opt_{ttas,std_mutex}` (OptimisticList: lock-free walk, lock pred and curr, validate; unlinked nodes are kept until the list is destroyed, so a list must not outlive many queries), `win_{coarse,fine,opt}_ttas` (WindowedList on top). `ex2/` holds the group's standalone Section-2 program (the same two algorithms, string payload, Strategy pattern); the A* code does not use it.

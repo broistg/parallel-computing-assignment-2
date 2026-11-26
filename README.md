@@ -7,8 +7,9 @@ design, the experiments and the results; this file explains how to build, test a
 
 ## Layout
 ```
-include/astar/   graph.h heuristic.h openlist.h search.h pareto.h fine_list.h windowed_list.h registry.h   (C++17, header-only core)
+include/astar/   graph.h heuristic.h openlist.h search.h pareto.h fine_list.h optimistic_list.h windowed_list.h registry.h   (C++17, header-only core)
 include/lock.h   the Assignment-1 lock family (ttas / ticket); registry.h maps list names to list types
+ex2/             Section 2 standalone lists (fine-grained, optimistic; Strategy pattern) with its own test program and README
 src/             bench_main.cpp (scalar A*), bench_pareto.cpp (vector A*): one configuration per process -> CSV
 tests/           run_tests.sh and the C++ / Python tests   (see docs/TESTING.md)
 tools/           experiment.py (one command per machine), run_experiments.py (grids), analyze.py, analyze_window.py,

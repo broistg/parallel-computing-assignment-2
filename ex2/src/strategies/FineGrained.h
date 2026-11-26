@@ -4,9 +4,6 @@
 #include <string>
 #include <iostream>
 
-#define INT_MAX 50
-#define INT_MIN 0
-
 class FineGrainedNode {
 public:
     int id;
@@ -27,8 +24,8 @@ public:
     FineGrainedNode* tail;
 
     FineGrainedStrategy() {
-        tail = new FineGrainedNode(INT_MAX, "TAIL_SENTINEL", nullptr);
-        head = new FineGrainedNode(INT_MIN, "HEAD_SENTINEL", tail);
+        tail = new FineGrainedNode(kKeyMax, "TAIL_SENTINEL", nullptr);
+        head = new FineGrainedNode(kKeyMin, "HEAD_SENTINEL", tail);
     }
 
     ~FineGrainedStrategy() override {
@@ -41,6 +38,7 @@ public:
     }
 
     bool add(int id, const std::string& name) override {
+        if (id <= kKeyMin || id >= kKeyMax) return false;  // sentinel keys are reserved
         std::unique_lock<std::mutex> pred_lock(head->mutexlock);    // tương đương head.lock()
         FineGrainedNode* pred = head;
         FineGrainedNode* curr = head->next;
@@ -63,6 +61,7 @@ public:
     }
 
     bool remove(int id) override {
+        if (id <= kKeyMin || id >= kKeyMax) return false;  // never unlink a sentinel
         std::unique_lock<std::mutex> pred_lock(head->mutexlock);
         FineGrainedNode* pred = head;
         FineGrainedNode* curr = pred->next;
@@ -85,6 +84,7 @@ public:
     }
 
     bool contains(int id) override {
+        if (id <= kKeyMin || id >= kKeyMax) return false;
         std::unique_lock<std::mutex> pred_lock(head->mutexlock);
         FineGrainedNode* pred = head;
         FineGrainedNode* curr = pred->next;
@@ -114,7 +114,7 @@ public:
             return false;
         }
         // 2. Kiểm tra lính canh head và tail không bị thay đổi
-        if (head->id != INT_MIN || tail->id != INT_MAX || tail->next != nullptr) {
+        if (head->id != kKeyMin || tail->id != kKeyMax || tail->next != nullptr) {
             return false;
         }
         // 3. Kiểm tra vòng lặp (Cycle) bằng hai con trỏ slow/fast

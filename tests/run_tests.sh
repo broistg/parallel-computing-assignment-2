@@ -28,6 +28,9 @@ tout ./build/test_astar data/snapshot_synth_small config/profile.csv data/snapsh
 echo "== L2-L5 C++ vector (Pareto) A*: front == independent label-correcting reference, sequential and parallel"
 tout ./build/test_pareto data/snapshot_synth_small config/profile.csv data/snapshot_synth_large
 
+echo "== L2-L5 Section-2 standalone lists (fine-grained, optimistic): sequential vs std::set, sentinels, 8-thread stress, structure check"
+./build/ex2_list both
+
 echo "== L6 C++ vs Python golden file"
 TMP=$(mktemp -d)
 python3 tools/make_queries.py --snapshot data/snapshot_synth_small --per-bin 6 --bins-km 0.3,1,2,4,100 --seed 7 --out "$TMP/q.csv" >/dev/null
