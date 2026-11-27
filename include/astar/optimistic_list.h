@@ -133,15 +133,29 @@ private:
             curr = curr->next.load(std::memory_order_acquire);
             ++steps;
         }
+        if (diag()) {
+            ListOpStats& st = tls_list_stats();
+            st.opt_attempts++;
+            st.opt_find_steps += steps;
+        }
     }
     // pred is validated if it is still in the list and still points to curr.  Called with pred and curr locked.
     bool validate(Node* pred, Node* curr) const {
+        uint64_t walked = 0;
+        bool ok = false;
         for (Node* n = head_; n; n = n->next.load(std::memory_order_acquire)) {
-            if (n == pred) return pred->next.load(std::memory_order_acquire) == curr;
-            if (pred != head_ && n != head_ && pred->item < n->item) return false;  // walked past where pred would be
+            ++walked;
+            if (n == pred) { ok = pred->next.load(std::memory_order_acquire) == curr; break; }
+            if (pred != head_ && n != head_ && pred->item < n->item) break;  // walked past where pred would be
         }
-        return false;
+        if (diag()) {
+            ListOpStats& st = tls_list_stats();
+            st.opt_validate_steps += walked;
+            if (!ok) st.opt_retries++;
+        }
+        return ok;
     }
+    static bool diag() { return list_diagnostics().load(std::memory_order_relaxed); }
     static void lock_pair(Node* pred, Node* curr) {  // list order: pred before curr
         pred->lock.lock();
         if (curr) curr->lock.lock();
@@ -152,9 +166,13 @@ private:
     }
     void retire(Node* n) {  // push-only Treiber stack; nodes are freed in the destructor
         Node* top = retired_.load(std::memory_order_relaxed);
-        do {
-            n->retired_next = top;
-        } while (!retired_.compare_exchange_weak(top, n, std::memory_order_release, std::memory_order_relaxed));
+        n->retired_next = top;
+        uint64_t failed = 0;
+        while (!retired_.compare_exchange_weak(top, n, std::memory_order_release, std::memory_order_relaxed)) {
+            n->retired_next = top;  // top was refreshed by the failed compare-exchange
+            ++failed;
+        }
+        if (failed && diag()) tls_list_stats().opt_retire_cas_fail += failed;
     }
 
     Node* head_;  // sentinel

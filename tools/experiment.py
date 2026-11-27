@@ -153,6 +153,10 @@ def stage_analyze(a):
         print("analyze: skipped in a dry run")
         return
     run([PY, os.path.join("tools", "analyze.py"), "--platform", a.platform], "analysis (writes results/%s/analysis/)" % a.platform)
+    cmd = [PY, os.path.join("tools", "make_report_figures.py"), "--platform", a.platform]
+    print("\n>>> report figures and tables (writes report/generated/%s/)\n    %s" % (a.platform, " ".join(cmd)), flush=True)
+    if subprocess.call(cmd, cwd=ROOT) != 0:  # needs matplotlib; the analysis above is already complete
+        print("NOTE: the report figures were not written (is matplotlib installed? `pip install matplotlib`); rerun with --stages analyze.")
 
 
 FUNCS = {"setup": stage_setup, "tests": stage_tests, "inspect": stage_inspect, "smoke": stage_smoke, "main": stage_main, "fine": stage_fine,

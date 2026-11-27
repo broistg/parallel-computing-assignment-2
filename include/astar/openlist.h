@@ -64,6 +64,9 @@ struct ListOpStats {
     uint64_t list_size_sum = 0, list_size_max = 0, list_size_ge1ms_max = 0;
     uint64_t promotes = 0, promoted_items = 0, promoted_max = 0;           // WindowedList: bag -> shared list promotions (--diag)
     uint64_t advances = 0, advance_gap_sum = 0, advance_gap_max = 0, advance_far = 0;  // window advances: own bag minimum minus global minimum; far = gap > window
+    // OptimisticList (--diag): lock-and-validate attempts, attempts that failed validation (retries), nodes walked by the lock-free search
+    // and by the validation walk from the head, failed compare-and-swaps on the retired-node stack.
+    uint64_t opt_attempts = 0, opt_retries = 0, opt_find_steps = 0, opt_validate_steps = 0, opt_retire_cas_fail = 0;
     void operator+=(const ListOpStats& o) {
         adds += o.adds; add_dups += o.add_dups; pops += o.pops; pop_empty += o.pop_empty;
         add_ns += o.add_ns; add_samples += o.add_samples; pop_ns += o.pop_ns; pop_samples += o.pop_samples;
@@ -81,6 +84,8 @@ struct ListOpStats {
         list_size_ge1ms_max = std::max(list_size_ge1ms_max, o.list_size_ge1ms_max);
         promotes += o.promotes; promoted_items += o.promoted_items; promoted_max = std::max(promoted_max, o.promoted_max);
         advances += o.advances; advance_gap_sum += o.advance_gap_sum; advance_gap_max = std::max(advance_gap_max, o.advance_gap_max); advance_far += o.advance_far;
+        opt_attempts += o.opt_attempts; opt_retries += o.opt_retries; opt_find_steps += o.opt_find_steps;
+        opt_validate_steps += o.opt_validate_steps; opt_retire_cas_fail += o.opt_retire_cas_fail;
     }
 };
 

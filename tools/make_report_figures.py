@@ -10,7 +10,7 @@ pareto_window (raw CSVs), and the optional list-profile files. Writes into <out>
   fig_window_sweep.pdf      windowed list, divisor x batch heat map at the largest thread count of the sweep
   fig_memory.pdf            peak memory of the whole process by list
   fig_insert_profile.pdf    where inserts land in the list (eighths), if the profile files exist
-  tab_plain.tex, tab_window_threads.tex, tab_sensitivity.tex, tab_memory.tex   (\\input into the report)
+  tab_plain.tex, tab_window_threads.tex, tab_sensitivity.tex, tab_vector_quality.tex, tab_latency.tex, tab_memory.tex   (\\input into the report)
 Run it again after the final runs: the report then picks up the new numbers. A figure or table whose data is missing is skipped
 with a message.
 """
@@ -220,6 +220,62 @@ def sensitivity(base, out):
     print("wrote", os.path.join(out, "tab_sensitivity.tex"))
 
 
+def vector_quality(base, out):
+    """Hypervolume ratio against the exact fronts, by heuristic setting (seq and parallel win_coarse_ttas at 6 threads)."""
+    rows = read_csv(os.path.join(base, "analysis", "pareto_quality.csv"))
+    if not rows:
+        return
+    keyset = defaultdict(list)
+    for r in rows:
+        if r["algo"] == "par" and not (r["list"] == "win_coarse_ttas" and r["threads"] == "6"):
+            continue
+        keyset[(r["algo"], int(r["rho"]), int(r["w"]))].append(r)
+    lines = ["\\begin{tabular}{lrrrrrr}", "\\toprule",
+             "thuật toán & nhiễu (\\textperthousand) & phóng đại (\\%) & HV TB & HV nhỏ nhất & điểm đúng tìm thấy (\\%) & mở rộng/truy vấn \\\\", "\\midrule"]
+    for (algo, rho, w), rs in sorted(keyset.items()):
+        def avg(col):
+            return statistics.mean(float(r[col]) for r in rs)
+        lines.append("%s & %d & %d & %s & %s & %s & %s \\\\" % (
+            algo, rho, w, num(avg("hv_ratio_mean"), 3), num(min(float(r["hv_ratio_min"]) for r in rs), 3),
+            num(avg("exact_points_found_pct"), 1), num(avg("expansions_per_query"), 0)))
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(out, "tab_vector_quality.tex"), "w").write("\n".join(lines) + "\n")
+    print("wrote", os.path.join(out, "tab_vector_quality.tex"))
+
+
+def latency(base, out):
+    """Per-operation latency table from tools/opt_diag.py (results/<platform>/opt_diag/opt_diag_summary.md)."""
+    path = os.path.join(base, "opt_diag", "opt_diag_summary.md")
+    if not os.path.exists(path):
+        print("skip: %s not found" % path)
+        return
+    rows, on = {}, False
+    for line in open(path):
+        if line.startswith("## Latency"):
+            on = True
+            continue
+        if on and line.startswith("## "):
+            break
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if on and len(cells) == 4 and cells[1].isdigit():
+            rows.setdefault(cells[0], {})[int(cells[1])] = (float(cells[2]), float(cells[3]))
+    if not rows:
+        print("skip: no latency rows in", path)
+        return
+    threads = sorted({t for r in rows.values() for t in r})
+    head = " & ".join("add (%d) & pop (%d)" % (t, t) for t in threads)
+    lines = ["\\begin{tabular}{l" + "rr" * len(threads) + "}", "\\toprule", "danh sách & " + head + " \\\\", "\\midrule"]
+    for name, r in rows.items():
+        cells = []
+        for t in threads:
+            a, p_ = r.get(t, (float("nan"), float("nan")))
+            cells += [num(a, 0), num(p_, 0)]
+        lines.append("%s & %s \\\\" % (tex_name(name), " & ".join(cells)))
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(out, "tab_latency.tex"), "w").write("\n".join(lines) + "\n")
+    print("wrote", os.path.join(out, "tab_latency.tex"))
+
+
 def insert_profile(base, out):
     fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.0))
     drew = False
@@ -258,7 +314,7 @@ def main():
     base = os.path.join(a.results, a.platform)
     out = os.path.join(a.out, a.platform)
     os.makedirs(out, exist_ok=True)
-    for step in (plain_speedup, window_threads, window_sweep, memory, sensitivity, insert_profile):
+    for step in (plain_speedup, window_threads, window_sweep, memory, sensitivity, vector_quality, latency, insert_profile):
         step(base, out)
 
 
