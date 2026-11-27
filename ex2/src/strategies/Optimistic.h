@@ -5,13 +5,13 @@
 #include <mutex>
 #include <string>
 
-// Optimistic synchronization: walk the list without locks, lock pred and curr, validate (pred still reachable from head and
-// still pointing to curr), retry on failure.
+// Đồng bộ hóa lạc quan (Optimistic): duyệt list không khóa, khóa pred và curr, kiểm tra lại (validate: pred vẫn tới được từ head và
+// vẫn trỏ tới curr), nếu sai thì thử lại.
 //
-// Two changes against the first version (found when the list was merged into the A* framework, see include/astar/optimistic_list.h):
-//  * `next` is a std::atomic: the unlocked walk reads it while a writer changes it (a data race otherwise, flagged by ThreadSanitizer).
-//  * remove() no longer deletes the unlinked node: a thread walking without locks may be standing on it (the textbook version relies
-//    on a garbage collector).  Unlinked nodes go onto a retired list that is freed in the destructor.
+// Hai thay đổi so với bản đầu (phát hiện khi ghép list vào khung A*, xem include/astar/optimistic_list.h):
+//  * `next` là std::atomic: lượt duyệt không khóa đọc nó trong khi luồng khác đang ghi (nếu không là data race, bị ThreadSanitizer báo).
+//  * remove() không còn delete node vừa gỡ: một luồng đang duyệt không khóa có thể đang đứng trên node đó (bản giáo trình dựa vào
+//    bộ gom rác). Các node đã gỡ được đưa vào danh sách retired và chỉ giải phóng ở destructor.
 
 class OptimisticdNode {
 public:
@@ -19,7 +19,7 @@ public:
     std::string name;
     std::atomic<OptimisticdNode*> next;
     std::mutex mutexlock;
-    OptimisticdNode* retired_next;  // only used after unlinking
+    OptimisticdNode* retired_next;  // chỉ dùng sau khi node đã bị gỡ
 
     OptimisticdNode(int id, std::string name, OptimisticdNode* next = nullptr)
         : id(id), name(std::move(name)), next(next), retired_next(nullptr) {}
@@ -51,7 +51,7 @@ public:
     }
 
     bool add(int id, const std::string& name) override {
-        if (id <= kKeyMin || id >= kKeyMax) return false;  // sentinel keys are reserved
+        if (id <= kKeyMin || id >= kKeyMax) return false;  // khóa lính canh được dành riêng, không cho thêm
         while (true) {
             OptimisticdNode* pred;
             OptimisticdNode* curr;
@@ -70,7 +70,7 @@ public:
     }
 
     bool remove(int id) override {
-        if (id <= kKeyMin || id >= kKeyMax) return false;  // never unlink a sentinel
+        if (id <= kKeyMin || id >= kKeyMax) return false;  // không bao giờ gỡ lính canh
         while (true) {
             OptimisticdNode* pred;
             OptimisticdNode* curr;
@@ -121,15 +121,15 @@ public:
     }
 
     bool validateStructure(int expected_size = -1) override {
-        // 1. head and tail are never null
+        // 1. Kiểm tra lính canh head và tail không bao giờ null
         if (head == nullptr || tail == nullptr) {
             return false;
         }
-        // 2. the sentinels are unchanged
+        // 2. Kiểm tra lính canh head và tail không bị thay đổi
         if (head->id != kKeyMin || tail->id != kKeyMax || tail->next.load() != nullptr) {
             return false;
         }
-        // 3. no cycle (slow / fast pointers)
+        // 3. Kiểm tra vòng lặp (Cycle) bằng hai con trỏ slow/fast
         OptimisticdNode* slow = head;
         OptimisticdNode* fast = head;
         while (fast != nullptr && fast->next.load() != nullptr) {
@@ -139,7 +139,7 @@ public:
                 return false;
             }
         }
-        // 4. strictly increasing keys from head to tail, connected
+        // 4. Duyệt từ head tới tail kiểm tra thứ tự khóa tăng chặt và tính liên thông
         OptimisticdNode* curr = head;
         int actual_size = 0;
         while (curr != tail) {
@@ -155,7 +155,7 @@ public:
             }
             curr = nxt;
         }
-        // 5. element count (if given)
+        // 5. Kiểm tra số lượng phần tử thực tế (nếu có truyền vào expected_size)
         if (expected_size != -1 && actual_size != expected_size) {
             return false;
         }
@@ -174,7 +174,7 @@ private:
         }
     }
 
-    void retire(OptimisticdNode* n) {  // push-only stack, freed in the destructor
+    void retire(OptimisticdNode* n) {  // ngăn xếp chỉ thêm, giải phóng ở destructor
         OptimisticdNode* top = retired.load(std::memory_order_relaxed);
         do {
             n->retired_next = top;

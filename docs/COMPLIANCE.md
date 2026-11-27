@@ -7,7 +7,7 @@ Where a row says "report", the text still has to be written into the PDF. Update
 |---|---|---|
 | **S1** Sequential A* on a real road network (e.g. HCMC), two arbitrary locations | `include/astar/search.h` (`seq_astar`), snapshot `data/snapshot_hcmc` (195,823 nodes), queries `config/queries.csv` | done, measured |
 | **S1** h dynamic and uncertain | `heuristic.h` (noise per node and 15-min bucket, inflation), time-dependent edge cost from `config/profile.csv` (synthetic curve: say so) | done; sensitivity grid in `headline` (noise x inflation) |
-| **S1** f a vector function; re-implement the sequential A* | `include/astar/pareto.h` (NAMOA*-style label sets), `bench_pareto` | done; golden fronts for bins 0-3 (bin 4 exceeds the oracle's label budget: stated limit) |
+| **S1** f a vector function; re-implement the sequential A* | `include/astar/pareto.h` (NAMOA*-style label sets), `bench_pareto` | done; golden fronts for all 57 vector queries in bins 0-4 (3 queries over the oracle's label budget were dropped from the set: stated limit) |
 | **S1** Approach to testing correctness | `docs/TESTING.md` (trust ladder: oracle vs brute force, C++ vs Dijkstra, vector front vs reference, golden files with fingerprints, mutation checks, TSan) | done; report section |
 | **S2** Implement any two list variants (own or built-in locks) | `CoarseList` (coarse), `FineList` (hand-over-hand) in `openlist.h` / `fine_list.h`; locks from A1 `lock.h` + `std::mutex`. Group's own Section-2 lists plug in through `registry.h` | done: group's fine-grained and optimistic lists in `ex2/` (fixed 26 Nov) and in the A* framework (`FineList`, `OptimisticList`), plus a coarse baseline |
 | **S2** Approach to testing the lists | list tests against a set model, concurrent stress, TSan (`tests/test_astar.cpp`) | done: `ex2_list` program (sequential vs std::set, sentinels, concurrent stress, structure check; ASan and TSan clean) and list / search / stress stages for every registered list, incl. concurrent add/remove/contains |
@@ -20,12 +20,12 @@ Where a row says "report", the text still has to be written into the PDF. Update
 | **S3** All shared-memory platforms you possess, at least as many as members (3) | Ryzen 5 6600H / WSL2 done; Windows native and Apple M3 open | **open, required** |
 | **S4** Other optimizations (optional) | incumbent pruning, CSR, largest SCC (done); windowed list + batching (done, labelled a variant); ALT landmarks: after a clean submission (group decision 21 Nov); contraction hierarchies: skipped, explain in report | partly done |
 | Deliverable: ONE zip = final PDF report + all Python/C++ source, to the website by 5 Dec 2026 | `tools/make_submission.py --report report.pdf --verify` | script ready, report open |
-| Report language: English | PDF written in English (`docs/REPORT.md` is the working draft) | open |
+| Report language | The spec does not state one; the group chooses (`docs/REPORT.md` and `REPORT_vi.md` are the working drafts) | open |
 | Group of 2-3 | 3 members | - |
 
 ## Things the report must say (honesty list)
 * Speed profile and its rush-hour curve are invented; 15-min buckets are a judgement call.
 * Windowed lists change the specified sorted list (short shared list + per-thread bags); parameters were tuned on the scored queries; report the common preset and the per-platform best.
-* Plain lists on the long vector queries are too slow to measure fully; the vector oracle covers bins 0-3 only.
+* Plain lists on the long vector queries are too slow to measure fully; the vector query set omits the 3 queries the oracle could not solve (ids 358, 402, 411).
 * Windowed ticket / std::mutex variants were implemented but dropped unmeasured; Windows-native and macOS paths are tested only where the table says so.
 * Thread counts above the physical cores are oversubscribed; FIFO locks collapse there (convoy).

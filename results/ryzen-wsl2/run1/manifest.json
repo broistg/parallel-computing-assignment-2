@@ -1228,6 +1228,225 @@
    "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 6 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_fine_ttas_T6_free_time_rho0_w100_s1.csv",
    "threads": 6,
    "pinned": false
+  },
+  "par_opt_std_mutex_T6_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 37.8,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_dist.csv --algo par --threads 6 --list opt_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T6_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10",
+   "threads": 6,
+   "pinned": true
+  },
+  "par_opt_ttas_T6_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 106.6,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 6 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T6_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10",
+   "threads": 6,
+   "pinned": true
+  },
+  "par_opt_ttas_T6_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 42.6,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_dist.csv --algo par --threads 6 --list opt_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T6_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10",
+   "threads": 6,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 228.8,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 1 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_opt_ttas_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 90.4,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_dist.csv --algo par --threads 2 --list opt_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 56.1,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_dist.csv --algo par --threads 2 --list opt_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_opt_ttas_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 165.9,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_dist.csv --algo par --threads 1 --list opt_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_ttas_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 465.6,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 1 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 144.9,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 2 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_opt_ttas_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 135.4,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 4 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 97.6,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 4 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 225.0,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 1 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T6_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 84.7,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 6 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T6_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10",
+   "threads": 6,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 81.6,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_dist.csv --algo par --threads 1 --list opt_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_ttas_T6_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 104.0,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 6 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T6_free_time_rho0_w100_s1.csv",
+   "threads": 6,
+   "pinned": false
+  },
+  "par_opt_ttas_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 141.4,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 4 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 102.8,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 4 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 146.9,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 2 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_opt_ttas_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 459.9,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 1 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_opt_ttas_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 225.6,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 2 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T6_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 90.5,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 6 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_std_mutex_T6_free_time_rho0_w100_s1.csv",
+   "threads": 6,
+   "pinned": false
+  },
+  "par_opt_ttas_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 259.4,
+   "rows": 4500,
+   "command": "/mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/build/bench --snapshot /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/data/snapshot_hcmc --profile /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/profile.csv --queries /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/queries.csv --golden /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/config/golden_time.csv --algo par --threads 2 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform ryzen-wsl2 --out /mnt/c/Users/Dat/Desktop/hoc BK pls/HK261/TTSS/BTL/BTL2/parallel-computing-assignment-2/results/ryzen-wsl2/run1/par_opt_ttas_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
   }
+ },
+ "binary": "bench build Nov 26 2026 00:26:30",
+ "presets": {
+  "_comment": "Windowed-list settings used by every grid unless a window sweep overrides them (docs/REPORT.md decision 31, TASKS A.22-A.23). Change only with a note in the report; a per-platform tuned best is reported separately.",
+  "scalar": {
+   "window_div": 4096,
+   "batch": 8,
+   "slack": -1,
+   "skip_empty": true
+  },
+  "vector": {
+   "window_div": 16384,
+   "batch": 12,
+   "slack": 64,
+   "skip_empty": true
+  }
+ },
+ "git_now": {
+  "commit": "f96b19c7463ff5e772780d43de10d7b8b7922b87",
+  "describe": "f96b19c-dirty",
+  "dirty": true
  }
 }

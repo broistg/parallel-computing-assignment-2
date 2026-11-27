@@ -12,7 +12,7 @@ include/lock.h   the Assignment-1 lock family (ttas / ticket); registry.h maps l
 ex2/             Section 2 standalone lists (fine-grained, optimistic; Strategy pattern) with its own test program and README
 src/             bench_main.cpp (scalar A*), bench_pareto.cpp (vector A*): one configuration per process -> CSV
 tests/           run_tests.sh and the C++ / Python tests   (see docs/TESTING.md)
-tools/           experiment.py (one command per machine), run_experiments.py (grids), analyze.py, analyze_window.py,
+tools/           experiment.py (one command per machine), run_experiments.py (grids), analyze.py,
                  oracle.py (independent exact reference), export_graph.py / snapshot_io.py (graph freeze), make_*.py, inspect_platform.py
 config/          profile.csv (speed profile), queries*.csv, golden_*.csv (+ .meta.json fingerprints), presets.json (window settings)
 data/snapshot_hcmc/   the frozen graph (nodes.csv, edges.csv, meta.json with sha256)

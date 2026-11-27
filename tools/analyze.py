@@ -18,6 +18,8 @@ the run manifest; .partial files, warm-up rows and smoke rows are ignored) and w
   summary.md       the main numbers of the above as readable tables.
   pareto_*.csv, pareto_summary.md   same for the vector (Pareto) runs in results/<platform>/pareto_run*/ (hypervolume ratio,
                    exact points found, front size, speedups); produced when such runs exist.
+  window_summary.md windowed-list sweeps and thread curves of results/<platform>/window and pareto_window (speedup vs the
+                   sequential heap of the same sweep, stalls, expansions, peak memory).
   fig_*.png        speedup vs threads, time breakdown, quality vs noise (needs matplotlib).
 
 Every number comes from the CSVs; nothing is typed in by hand. Medians are over repetitions (and passes); the IQR is the
@@ -214,6 +216,18 @@ def analyze(platform, rows, out_dir, make_figures):
                 cell = next((r for r in sp_rows if r[1] == lst and r[2] == t and r[3] == pinned and r[4] == "all"), None)
                 line.append("%s (%s)" % (cell[6], cell[11]) if cell else "")
             md.append(md_table(["threads"] + [str(t) for t in thr], [["speedup (eff.)"] + line]) + "\n")
+    if heap and main:
+        # peak resident memory of the whole process (graph included): compare lists, not absolute values
+        thr_m = sorted({meta[c]["threads"] for c in main if meta[c]["algo"] == "par"})
+        mem_rows = [["seq (heap, one thread)"] + ["%.0f" % (max(r["rss"] for r in by_config[heap]) / 1024.0)] * len(thr_m)]
+        for lst in sorted({meta[c]["list"] for c in main if meta[c]["algo"] == "par"}):
+            line = []
+            for t in thr_m:
+                cs = [c for c in main if meta[c]["algo"] == "par" and meta[c]["list"] == lst and meta[c]["threads"] == t and meta[c]["pinned"]]
+                line.append("%.0f" % (max(max(r["rss"] for r in by_config[c]) for c in cs) / 1024.0) if cs else "")
+            mem_rows.append([lst] + line)
+        md.append("## Peak memory, MB (pinned runs; whole process including the graph; heap = sequential)\n")
+        md.append(md_table(["list"] + [str(t) for t in thr_m], mem_rows) + "\n")
     sens = [r for r in q_rows if r[7] != 100 or r[6] != 0]
     if sens:
         # parallel rows: only the one (list, threads, pinning) that the grid varies over noise and inflation
@@ -401,12 +415,123 @@ def figures(platform, out_dir, stats, meta, main, heap, slist, bins, sp_rows, q_
         fig.savefig(os.path.join(out_dir, "fig_quality.png"), dpi=150); plt.close(fig)
 
 
+def window_load(dir_path):
+    """{config: {'rows': n, 'bad': n, 'batch': {bin: [ms per rep]}, 'expansions': per query list}}"""
+    done = None
+    man = os.path.join(dir_path, "manifest.json")
+    if os.path.exists(man):
+        done = {n for n, c in json.load(open(man))["configs"].items() if c["status"] == "done"}
+    out = {}
+    for path in sorted(glob.glob(os.path.join(dir_path, "*.csv"))):
+        name = os.path.basename(path)[:-4]
+        if done is not None and name not in done:
+            continue
+        per = defaultdict(lambda: defaultdict(int))
+        exp, rows, bad = [], 0, 0
+        rss = 0  # peak resident memory of the process, kB (largest over the rows of this configuration)
+        worst = 0.0  # slowest single query repetition / median of that query's repetitions (stall detector)
+        by_query = defaultdict(list)
+        with open(path) as f:
+            for r in csv.DictReader(f):
+                if r["warmup"] == "1" or r["smoke"] == "1":
+                    continue
+                rows += 1
+                if r["path_ok"] != "1":
+                    bad += 1
+                per[int(r["bin"])][int(r["rep"])] += int(r["search_ns"])
+                per["all"][int(r["rep"])] += int(r["search_ns"])
+                exp.append(int(r["expansions"]))
+                rss = max(rss, int(r.get("peak_rss_kb") or 0))
+                by_query[r["query_id"]].append(int(r["search_ns"]))
+        if rows:
+            stalls = sum(1 for v in by_query.values() for x in v if len(v) >= 3 and x > 2 * statistics.median(v) and x > 20e6)
+            out[name] = {"rows": rows, "bad": bad, "batch": {b: statistics.median(v / 1e6 for v in reps.values()) for b, reps in per.items()},
+                         "worst_rep": max(per["all"].values()) / 1e6, "stalls": stalls, "exp": statistics.mean(exp), "rss_mb": rss / 1024.0}
+    return out
+
+
+def window_describe(name):
+    m = re.match(r"(?:pareto_)?(seq|par)(?:_(.+?)_T(\d+)_(pin|free)(?:_wd(\d+)_wb(\d+)(?:_sl(\d+))?(_se)?)?)?_(?:time|dist|vector)_", name)
+    if not m:
+        return name, 0, "", "", ""
+    algo, lst, threads, pin, wd, wb, sl, se = m.groups()
+    if algo == "seq":
+        return "seq (heap)", 1, "", "", ""
+    return lst, int(threads), wd or "", wb or "", ("" if wd is None else (sl if sl is not None else "off") + (" +skip" if se else ""))
+
+
+def window_table(title, data, lines):
+    if not data:
+        lines.append("## %s\n\nno finished configurations found.\n" % title)
+        return
+    seq = next((v for n, v in data.items() if window_describe(n)[0] == "seq (heap)"), None)
+    bins = sorted(b for b in next(iter(data.values()))["batch"] if b != "all") + ["all"]
+    lines.append("## %s\n" % title)
+    lines.append("Batch time in ms (median over repetitions); in brackets the speedup vs the sequential heap of this sweep. "
+                 "`stalls` = query repetitions that took more than twice that query's median (and over 20 ms); `worst rep` = slowest repetition of the whole batch, ms; `peak MB` = peak resident memory of the whole process (graph included).\n")
+    lines.append("| list | threads | window div | batch | slack | " + " | ".join("bin %s" % b for b in bins) + " | worst rep | stalls | exp/query | peak MB | path fails |")
+    lines.append("|" + "---|" * (len(bins) + 10))
+    def key(item):
+        lst, t, wd, wb, sl = window_describe(item[0])
+        return (lst != "seq (heap)", lst, t, int(wd or 0), int(wb or 0), -1 if sl in ("", "off") or sl.startswith("off") else int(sl.split()[0]), "+skip" in sl)
+    for name, v in sorted(data.items(), key=key):
+        lst, t, wd, wb, sl = window_describe(name)
+        cells = []
+        for b in bins:
+            ms = v["batch"].get(b)
+            ref = seq["batch"].get(b) if seq else None
+            cells.append("" if ms is None else ("%.1f (%.2f)" % (ms, ref / ms) if ref else "%.1f" % ms))
+        lines.append("| %s | %d | %s | %s | %s | %s | %.0f | %d | %.0f | %.0f | %d |" % (lst, t, wd, wb, sl, " | ".join(cells), v["worst_rep"], v["stalls"], v["exp"], v["rss_mb"], v["bad"]))
+    lines.append("")
+
+
+def window_unfinished(dir_path):
+    """[(config, status, note)] of configurations that did not finish (timeout, failed, incorrect), from the manifest."""
+    man = os.path.join(dir_path, "manifest.json")
+    if not os.path.exists(man):
+        return []
+    return sorted((n, c["status"], c.get("note", "")) for n, c in json.load(open(man))["configs"].items() if c["status"] != "done")
+
+
+def analyze_window(platform, results):
+    """Windowed-list sweeps and thread curves (results/<platform>/window, pareto_window) -> analysis/window_summary.md."""
+    base = os.path.join(results, platform)
+    lines = ["# %s: windowed-list sweeps (generated by tools/analyze.py; do not edit)\n" % platform]
+    found = False
+    for sub, title in (("window", "Scalar search (time objective, exact heuristic)"), ("pareto_window", "Vector (Pareto) search")):
+        if os.path.isdir(os.path.join(base, sub)):
+            found = True
+            window_table(title, window_load(os.path.join(base, sub)), lines)
+            bad = window_unfinished(os.path.join(base, sub))
+            if bad:
+                lines.append("Configurations that did NOT finish (they are missing from the table above; a timeout means the configuration was "
+                             "slower than the limit, not that it is wrong):\n")
+                lines.append("| config | status | note |\n|---|---|---|")
+                lines.extend("| %s | %s | %s |" % (n, st, note.replace("|", "/")) for n, st, note in bad)
+                lines.append("")
+    if not found:
+        return False
+    out_dir = os.path.join(base, "analysis")
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, "window_summary.md")
+    open(path, "w").write("\n".join(lines))
+    print("%s: windowed-list sweeps -> %s" % (platform, path))
+    return True
+
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--platform", action="append", required=True)
     ap.add_argument("--results", default=os.path.join(ROOT, "results"))
     ap.add_argument("--no-figures", action="store_true")
+    ap.add_argument("--window-only", action="store_true", help="only write window_summary.md (fast; reads results/<platform>/window and pareto_window)")
     a = ap.parse_args()
+    if a.window_only:
+        for p in a.platform:
+            if not analyze_window(p, a.results):
+                sys.exit("no window/ or pareto_window/ directory under %s" % os.path.join(a.results, p))
+        return
     for p in a.platform:
         out_dir = os.path.join(a.results, p, "analysis")
         if glob.glob(os.path.join(a.results, p, "run*")):
@@ -424,11 +549,7 @@ def main():
         if plain:
             n = analyze_pareto(p, plain, os.path.join(out_dir, "pareto_plain"))
             print("%s: %d plain-list vector configurations, %d rows -> %s" % (p, n, len(plain), os.path.join(out_dir, "pareto_plain")))
-        # windowed-list sweeps and thread curves (results/<platform>/window, pareto_window) are summarised by tools/analyze_window.py
-        if os.path.isdir(os.path.join(a.results, p, "window")) or os.path.isdir(os.path.join(a.results, p, "pareto_window")):
-            import subprocess
-            subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "analyze_window.py"), "--platform", p,
-                            "--results", a.results], check=False)
+        analyze_window(p, a.results)
 
 
 if __name__ == "__main__":

@@ -38,7 +38,7 @@ public:
     }
 
     bool add(int id, const std::string& name) override {
-        if (id <= kKeyMin || id >= kKeyMax) return false;  // sentinel keys are reserved
+        if (id <= kKeyMin || id >= kKeyMax) return false;  // khóa lính canh được dành riêng, không cho thêm
         std::unique_lock<std::mutex> pred_lock(head->mutexlock);    // tương đương head.lock()
         FineGrainedNode* pred = head;
         FineGrainedNode* curr = head->next;
@@ -61,7 +61,7 @@ public:
     }
 
     bool remove(int id) override {
-        if (id <= kKeyMin || id >= kKeyMax) return false;  // never unlink a sentinel
+        if (id <= kKeyMin || id >= kKeyMax) return false;  // không bao giờ gỡ lính canh
         std::unique_lock<std::mutex> pred_lock(head->mutexlock);
         FineGrainedNode* pred = head;
         FineGrainedNode* curr = pred->next;

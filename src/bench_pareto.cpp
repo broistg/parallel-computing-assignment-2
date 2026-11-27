@@ -123,6 +123,24 @@ int main(int argc, char** argv) try {
             "expansions,dead_pops,pruned,labels_created,labels_evicted,dominated_discards,pushes,idle_spins,list_adds,list_add_dups,"
             "list_pops,list_pop_empty,list_add_ns,list_add_samples,list_pop_ns,list_pop_samples,peak_rss_kb\n");
 
+    if (algorithm == "par" && heuristic_config.is_exact()) {
+        // Queries without a golden front: the reference is the sequential C++ front (exact heuristic, so both must equal the exact front).
+        // Computed once, outside the timed repetitions; the columns golden_front_size / exact_points_found / hv_ratio_ppm then compare against it.
+        int derived = 0;
+        for (const Query& query : queries) {
+            if (golden_front.count(query.id)) continue;
+            Problem reference_problem{&graph, &profile, Objective::Time, query.source, query.target, query.departure_ms, heuristic_config};
+            ParetoResult reference = seq_pareto_astar(reference_problem, seq_workspace);
+            if (reference.overflow || !reference.path_ok) continue;  // no trustworthy reference: leave the columns at -1
+            std::vector<Point> front;
+            for (const FrontPoint& point : reference.front) front.push_back({point.time_ms, point.dist_dm});
+            std::sort(front.begin(), front.end());
+            golden_front[query.id] = front;
+            ++derived;
+        }
+        if (derived) std::fprintf(stderr, "note: %d queries have no golden front; the sequential C++ front is the reference for them\n", derived);
+    }
+
     for (int repetition = 0; repetition <= repetitions; ++repetition) {  // repetition 0 = warm-up
         for (const Query& query : queries) {
             Problem problem{&graph, &profile, Objective::Time, query.source, query.target, query.departure_ms, heuristic_config};

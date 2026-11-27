@@ -1,10 +1,10 @@
 # Submission refactor plan (agreed 20 Nov 2026) — PARTLY EXECUTED 21 Nov (see the status block); the rest waits for the freeze
 
-Deliverable (spec): ONE zip = final PDF report + all relevant Python/C++ source, to the course website by **5 Dec 2026**. At least as many shared-memory platforms as group members (3). Report language: English.
+Deliverable (spec): ONE zip = final PDF report + all relevant Python/C++ source, to the course website by **5 Dec 2026**. At least as many shared-memory platforms as group members (3).
 
 ## Status 21 Nov (decisions of 21 Nov: ALT only after a clean submission; one machine runs native Windows; lock variants skipped; Section-2 lists merged later)
 Done (changes_30): presets file; guards (unknown options, `--version`, stale binary, manifest with commit and presets); `tools/experiment.py` (one command per machine, also native Windows); `tools/make_submission.py` (zip without internal documents, generated DESIGN.md / TESTING.md, `--verify`); README rewritten; `docs/RUNBOOK.md` (teammates); `docs/COMPLIANCE.md` (spec checklist); unmeasured windowed lock variants removed from registry and tests; `pareto-plain` grid; `analyze.py` also runs `analyze_window.py` and analyses `pareto_plain`.
-Not done on purpose (after the freeze): merging `analyze_window.py` into `analyze.py`, the report-figure script, deleting internal files from the repository (the zip script leaves them out instead), the direct "front equals sequential front" check in `bench_pareto`, `config/experiment.sh` (replaced by `tools/experiment.py`), tagging the final commit.
+Done 26 Nov (approved): merging `analyze_window.py` into `analyze.py`, the report-figure script, the direct "front equals sequential front" check in `bench_pareto`. Not done on purpose (after the freeze): deleting internal files from the repository (the zip script leaves them out instead), `config/experiment.sh` (replaced by `tools/experiment.py`), tagging the final commit.
 
 **26 Nov: Section-2 lists merged (decision 33).** `ex2/` is part of the zip (`make_submission.py` includes it), is built by make / CMake and run by `run_tests.sh`; the `optimistic` stage of `tools/experiment.py` measures the optimistic list. Remaining before the freeze: run A.25 and decide whether the optimistic results go into the report.
 
@@ -30,7 +30,7 @@ Not done on purpose (after the freeze): merging `analyze_window.py` into `analyz
 
 ## Code changes (no algorithm change)
 * Delete from the zip: `tools/summarize.py`, `tools/check_osm_access.py`, `docs/TASKS.md`, `docs/REPORT*.md`, `docs/PARAMETERS.md`, this file (internal group documents).
-* Merge `tools/analyze_window.py` into `tools/analyze.py`; add one script that makes the report figures (speedup vs threads, window sweep table).
+* DONE 26 Nov: `analyze_window.py` merged into `analyze.py` (`--window-only` for the quick summary); report figures and tables: `tools/make_report_figures.py`.
 * Registry lists exactly what the report measures (+ group Section-2 lists); sandbox-only bits (`LOCK_INC`) and stale comments removed.
 * Docs: `README.md` (build, test, run, reproduce, layout), `DESIGN.md` (Specs 1-3 + decisions), `TESTING.md` (trust ladder, mutation checks, TSan).
 * `config/experiment.sh`: one command per platform = build, tests, platform inspection, grids, analysis.

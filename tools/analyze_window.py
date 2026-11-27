@@ -34,6 +34,7 @@ def load(dir_path):
             continue
         per = defaultdict(lambda: defaultdict(int))
         exp, rows, bad = [], 0, 0
+        rss = 0  # peak resident memory of the process, kB (largest over the rows of this configuration)
         worst = 0.0  # slowest single query repetition / median of that query's repetitions (stall detector)
         by_query = defaultdict(list)
         with open(path) as f:
@@ -46,11 +47,12 @@ def load(dir_path):
                 per[int(r["bin"])][int(r["rep"])] += int(r["search_ns"])
                 per["all"][int(r["rep"])] += int(r["search_ns"])
                 exp.append(int(r["expansions"]))
+                rss = max(rss, int(r.get("peak_rss_kb") or 0))
                 by_query[r["query_id"]].append(int(r["search_ns"]))
         if rows:
             stalls = sum(1 for v in by_query.values() for x in v if len(v) >= 3 and x > 2 * statistics.median(v) and x > 20e6)
             out[name] = {"rows": rows, "bad": bad, "batch": {b: statistics.median(v / 1e6 for v in reps.values()) for b, reps in per.items()},
-                         "worst_rep": max(per["all"].values()) / 1e6, "stalls": stalls, "exp": statistics.mean(exp)}
+                         "worst_rep": max(per["all"].values()) / 1e6, "stalls": stalls, "exp": statistics.mean(exp), "rss_mb": rss / 1024.0}
     return out
 
 
@@ -72,9 +74,9 @@ def table(title, data, lines):
     bins = sorted(b for b in next(iter(data.values()))["batch"] if b != "all") + ["all"]
     lines.append("## %s\n" % title)
     lines.append("Batch time in ms (median over repetitions); in brackets the speedup vs the sequential heap of this sweep. "
-                 "`stalls` = query repetitions that took more than twice that query's median (and over 20 ms); `worst rep` = slowest repetition of the whole batch, ms.\n")
-    lines.append("| list | threads | window div | batch | slack | " + " | ".join("bin %s" % b for b in bins) + " | worst rep | stalls | exp/query | path fails |")
-    lines.append("|" + "---|" * (len(bins) + 9))
+                 "`stalls` = query repetitions that took more than twice that query's median (and over 20 ms); `worst rep` = slowest repetition of the whole batch, ms; `peak MB` = peak resident memory of the whole process (graph included).\n")
+    lines.append("| list | threads | window div | batch | slack | " + " | ".join("bin %s" % b for b in bins) + " | worst rep | stalls | exp/query | peak MB | path fails |")
+    lines.append("|" + "---|" * (len(bins) + 10))
     def key(item):
         lst, t, wd, wb, sl = describe(item[0])
         return (lst != "seq (heap)", lst, t, int(wd or 0), int(wb or 0), -1 if sl in ("", "off") or sl.startswith("off") else int(sl.split()[0]), "+skip" in sl)
@@ -85,7 +87,7 @@ def table(title, data, lines):
             ms = v["batch"].get(b)
             ref = seq["batch"].get(b) if seq else None
             cells.append("" if ms is None else ("%.1f (%.2f)" % (ms, ref / ms) if ref else "%.1f" % ms))
-        lines.append("| %s | %d | %s | %s | %s | %s | %.0f | %d | %.0f | %d |" % (lst, t, wd, wb, sl, " | ".join(cells), v["worst_rep"], v["stalls"], v["exp"], v["bad"]))
+        lines.append("| %s | %d | %s | %s | %s | %s | %.0f | %d | %.0f | %.0f | %d |" % (lst, t, wd, wb, sl, " | ".join(cells), v["worst_rep"], v["stalls"], v["exp"], v["rss_mb"], v["bad"]))
     lines.append("")
 
 

@@ -1,8 +1,8 @@
-// Standalone test program of the Section-2 lists (fine-grained and optimistic), Strategy design pattern.
-//   ./ex2_list fine | optimistic | both     (no argument: ask on stdin, as in the first version)
-// Checks: sequential behaviour against std::set, concurrent warm-up, rejection of the sentinel keys, and a high-contention stress
-// test (mixed add / remove / contains) after which the structure (sorted, no cycle, sentinels intact) and the element count are verified.
-// Exit code 0 = all passed.
+// Chương trình kiểm thử độc lập của các list Section 2 (fine-grained và optimistic), Strategy design pattern.
+//   ./ex2_list fine | optimistic | both     (không có tham số: hỏi lựa chọn qua stdin như bản đầu)
+// Các kiểm tra: hành vi tuần tự so với std::set, warm-up đồng thời, từ chối khóa lính canh, và stress test tranh chấp cao
+// (add / remove / contains lẫn lộn); sau đó kiểm tra cấu trúc (có thứ tự, không vòng, lính canh còn nguyên) và số phần tử.
+// Mã thoát 0 = mọi kiểm tra đều đạt.
 #include "ConcurrentList.h"
 #include "strategies/FineGrained.h"
 #include "strategies/Optimistic.h"
@@ -33,7 +33,7 @@ static void run_checks(int choice, const char* label) {
     std::cout << "=== " << label << " ===\n";
     const int before = failures;
 
-    // 1. sequential behaviour against std::set
+    // 1. Hành vi tuần tự so với std::set
     {
         auto list = make_list(choice);
         std::set<int> ref;
@@ -41,25 +41,25 @@ static void run_checks(int choice, const char* label) {
         for (int i = 0; i < 20000; ++i) {
             int id = int(rng() % 100) + 1;
             switch (rng() % 3) {
-                case 0: CHECK(list->add(id, "u") == ref.insert(id).second, "sequential add " << id); break;
-                case 1: CHECK(list->remove(id) == (ref.erase(id) > 0), "sequential remove " << id); break;
-                default: CHECK(list->contains(id) == (ref.count(id) > 0), "sequential contains " << id); break;
+                case 0: CHECK(list->add(id, "u") == ref.insert(id).second, "add tuan tu " << id); break;
+                case 1: CHECK(list->remove(id) == (ref.erase(id) > 0), "remove tuan tu " << id); break;
+                default: CHECK(list->contains(id) == (ref.count(id) > 0), "contains tuan tu " << id); break;
             }
         }
-        CHECK(list->validateStructure(int(ref.size())), "sequential structure");
+        CHECK(list->validateStructure(int(ref.size())), "cau truc sau kiem tra tuan tu");
     }
 
-    // 2. sentinel keys are rejected and the sentinels survive
+    // 2. Khóa lính canh bị từ chối và lính canh còn nguyên
     {
         auto list = make_list(choice);
-        CHECK(!list->add(kKeyMin, "x") && !list->add(kKeyMax, "x"), "sentinel keys must not be added");
-        CHECK(!list->remove(kKeyMin) && !list->remove(kKeyMax), "sentinel keys must not be removed");
-        CHECK(!list->contains(kKeyMin) && !list->contains(kKeyMax), "sentinel keys are not elements");
-        CHECK(list->add(0, "zero") && list->add(50, "fifty") && list->contains(50) && list->remove(50), "keys 0 and 50 are ordinary keys");
-        CHECK(list->validateStructure(1), "structure after sentinel checks");
+        CHECK(!list->add(kKeyMin, "x") && !list->add(kKeyMax, "x"), "khong duoc them khoa linh canh");
+        CHECK(!list->remove(kKeyMin) && !list->remove(kKeyMax), "khong duoc xoa khoa linh canh");
+        CHECK(!list->contains(kKeyMin) && !list->contains(kKeyMax), "khoa linh canh khong phai phan tu");
+        CHECK(list->add(0, "zero") && list->add(50, "fifty") && list->contains(50) && list->remove(50), "khoa 0 va 50 la khoa binh thuong");
+        CHECK(list->validateStructure(1), "cau truc sau kiem tra linh canh");
     }
 
-    // 3. concurrent warm-up: 4 threads add ids 1..40
+    // 3. Warm-up đồng thời: 4 luồng thêm id 1..40
     {
         auto list = make_list(choice);
         std::vector<std::thread> threads;
@@ -73,12 +73,12 @@ static void run_checks(int choice, const char* label) {
         for (auto& th : threads) th.join();
         CHECK(list->contains(15), "contains 15");
         CHECK(list->remove(15), "remove 15");
-        CHECK(!list->contains(15), "15 is gone");
-        CHECK(list->add(15, "User_15"), "add 15 again");
-        CHECK(list->validateStructure(40), "warm-up structure (40 elements)");
+        CHECK(!list->contains(15), "15 da bi xoa");
+        CHECK(list->add(15, "User_15"), "them lai 15");
+        CHECK(list->validateStructure(40), "cau truc sau warm-up (40 phan tu)");
     }
 
-    // 4. high-contention stress: 8 threads, mixed operations on keys 1..50
+    // 4. Stress tranh chấp cao: 8 luồng, thao tác lẫn lộn trên khóa 1..50
     {
         auto list = make_list(choice);
         const int kThreads = 8, kOps = 25000;
@@ -103,7 +103,7 @@ static void run_checks(int choice, const char* label) {
             });
         for (auto& th : threads) th.join();
         CHECK(list->validateStructure(net_elements.load()),
-              "stress structure after " << kThreads * kOps << " operations (expected " << net_elements.load() << " elements)");
+              "cau truc sau stress, " << kThreads * kOps << " thao tac (ky vong " << net_elements.load() << " phan tu)");
     }
     std::cout << (failures == before ? "[PASS] " : "[FAIL] ") << label << "\n";
 }
@@ -114,14 +114,14 @@ int main(int argc, char* argv[]) {
         mode = argv[1];
     } else {
         int choice = 0;
-        std::cout << "Choose a strategy:\n1. Fine-grained synchronization\n2. Optimistic synchronization\nEnter 1 or 2: ";
+        std::cout << "CHON CHIEN THUAT CONCURRENT LINKED LIST\n1. Fine-Grained Synchronization\n2. Optimistic Synchronization\nNhap lua chon (1 hoac 2): ";
         std::cin >> choice;
         mode = choice == 1 ? "fine" : choice == 2 ? "optimistic" : "";
     }
     if (mode == "fine" || mode == "both") run_checks(1, "Fine-grained");
     if (mode == "optimistic" || mode == "both") run_checks(2, "Optimistic");
     if (mode != "fine" && mode != "optimistic" && mode != "both") {
-        std::cout << "usage: ex2_list fine | optimistic | both\n";
+        std::cout << "cach dung: ex2_list fine | optimistic | both\n";
         return 2;
     }
     std::cout << (failures == 0 ? "ALL EX2 CHECKS PASSED\n" : "EX2 CHECKS FAILED\n");

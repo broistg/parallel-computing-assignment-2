@@ -9,7 +9,7 @@
 // Memory: a thread walking without locks can be standing on a node that another thread unlinks, so unlinked nodes are NOT freed
 // immediately (the textbook version leaves this to a garbage collector).  They are pushed onto a retired list and freed when the
 // list is destroyed.  Every search creates its list per query, so the extra memory is bounded by the number of removals in one
-// query (about 56 bytes per removed item) and is released at the end of the query.  Every `next` pointer is a std::atomic: the
+// query (72 bytes per removed item with std::mutex, 384 with the cache-line padded TTAS lock) and is released at the end of the query.  Every `next` pointer is a std::atomic: the
 // unlocked walk reads it while writers (holding the node's lock) change it.
 #include <atomic>
 

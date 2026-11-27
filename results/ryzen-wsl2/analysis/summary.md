@@ -81,6 +81,44 @@ Batch time = sum of search times of the queries of one bin in one repetition; me
 |---|---|---|---|---|---|
 | speedup (eff.) | 0.082 (1.000) | 0.127 (0.777) | 0.175 (0.537) | 0.186 (0.379) |  |
 
+## Parallel opt_std_mutex, unpinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.069 (1.000) | 0.109 (0.786) | 0.159 (0.575) | 0.182 (0.439) |  |
+
+## Parallel opt_std_mutex, pinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.069 (1.000) | 0.110 (0.792) | 0.167 (0.604) | 0.196 (0.472) |  |
+
+## Parallel opt_ttas, unpinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.034 (1.000) | 0.072 (1.065) | 0.127 (0.933) | 0.174 (0.852) |  |
+
+## Parallel opt_ttas, pinned: speedup vs sequential heap, bin = all (efficiency vs T1 in brackets)
+
+| threads | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| speedup (eff.) | 0.033 (1.000) | 0.062 (0.930) | 0.121 (0.906) | 0.168 (0.843) |  |
+
+## Peak memory, MB (pinned runs; whole process including the graph; heap = sequential)
+
+| list | 1 | 2 | 4 | 6 | 12 |
+|---|---|---|---|---|---|
+| seq (heap, one thread) | 80 | 80 | 80 | 80 | 80 |
+| coarse_std_mutex | 80 | 80 | 80 | 80 | 80 |
+| coarse_ticket | 80 | 80 | 80 | 80 | 80 |
+| coarse_ttas | 80 | 80 | 80 | 80 | 80 |
+| fine_std_mutex | 80 | 80 | 80 | 80 |  |
+| fine_ticket | 80 | 80 | 80 | 80 |  |
+| fine_ttas | 80 | 80 | 80 | 80 |  |
+| opt_std_mutex | 80 | 80 | 80 | 80 |  |
+| opt_ttas | 114 | 114 | 116 | 118 |  |
+
 ## Heuristic sensitivity (time objective; mean over noise seeds; parallel = ('coarse_ttas', 6, 1))
 
 | algo | noise permille | inflation % | configs | mean gap ppm | non-optimal % | expansions/query |
