@@ -14,11 +14,7 @@
 #include "astar/bench_util.h"
 #include "astar/registry.h"  // open lists (and, through it, the A1 lock family: copy the project's lock.h into include/)
 
-#if defined(_WIN32)
-#include <psapi.h>
-#else
 #include <sys/resource.h>
-#endif
 
 using namespace astar;
 

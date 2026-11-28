@@ -89,7 +89,7 @@ def generated_docs():
               + demote(read("docs/SPEC_1_objectives.md")) + "\n\n" + demote(read("docs/SPEC_2_parallel_contract.md")) + "\n\n"
               + demote(read("docs/INTERFACES.md")) + "\n")
     testing = ("# Testing: trust ladder, golden files, mutation checks\n\n"
-               "Run everything with `./tests/run_tests.sh` (POSIX), plus `make test-tsan` on Linux. Native Windows: see README.md.\n\n"
+               "Run everything with `./tests/run_tests.sh` (POSIX), plus `make test-tsan` on Linux.\n\n"
                + demote(read("docs/SPEC_3_reference.md")) + "\n")
     return {"docs/DESIGN.md": design, "docs/TESTING.md": testing}
 
@@ -124,16 +124,13 @@ def verify(out):
                 sys.exit("verify: internal file %s is in the zip" % forbidden)
         if not os.path.exists(os.path.join(tmp, "include", "lock.h")):
             print("verify: include/lock.h is not in the zip (copy the Assignment-1 file into the checkout before building the zip)")
-        if os.name != "nt":
-            extra = ["LOCK_INC=" + os.environ["LOCK_INC"]] if os.environ.get("LOCK_INC") and not os.path.exists(os.path.join(tmp, "include", "lock.h")) else []
-            code = subprocess.call(["make", "all"] + extra, cwd=tmp)
-            if code:
-                sys.exit("verify: make failed in the unpacked zip")
-            if subprocess.call([sys.executable, "tools/make_profile.py", "config/profile.csv"], cwd=tmp, stdout=subprocess.DEVNULL):
-                sys.exit("verify: make_profile failed")
-            print("verify: unpacked zip builds with make")
-        else:
-            print("verify: on native Windows build the unpacked zip with CMake by hand")
+        extra = ["LOCK_INC=" + os.environ["LOCK_INC"]] if os.environ.get("LOCK_INC") and not os.path.exists(os.path.join(tmp, "include", "lock.h")) else []
+        code = subprocess.call(["make", "all"] + extra, cwd=tmp)
+        if code:
+            sys.exit("verify: make failed in the unpacked zip")
+        if subprocess.call([sys.executable, "tools/make_profile.py", "config/profile.csv"], cwd=tmp, stdout=subprocess.DEVNULL):
+            sys.exit("verify: make_profile failed")
+        print("verify: unpacked zip builds with make")
 
 
 def main():

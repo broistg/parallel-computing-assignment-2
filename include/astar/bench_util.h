@@ -14,27 +14,17 @@
 #include "graph.h"
 #include "openlist.h"
 
-#if defined(_WIN32)
-#include <psapi.h>
-#else
 #include <sys/resource.h>
-#endif
 
 namespace astar {
 
 inline long peak_memory_kb() {
-#if defined(_WIN32)
-    PROCESS_MEMORY_COUNTERS counters;
-    GetProcessMemoryInfo(GetCurrentProcess(), &counters, sizeof counters);
-    return long(counters.PeakWorkingSetSize / 1024);
-#else
     struct rusage usage;
     getrusage(RUSAGE_SELF, &usage);
 #if defined(__APPLE__)
     return long(usage.ru_maxrss / 1024);  // bytes on macOS
 #else
     return long(usage.ru_maxrss);  // KB on Linux
-#endif
 #endif
 }
 

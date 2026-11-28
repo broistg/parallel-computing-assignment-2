@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """One command per machine: build, test, record the platform, run the measurement stages, analyse.
-Standard library only; works on Linux, WSL2, macOS and native Windows (cmd / PowerShell).
+Standard library only; works on Linux, WSL2 and macOS (native Windows is not supported).
 
     python3 tools/experiment.py --platform <short-id> --list              # show the stages
     python3 tools/experiment.py --platform <short-id> --stages setup,tests,inspect,smoke
@@ -8,8 +8,8 @@ Standard library only; works on Linux, WSL2, macOS and native Windows (cmd / Pow
     python3 tools/experiment.py --platform <short-id>                     # all stages, in order (several hours)
 
 Stages (each one is resumable; run the same command again after an interruption):
-  setup         lock.h present? build (make, or CMake on native Windows)
-  tests         tests/run_tests.sh (POSIX) / the two C++ test programs (native Windows)
+  setup         lock.h present? build (make)
+  tests         tests/run_tests.sh
   inspect       results/platform_<id>.json (hardware, thread counts, pinning)
   smoke         one-minute toolchain check, rows tagged smoke
   main          scalar study: sequential heap and sorted list, plain coarse lists x threads x pinned/unpinned, distance objective,
@@ -33,7 +33,6 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PY = sys.executable
-IS_WINDOWS = os.name == "nt"
 STAGES = ["setup", "tests", "inspect", "smoke", "main", "fine", "optimistic", "vector", "vector-plain", "window-sweep", "window-threads", "analyze"]
 
 
@@ -72,30 +71,11 @@ def stage_setup(a):
     for need in ("data/snapshot_hcmc", "config/queries.csv", "config/golden_time.csv", "config/golden_dist.csv"):
         if not os.path.exists(os.path.join(ROOT, need)):
             print("WARNING: %s is missing (pull the repository; nobody regenerates it)" % need)
-    if IS_WINDOWS:
-        run(["cmake", "-B", "build", "-S", "."], "configure (CMake)")
-        run(["cmake", "--build", "build", "--config", "Release"], "build (CMake, Release)")
-    else:
-        run(["make", "all"], "build (make)")
+    run(["make", "all"], "build (make)")
 
 
 def stage_tests(a):
-    if not IS_WINDOWS:
-        run(["bash", os.path.join("tests", "run_tests.sh")], "tests/run_tests.sh (must end with ALL TESTS PASSED)")
-        return
-    # Native Windows: the bash script cannot run; the C++ test programs and the Python data tools can.
-    run([PY, os.path.join("tools", "make_profile.py"), os.path.join("config", "profile.csv")], "speed profile")
-    for name, rows, seed in (("snapshot_synth_small", 40, 1), ("snapshot_synth_large", 220, 2)):
-        if not os.path.isdir(os.path.join(ROOT, "data", name)):
-            run([PY, os.path.join("tools", "synth_graph.py"), "--rows", str(rows), "--cols", str(rows), "--seed", str(seed), "--out", os.path.join("data", name)],
-                "synthetic graph " + name)
-    for exe in ("test_astar", "test_pareto"):
-        path = next((p for p in (os.path.join("build", "Release", exe + ".exe"), os.path.join("build", exe + ".exe")) if os.path.exists(os.path.join(ROOT, p))), None)
-        if not path:
-            sys.exit("%s.exe not found: run the 'setup' stage" % exe)
-        run([path, os.path.join("data", "snapshot_synth_small"), os.path.join("config", "profile.csv"), os.path.join("data", "snapshot_synth_large")],
-            exe + " (native Windows; the golden-file layers of run_tests.sh are not run here)")
-    print("\nNative Windows: C++ test programs passed. Layers L6 (C++ vs Python golden files) are covered by the smoke and main stages.")
+    run(["bash", os.path.join("tests", "run_tests.sh")], "tests/run_tests.sh (must end with ALL TESTS PASSED)")
 
 
 def stage_inspect(a):

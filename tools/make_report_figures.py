@@ -10,7 +10,7 @@ pareto_window (raw CSVs), and the optional list-profile files. Writes into <out>
   fig_window_sweep.pdf      windowed list, divisor x batch heat map at the largest thread count of the sweep
   fig_memory.pdf            peak memory of the whole process by list
   fig_insert_profile.pdf    where inserts land in the list (eighths), if the profile files exist
-  tab_plain.tex, tab_window_threads.tex, tab_sensitivity.tex, tab_vector_quality.tex, tab_latency.tex, tab_memory.tex   (\\input into the report)
+  tab_plain.tex, tab_window_threads.tex, tab_sensitivity.tex, fig_sensitivity.pdf, tab_vector_quality.tex, tab_latency.tex, tab_memory.tex   (\\input into the report)
 Run it again after the final runs: the report then picks up the new numbers. A figure or table whose data is missing is skipped
 with a message.
 """
@@ -220,6 +220,34 @@ def sensitivity(base, out):
     print("wrote", os.path.join(out, "tab_sensitivity.tex"))
 
 
+def sensitivity_figure(base, out):
+    """Quality/work trade-off: each point is one (noise, inflation) setting, sequential search, time objective."""
+    rows = read_csv(os.path.join(base, "analysis", "quality.csv"))
+    rows = [r for r in rows if r.get("obj", "time") == "time" and r["algo"] == "seq"]
+    if not rows:
+        return
+    groups = defaultdict(list)
+    for r in rows:
+        groups[(int(r["rho"]), int(r["w"]))].append(r)
+    fig, ax = plt.subplots(figsize=(6.2, 3.8))
+    colours = {0: "#1b6ca8", 100: "#4c9f70", 250: "#d98e04", 500: "#b5352b"}
+    marks = {100: "o", 120: "s", 150: "^"}
+    for (rho, w), rs in sorted(groups.items()):
+        x = statistics.mean(float(r["expansions_per_query"]) for r in rs)
+        y = statistics.mean(float(r["gap_mean_ppm"]) for r in rs) / 1e4  # ppm -> percent
+        ax.scatter(x, max(y, 1e-4), s=48, c=colours.get(rho, "grey"), marker=marks.get(w, "o"), zorder=3)
+    ax.set_yscale("symlog", linthresh=1e-2)
+    ax.set_ylim(bottom=0)
+    ax.set_xlabel("nút mở rộng mỗi truy vấn")
+    ax.set_ylabel("sai khác trung bình so với tối ưu (%)")
+    ax.grid(alpha=0.3)
+    from matplotlib.lines import Line2D
+    handles = [Line2D([], [], marker="o", ls="", c=c, label="nhiễu %d\u2030" % r) for r, c in colours.items()]
+    handles += [Line2D([], [], marker=m, ls="", c="grey", label="phóng đại %d%%" % w) for w, m in marks.items()]
+    ax.legend(handles=handles, fontsize=7, ncol=2, loc="lower left")
+    save(fig, out, "fig_sensitivity.pdf")
+
+
 def vector_quality(base, out):
     """Hypervolume ratio against the exact fronts, by heuristic setting (seq and parallel win_coarse_ttas at 6 threads)."""
     rows = read_csv(os.path.join(base, "analysis", "pareto_quality.csv"))
@@ -314,7 +342,7 @@ def main():
     base = os.path.join(a.results, a.platform)
     out = os.path.join(a.out, a.platform)
     os.makedirs(out, exist_ok=True)
-    for step in (plain_speedup, window_threads, window_sweep, memory, sensitivity, vector_quality, latency, insert_profile):
+    for step in (plain_speedup, window_threads, window_sweep, memory, sensitivity, sensitivity_figure, vector_quality, latency, insert_profile):
         step(base, out)
 
 

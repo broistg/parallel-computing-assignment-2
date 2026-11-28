@@ -21,14 +21,13 @@ docs/            DESIGN.md (objectives, parallel contract, interfaces), TESTING.
 ```
 
 ## Build
-Needs a C++17 compiler (g++ / clang++ / MSVC), Python 3, and `include/lock.h` (Assignment-1 file).
+Needs a C++17 compiler (g++ / clang++), Python 3, and `include/lock.h` (Assignment-1 file).
 * Linux, WSL2, macOS: `make` (binaries in `build/`).
-* Native Windows: `cmake -B build -S . && cmake --build build --config Release`.
+* Alternative on the same systems: `cmake -B build -S . && cmake --build build`.  (Native Windows is not supported.)
 
 ## Test
 `./tests/run_tests.sh` must end with `ALL TESTS PASSED` (data tools, oracle vs brute force, list and search tests, C++ against the
-Python golden files, vector search). Linux only, slow: `make test-tsan` (ThreadSanitizer). Native Windows: the C++ test programs
-are run by `python3 tools/experiment.py --platform <id> --stages tests`.
+Python golden files, vector search). Linux only, slow: `make test-tsan` (ThreadSanitizer).
 
 ## Reproduce the measurements on one machine
 ```

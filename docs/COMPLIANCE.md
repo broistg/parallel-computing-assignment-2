@@ -17,15 +17,15 @@ Where a row says "report", the text still has to be written into the PDF. Update
 | **S3** Approach to testing parallel A* | same ladder, 1-16 threads, 3 locks, mutation checks, TSan | done |
 | **S3** Performance and scalability study of ALL sequential and parallel versions | `tools/experiment.py` stages: heap, sorted list without lock, coarse / fine lists x locks x threads x pinned, distance objective, heuristic sensitivity, vector study, windowed lists | measured on one machine; other two machines open |
 | **S3** Quality of outcomes AND execution time as metrics | gap to the golden cost (ppm), share not optimal, expansions; vector: hypervolume ratio, front size, exact points found; time and speedup tables | done (`analysis/quality.csv`, `pareto_quality.csv`) |
-| **S3** All shared-memory platforms you possess, at least as many as members (3) | Ryzen 5 6600H / WSL2 done; Windows native and Apple M3 open | **open, required** |
+| **S3** All shared-memory platforms you possess, at least as many as members (3) | Ryzen 5 6600H / WSL2 done; Apple M3 and the third member's machine (WSL2; native Windows dropped 28 Nov) open | **open, required** |
 | **S4** Other optimizations (optional) | incumbent pruning, CSR, largest SCC (done); windowed list + batching (done, labelled a variant); ALT landmarks: after a clean submission (group decision 21 Nov); contraction hierarchies: skipped, explain in report | partly done |
 | Deliverable: ONE zip = final PDF report + all Python/C++ source, to the website by 5 Dec 2026 | `tools/make_submission.py --report report.pdf --verify` | script ready, report open |
-| Report language | The spec does not state one; the group chooses (`docs/REPORT.md` and `REPORT_vi.md` are the working drafts) | open |
+| Report language | The spec does not state one; the group writes the report in Vietnamese (`REPORT_vi.md` is the working draft; `REPORT.md` is the English twin of the internal progress notes) | decided |
 | Group of 2-3 | 3 members | - |
 
 ## Things the report must say (honesty list)
 * Speed profile and its rush-hour curve are invented; 15-min buckets are a judgement call.
 * Windowed lists change the specified sorted list (short shared list + per-thread bags); parameters were tuned on the scored queries; report the common preset and the per-platform best.
 * Plain lists on the long vector queries are too slow to measure fully; the vector query set omits the 3 queries the oracle could not solve (ids 358, 402, 411).
-* Windowed ticket / std::mutex variants were implemented but dropped unmeasured; Windows-native and macOS paths are tested only where the table says so.
+* Windowed ticket / std::mutex variants were implemented but dropped unmeasured; macOS paths are tested only where the table says so; native Windows is not supported (dropped 28 Nov).
 * Thread counts above the physical cores are oversubscribed; FIFO locks collapse there (convoy).

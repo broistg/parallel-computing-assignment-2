@@ -4,7 +4,7 @@ commit the resulting results/platform_<name>.json.  Standard library only.
 
     python3 tools/inspect_platform.py --name ryzen-wsl2 [--out results/]
 
-Captures: OS / kernel, WSL2 vs native Windows vs macOS vs Linux, CPU model, physical and logical
+Captures: OS / kernel, WSL2 vs macOS vs Linux, CPU model, physical and logical
 cores, P/E core split (Apple), SMT, cache sizes, RAM, governor/power plan hints, compiler
 versions, whether hard thread pinning is possible and how, how peak memory is measured, and the
 list of CPUs to use for a pinned run ("one thread per physical core first").
@@ -32,7 +32,7 @@ def detect_os():
         rel = platform.release().lower()
         wsl = "microsoft" in rel or "wsl" in rel or "microsoft" in sh("cat /proc/version").lower()
         return ("wsl2" if wsl else "linux")
-    return {"Darwin": "macos", "Windows": "windows-native"}.get(s, s.lower())
+    return {"Darwin": "macos"}.get(s, s.lower())
 
 
 def linux_info(info):
@@ -93,23 +93,6 @@ def macos_info(info):
     info["pin_order_physical_first"] = []
 
 
-def windows_info(info):
-    info["cpu_model"] = platform.processor()
-    info["logical_cores"] = os.cpu_count()
-    out = sh('wmic cpu get NumberOfCores,NumberOfLogicalProcessors /value') or ""
-    m = re.search(r"NumberOfCores=(\d+)", out)
-    if m:
-        info["physical_cores"] = int(m.group(1))
-    info["ram_gb"] = None
-    info["pinning"] = "SetThreadAffinityMask (first 64 logical CPUs)"
-    info["pinning_possible"] = True
-    info["peak_memory_method"] = "GetProcessMemoryInfo PeakWorkingSetSize"
-    info["power_plan"] = sh("powercfg /getactivescheme")
-    info["pin_order_physical_first"] = list(range(0, info["logical_cores"], 2)) + list(range(1, info["logical_cores"], 2))
-    info["threats"] = ["Windows native: 15.6 ms default timer granularity affects sleep-based backoff; "
-                       "check power plan = High performance"]
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True, help="short platform id used in result files, e.g. ryzen-wsl2")
@@ -117,7 +100,7 @@ def main():
     a = ap.parse_args()
     info = {"platform_name": a.name, "os": detect_os(), "kernel": platform.release(), "machine": platform.machine(),
             "python": sys.version.split()[0]}
-    {"macos": macos_info, "windows-native": windows_info}.get(info["os"], linux_info)(info)
+    {"macos": macos_info}.get(info["os"], linux_info)(info)
     for cc in ("g++", "clang++", "cl"):
         if shutil.which(cc):
             info["compiler_" + cc] = (sh(cc + " --version") or sh(cc)).splitlines()[0] if sh(cc + " --version") or sh(cc) else ""

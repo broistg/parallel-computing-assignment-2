@@ -4,7 +4,7 @@ Dự án cài đặt cấu trúc dữ liệu **danh sách liên kết có thứ 
 
 ## Điều kiện tiên quyết (Prerequisites)
 
-* **Trình biên dịch hỗ trợ C++14 trở lên:** bắt buộc để dùng `std::make_unique`, smart pointer (`std::unique_ptr`) và biểu thức lambda (ví dụ `g++ >= 5.0`, `clang++ >= 3.4`, hoặc MSVC 2015+).
+* **Trình biên dịch hỗ trợ C++14 trở lên:** bắt buộc để dùng `std::make_unique`, smart pointer (`std::unique_ptr`) và biểu thức lambda (ví dụ `g++ >= 5.0`, `clang++ >= 3.4`).
 * **Thư viện đa luồng chuẩn C++ (`<thread>`, `<mutex>`):** để tạo luồng (`std::thread`) và dùng khóa (`std::mutex`, `std::unique_lock`).
 * **POSIX Threads (`pthread`):** cần trên Linux/Unix/macOS khi liên kết với cờ `-pthread`.
 
@@ -26,7 +26,7 @@ Trên Linux / macOS (GCC / Clang), WSL2 cũng vậy:
 g++ -std=c++14 -O2 -pthread ex2/src/main.cpp -o ex2_list
 ./ex2_list both            # hoặc: fine | optimistic   (không có tham số: hỏi lựa chọn qua stdin)
 ```
-Trên Windows native: `g++ -std=c++14 -O2 ex2/src/main.cpp -o ex2_list.exe`, hoặc dùng target `ex2_list` của bản build CMake.
+Windows native không được hỗ trợ (dùng WSL2).
 `make` và `./tests/run_tests.sh` của repo cũng biên dịch và chạy chương trình này (`make test-tsan` chạy dưới ThreadSanitizer).
 Chương trình thoát với mã 0 và in `ALL EX2 CHECKS PASSED` khi mọi kiểm tra đều đạt.
 

@@ -24,8 +24,6 @@
 #if defined(__linux__)
 #include <pthread.h>
 #include <sched.h>
-#elif defined(_WIN32)
-#include <windows.h>
 #endif
 
 namespace astar {
@@ -244,9 +242,6 @@ inline bool pin_current_thread(int cpu) {
     CPU_ZERO(&set);
     CPU_SET(cpu, &set);
     return pthread_setaffinity_np(pthread_self(), sizeof(set), &set) == 0;
-#elif defined(_WIN32)
-    if (cpu < 0 || cpu >= 64) return false;
-    return SetThreadAffinityMask(GetCurrentThread(), DWORD_PTR(1) << cpu) != 0;
 #else
     (void)cpu;
     return false;  // macOS offers no hard pinning

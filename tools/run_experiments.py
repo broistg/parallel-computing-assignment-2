@@ -47,11 +47,7 @@ ROOT = os.path.dirname(HERE)
 
 
 def default_binary(name):
-    """build/<name> (make), or the CMake locations on native Windows."""
-    for rel in (name, name + ".exe", os.path.join("Release", name + ".exe"), os.path.join("Release", name)):
-        path = os.path.join(ROOT, "build", rel)
-        if os.path.exists(path):
-            return path
+    """build/<name> (make or CMake)."""
     return os.path.join(ROOT, "build", name)
 RHOS = [0, 100, 250, 500]
 WEIGHTS = [100, 120, 150]

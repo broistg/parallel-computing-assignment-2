@@ -1,4 +1,4 @@
-# Portable convenience Makefile (Linux / WSL2 / macOS).  Native Windows: use CMakeLists.txt.
+# Portable convenience Makefile (Linux / WSL2 / macOS).  CMakeLists.txt is an equivalent alternative on the same systems.
 CXX      ?= g++
 LOCK_INC ?= include            # directory that contains lock.h (A1 file); override for a dev stub
 CXXFLAGS ?= -std=c++17 -O2 -g -Wall -Wextra -pthread
