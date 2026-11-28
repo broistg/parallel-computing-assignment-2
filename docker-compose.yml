@@ -1,0 +1,19 @@
+# Convenience wrapper for experiment runs.
+# Examples (PowerShell from repo root):
+#   docker compose build
+#   docker compose run --rm exp python3 tools/experiment.py --platform docker --stages setup,tests,inspect,smoke
+#   docker compose run --rm exp python3 tools/experiment.py --platform docker --dry-run
+services:
+  exp:
+    build: .
+    image: concurrent-astar
+    working_dir: /work
+    # Persist measurements on the host (git-trackable; not wiped when the container exits).
+    # Mount tools/ so host edits to experiment.py apply without rebuilding the image.
+    volumes:
+      - ./results:/work/results
+      - ./report/generated:/work/report/generated
+      - ./tools:/work/tools
+    # Optional: pin CPUs for more stable timings, e.g. cpuset: "0-5"
+    environment:
+      - OMP_NUM_THREADS=1

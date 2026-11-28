@@ -1,0 +1,49 @@
+{
+ "git": {
+  "commit": "",
+  "describe": "",
+  "dirty": false
+ },
+ "platform": "docker",
+ "configs": {
+  "pareto_par_coarse_ttas_T2_pin_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 889.5,
+   "rows": 114,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 2 --list coarse_ttas --rho 0 --w 100 --seed 1 --reps 2 --platform docker --out /work/results/docker/pareto_smoke/pareto_par_coarse_ttas_T2_pin_vector_rho0_w100_s1.csv --cpus 0,2 --smoke",
+   "threads": 2,
+   "pinned": true
+  },
+  "pareto_seq_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 15.2,
+   "rows": 114,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 0 --w 100 --seed 1 --reps 2 --platform docker --out /work/results/docker/pareto_smoke/pareto_seq_vector_rho0_w100_s1.csv --smoke",
+   "threads": 1,
+   "pinned": false
+  }
+ },
+ "binary": "bench_pareto build Nov 28 2026 08:44:25",
+ "presets": {
+  "_comment": "Windowed-list settings used by every grid unless a window sweep overrides them (docs/REPORT.md decision 31, TASKS A.22-A.23). Change only with a note in the report; a per-platform tuned best is reported separately.",
+  "scalar": {
+   "window_div": 4096,
+   "batch": 8,
+   "slack": -1,
+   "skip_empty": true
+  },
+  "vector": {
+   "window_div": 16384,
+   "batch": 12,
+   "slack": 64,
+   "skip_empty": true
+  }
+ },
+ "git_now": {
+  "commit": "",
+  "describe": "",
+  "dirty": false
+ }
+}

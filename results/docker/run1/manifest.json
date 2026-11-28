@@ -1,0 +1,1372 @@
+{
+ "git": {
+  "commit": "",
+  "describe": "",
+  "dirty": false
+ },
+ "platform": "docker",
+ "configs": {
+  "par_coarse_std_mutex_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 272.8,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "seq_time_rho500_w150_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 11.2,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 150 --seed 2 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho500_w150_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ticket_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 62.2,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 114.9,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 150 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w150_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho500_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.0,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 100 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho500_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w150_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 139.5,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 150 --seed 2 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w150_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_std_mutex_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 100.9,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list coarse_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "seq_time_rho500_w100_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.3,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 100 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho500_w100_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w150_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 148.1,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 150 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w150_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w150_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 122.5,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 150 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w150_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 272.0,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 120 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w120_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w100_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 316.7,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 100 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w100_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 50.8,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list coarse_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "seq_time_rho250_w120_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 15.0,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 120 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho250_w120_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_std_mutex_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 270.2,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 275.5,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 120 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w120_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho100_w150_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 10.1,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 150 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho100_w150_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w150_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 186.8,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 150 --seed 2 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w150_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho0_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 10.3,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 0 --w 120 --seed 1 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho0_w120_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho250_w100_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 19.2,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 100 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/seq_time_rho250_w100_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w120_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 216.1,
+   "rows": 4500,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 120 --seed 3 --reps 10 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w120_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho250_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 7.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w100_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 9.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list coarse_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "seq_time_rho100_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w120_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho250_w150_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 4.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 150 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w150_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_std_mutex_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 23.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_coarse_ticket_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 57.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "seq_time_rho500_w120_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 120 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho500_w120_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_std_mutex_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 187.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho0_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 70.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 0 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho0_w120_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w150_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 68.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 150 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w150_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho100_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 6.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 111.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w100_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ticket_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list coarse_ticket --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "seq_time_rho250_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w120_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 4.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 22.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w100_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 79.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 100 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w100_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_std_mutex_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 22.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 163.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho100_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w120_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 94.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w120_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho100_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 3.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w150_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ticket_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 56.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 168.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w100_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho500_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 4.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho500_w150_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho250_w150_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 4.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 150 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w150_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 44.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "seq_time_rho100_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w100_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ticket_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 22.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_coarse_ttas_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 44.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "seq_time_rho500_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 7.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho500_w100_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 2.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo seq --threads 1 --list pq --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_dist_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ticket_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 97.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 54.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_coarse_std_mutex_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 8.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list coarse_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_coarse_ticket_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 96.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "par_coarse_ticket_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 8.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list coarse_ticket --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 54.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w150_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 21.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "seq_time_rho500_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho500_w120_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ticket_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 44.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 74.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w120_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 53.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho0_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 46.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 0 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho0_w150_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho500_w150_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 3.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 150 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho500_w150_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 75.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w120_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 82.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w150_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w120_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 87.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 120 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w120_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho250_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 3.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w150_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w150_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 42.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 150 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w150_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_std_mutex_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 181.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "seq_time_rho250_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 6.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho100_w120_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 120 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w120_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho500_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 500 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho500_w120_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w100_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 146.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 100 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w100_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_std_mutex_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 95.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 34.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list coarse_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seq_time_rho250_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 5.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 250 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho250_w120_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "seq_time_rho100_w150_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 3.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 150 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w150_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ticket_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 38.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list coarse_ticket --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 88.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "seq_time_rho0_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 2.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 0 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho0_w150_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 80.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w100_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 87.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_std_mutex_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 72.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list coarse_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_std_mutex_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 106.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list coarse_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_std_mutex_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "seq_time_rho100_w100_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 6.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seq --threads 1 --list pq --obj time --rho 100 --w 100 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/seq_time_rho100_w100_s3.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 100.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w120_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho500_w120_s3": {
+   "status": "done",
+   "note": "",
+   "wall_s": 94.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 500 --w 120 --seed 3 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho500_w120_s3.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ttas_T14_pin_time_rho100_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 81.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 100 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho100_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "seqlist_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 22.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo seqlist --threads 1 --list coarse_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/seqlist_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_coarse_ttas_T14_pin_time_rho250_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 113.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list coarse_ttas --obj time --rho 250 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ttas_T14_pin_time_rho250_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_coarse_ticket_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 45.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list coarse_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_coarse_ticket_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_ttas_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 105.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 72.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list fine_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_ttas_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 38.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_fine_ticket_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 70.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 319.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "par_fine_ticket_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 79.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 51.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 112.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list fine_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 51.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_fine_ttas_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 24.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list fine_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_fine_ttas_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 69.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_fine_ttas_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 62.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_fine_std_mutex_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 182.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_fine_ticket_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 49.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "par_fine_ticket_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 26.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list fine_ticket --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 18.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list fine_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_fine_ticket_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 75.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_fine_ticket_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 75.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_fine_std_mutex_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 206.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 185.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_ticket_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 125.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_std_mutex_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 336.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_fine_ttas_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 16.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list fine_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_fine_ttas_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 72.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_fine_ticket_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 44.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list fine_ticket --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_ticket_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 87.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_fine_ttas_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 36.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list fine_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_fine_ticket_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 131.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list fine_ticket --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_fine_std_mutex_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 227.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list fine_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_std_mutex_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_fine_ttas_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 71.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_fine_ttas_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 100.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_fine_ticket_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list fine_ticket --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ticket_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_fine_ttas_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 39.6,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list fine_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_fine_ttas_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 22.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list opt_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_opt_ttas_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 29.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_opt_ttas_T14_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 14.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 14 --list opt_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T14_pin_dist_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 69.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_opt_ttas_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 27.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list opt_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T2_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 23.0,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 2 --list opt_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T2_pin_dist_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_opt_ttas_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 47.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list opt_ttas --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_ttas_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 136.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 59.9,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  },
+  "par_opt_ttas_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 42.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 41.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T1_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 68.7,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T1_pin_time_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T14_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 41.4,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T14_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26",
+   "threads": 14,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T1_pin_dist_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 24.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_dist.csv --algo par --threads 1 --list opt_std_mutex --obj dist --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T1_pin_dist_rho0_w100_s1.csv --cpus 0",
+   "threads": 1,
+   "pinned": true
+  },
+  "par_opt_ttas_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 27.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "par_opt_ttas_T4_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 41.1,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T4_pin_time_rho0_w100_s1.csv --cpus 0,2,4,6",
+   "threads": 4,
+   "pinned": true
+  },
+  "par_opt_std_mutex_T4_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 40.5,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 4 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T4_free_time_rho0_w100_s1.csv",
+   "threads": 4,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 59.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_opt_ttas_T1_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 133.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 1 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T1_free_time_rho0_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "par_opt_ttas_T2_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 74.8,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T2_free_time_rho0_w100_s1.csv",
+   "threads": 2,
+   "pinned": false
+  },
+  "par_opt_std_mutex_T14_free_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 39.2,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 14 --list opt_std_mutex --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_std_mutex_T14_free_time_rho0_w100_s1.csv",
+   "threads": 14,
+   "pinned": false
+  },
+  "par_opt_ttas_T2_pin_time_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 74.3,
+   "rows": 1350,
+   "command": "/work/build/bench --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries.csv --golden /work/config/golden_time.csv --algo par --threads 2 --list opt_ttas --obj time --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/run1/par_opt_ttas_T2_pin_time_rho0_w100_s1.csv --cpus 0,2",
+   "threads": 2,
+   "pinned": true
+  }
+ },
+ "binary": "bench build Nov 28 2026 08:44:25",
+ "presets": {
+  "_comment": "Windowed-list settings used by every grid unless a window sweep overrides them (docs/REPORT.md decision 31, TASKS A.22-A.23). Change only with a note in the report; a per-platform tuned best is reported separately.",
+  "scalar": {
+   "window_div": 4096,
+   "batch": 8,
+   "slack": -1,
+   "skip_empty": true
+  },
+  "vector": {
+   "window_div": 16384,
+   "batch": 12,
+   "slack": 64,
+   "skip_empty": true
+  }
+ },
+ "git_now": {
+  "commit": "",
+  "describe": "",
+  "dirty": false
+ }
+}

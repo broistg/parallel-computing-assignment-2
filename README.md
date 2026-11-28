@@ -24,6 +24,7 @@ docs/            DESIGN.md (objectives, parallel contract, interfaces), TESTING.
 Needs a C++17 compiler (g++ / clang++ / MSVC), Python 3, and `include/lock.h` (Assignment-1 file).
 * Linux, WSL2, macOS: `make` (binaries in `build/`).
 * Native Windows: `cmake -B build -S . && cmake --build build --config Release`.
+* Docker (Windows/macOS/Linux): see `docs/DOCKER.md` — `docker build -t concurrent-astar .` then run `tools/experiment.py` inside the container.
 
 ## Test
 `./tests/run_tests.sh` must end with `ALL TESTS PASSED` (data tools, oracle vs brute force, list and search tests, C++ against the

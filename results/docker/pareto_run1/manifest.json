@@ -1,0 +1,157 @@
+{
+ "git": {
+  "commit": "",
+  "describe": "",
+  "dirty": false
+ },
+ "platform": "docker",
+ "configs": {
+  "pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho250_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 929.3,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 14 --list win_coarse_ttas --rho 250 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho250_w120_s2.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 14,
+   "pinned": true
+  },
+  "pareto_seq_vector_rho250_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 19.3,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 250 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho250_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho250_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 352.7,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 14 --list win_coarse_ttas --rho 250 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho250_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 14,
+   "pinned": true
+  },
+  "pareto_seq_vector_rho0_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 15.4,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 0 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho0_w120_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_par_win_fine_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 12.3,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 14 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_fine_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 14,
+   "pinned": true
+  },
+  "pareto_seq_vector_rho250_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 14.6,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 250 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho250_w120_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_seq_vector_rho500_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 20.9,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 500 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho500_w100_s1.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_seq_vector_rho500_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 32.3,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 500 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho500_w100_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_par_win_coarse_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 27.2,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 1 --list win_coarse_ttas --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_coarse_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 1,
+   "pinned": true
+  },
+  "pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho0_w150_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 35.0,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 14 --list win_coarse_ttas --rho 0 --w 150 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho0_w150_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 14,
+   "pinned": true
+  },
+  "pareto_par_win_fine_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 28.8,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 1 --list win_fine_ttas --rho 0 --w 100 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_fine_ttas_T1_pin_wd16384_wb12_sl64_se_vector_rho0_w100_s1.csv --cpus 0 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 1,
+   "pinned": true
+  },
+  "pareto_seq_vector_rho250_w120_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 17.2,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 250 --w 120 --seed 2 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho250_w120_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_seq_vector_rho250_w100_s2": {
+   "status": "done",
+   "note": "",
+   "wall_s": 19.0,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo seq --threads 1 --list pq --rho 250 --w 100 --seed 2 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_seq_vector_rho250_w100_s2.csv",
+   "threads": 1,
+   "pinned": false
+  },
+  "pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho0_w120_s1": {
+   "status": "done",
+   "note": "",
+   "wall_s": 73.8,
+   "rows": 171,
+   "command": "/work/build/bench_pareto --snapshot /work/data/snapshot_hcmc --profile /work/config/profile.csv --queries /work/config/queries_pareto.csv --golden /work/config/golden_pareto.csv --algo par --threads 14 --list win_coarse_ttas --rho 0 --w 120 --seed 1 --reps 3 --platform docker --out /work/results/docker/pareto_run1/pareto_par_win_coarse_ttas_T14_pin_wd16384_wb12_sl64_se_vector_rho0_w120_s1.csv --cpus 0,2,4,6,8,10,12,14,16,18,20,22,24,26 --window-div 16384 --batch 12 --window-slack 64 --window-skip-empty",
+   "threads": 14,
+   "pinned": true
+  }
+ },
+ "binary": "bench_pareto build Nov 28 2026 08:44:25",
+ "presets": {
+  "_comment": "Windowed-list settings used by every grid unless a window sweep overrides them (docs/REPORT.md decision 31, TASKS A.22-A.23). Change only with a note in the report; a per-platform tuned best is reported separately.",
+  "scalar": {
+   "window_div": 4096,
+   "batch": 8,
+   "slack": -1,
+   "skip_empty": true
+  },
+  "vector": {
+   "window_div": 16384,
+   "batch": 12,
+   "slack": 64,
+   "skip_empty": true
+  }
+ },
+ "git_now": {
+  "commit": "",
+  "describe": "",
+  "dirty": false
+ }
+}

@@ -1,0 +1,13 @@
+.git
+.gitignore
+**/.DS_Store
+**/__pycache__
+**/*.pyc
+**/*.o
+**/*.obj
+build/
+results/
+report/generated/
+*.pdf
+agent-transcripts/
+.cursor/

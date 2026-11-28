@@ -47,6 +47,12 @@ def run(cmd, what, allow_codes=(0,)):
 
 def driver(args, what, a):
     cmd = [PY, os.path.join("tools", "run_experiments.py"), "--platform", a.platform] + args
+    # Optional global knobs (speed vs report-quality tradeoff). Stages that already pass
+    # --reps / --threads keep their own values unless these are set.
+    if getattr(a, "reps", 0) and "--reps" not in args:
+        cmd += ["--reps", str(a.reps)]
+    if getattr(a, "threads", "") and "--threads" not in args:
+        cmd += ["--threads", a.threads]
     if a.dry_run:
         cmd.append("--dry-run")
     print("\n>>> %s\n    %s" % (what, " ".join(cmd)), flush=True)
@@ -116,7 +122,7 @@ def stage_fine(a):
 
 
 def stage_optimistic(a):
-    threads = ",".join(str(t) for t in platform_info(a)["suggested_thread_counts"])
+    threads = a.threads or ",".join(str(t) for t in platform_info(a)["suggested_thread_counts"])
     driver(["--grid", "headline", "--lists", "coarse_ttas,opt_ttas,opt_std_mutex", "--threads", "phys", "--only", "opt_"], "optimistic lists, plain (scalar)", a)
     driver(["--grid", "window", "--lists", "win_opt_ttas", "--window-divs", "4096", "--window-batches", "8", "--window-threads", threads,
             "--window-slacks", "off", "--window-skip-empty", "--skip-timeouts"], "optimistic list, windowed thread curve, scalar preset", a)
@@ -141,7 +147,7 @@ def stage_window_sweep(a):
 
 def stage_window_threads(a):
     info = platform_info(a)
-    threads = ",".join(str(t) for t in info["suggested_thread_counts"])
+    threads = a.threads or ",".join(str(t) for t in info["suggested_thread_counts"])
     driver(["--grid", "window", "--lists", "win_coarse_ttas,win_fine_ttas", "--window-divs", "4096", "--window-batches", "8", "--window-threads", threads,
             "--window-slacks", "off", "--window-skip-empty", "--skip-timeouts"], "thread curve, scalar preset", a)
     driver(["--grid", "pareto-window", "--lists", "win_coarse_ttas,win_fine_ttas", "--window-divs", "16384", "--window-batches", "12", "--window-threads", threads,
@@ -170,6 +176,8 @@ def main():
     ap.add_argument("--stages", default="", help="comma list (default: all, in order); --list shows them")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--only", default="", help="main stage only: run just the configurations whose name contains this text")
+    ap.add_argument("--reps", type=int, default=0, help="override repetitions (default: 10 scalar / 5 vector). Use 3 for a faster Docker run.")
+    ap.add_argument("--threads", default="", help="override thread list, e.g. 1,2,4,14 (skip oversubscribed logical-core counts)")
     ap.add_argument("--dry-run", action="store_true", help="measurement stages only list their configurations")
     a = ap.parse_args()
     if a.list:
