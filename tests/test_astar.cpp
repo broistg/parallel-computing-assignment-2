@@ -273,6 +273,48 @@ static void test_stress(const Graph& graph, const SpeedProfile& profile, const c
 }
 
 // Runs one test stage and prints how long it took (flushed, so a slow or stuck stage is visible while it runs).
+// Concurrent add_batch / pop_batch / add / remove on a small key range: what was added minus what was removed or popped must be exactly
+// what remains (sorted drain).
+template <class List>
+static void test_batch_concurrent() {
+    for (int round = 0; round < 3; ++round) {
+        List list;
+        const int threads = 6;
+        std::atomic<long> added{0}, taken{0};
+        std::vector<std::thread> pool;
+        for (int t = 0; t < threads; ++t) {
+            pool.emplace_back([&, t] {
+                std::mt19937 rng(1000u * round + t);
+                for (int it = 0; it < 4000; ++it) {
+                    int op = int(rng() % 4);
+                    if (op == 0) {
+                        std::vector<OpenItem> b;
+                        for (int i = 0, n = 1 + int(rng() % 8); i < n; ++i) b.push_back({int64_t(rng() % 200), uint32_t(t), 0});
+                        std::sort(b.begin(), b.end());
+                        b.erase(std::unique(b.begin(), b.end()), b.end());
+                        added += long(list.add_batch(b.data(), b.size()));
+                    } else if (op == 1) {
+                        OpenItem out[8];
+                        size_t got = list.pop_batch(out, 1 + rng() % 8);
+                        for (size_t i = 1; i < got; ++i) CHECK(out[i - 1] < out[i], "pop_batch not ascending");
+                        taken += long(got);
+                    } else if (op == 2) {
+                        added += list.add({int64_t(rng() % 200), uint32_t(t), 0}) ? 1 : 0;
+                    } else {
+                        OpenItem x{int64_t(rng() % 200), uint32_t(rng() % threads), 0};
+                        taken += list.remove(x) ? 1 : 0;
+                    }
+                }
+            });
+        }
+        for (auto& th : pool) th.join();
+        OpenItem x, prev{-1, 0, 0};
+        long left = 0;
+        while (list.pop_min(x)) { CHECK(prev < x || left == 0, "drain not ascending"); prev = x; ++left; }
+        CHECK(added.load() - taken.load() == left, "batch concurrent: added %ld - taken %ld != remaining %ld", added.load(), taken.load(), left);
+    }
+}
+
 // Optional batch operations of CoarseList against a std::set model (sequential), including duplicates and k larger than the size.
 template <class L>
 static void test_batch_ops() {
@@ -342,6 +384,13 @@ int main(int argc, char** argv) {
     stage("search win_opt_ttas", [&] { test_search<WindowedList<OptimisticList<lock_ttas_pause>>>(graph, profile, "win_opt_ttas", 8); });
     stage("batch ops of CoarseList", [&] { test_batch_ops<CoarseList<lock_ttas_pause>>(); });
     stage("batch ops of FineList", [&] { test_batch_ops<FineList<lock_ttas_pause>>(); });
+    stage("batch ops of OptimisticList", [&] { test_batch_ops<OptimisticList<lock_ttas_pause>>(); });
+    stage("concurrent batch ops of OptimisticList", [&] { test_batch_concurrent<OptimisticList<lock_ttas_pause>>(); });
+    for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 4}, {16, 4}, {1024, 16}}) {
+        window_divisor().store(divisor); window_batch().store(batch);
+        std::string label = "search win_opt_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);
+        stage(label.c_str(), [&] { test_search<WindowedList<OptimisticList<lock_ttas_pause>>>(graph, profile, "win_opt_ttas", 8); });
+    }
     for (auto [divisor, batch] : std::vector<std::pair<int, int>>{{2, 1}, {16, 4}, {1024, 16}}) {
         window_divisor().store(divisor); window_batch().store(batch);
         std::string label = "search win_fine_ttas div=" + std::to_string(divisor) + " batch=" + std::to_string(batch);

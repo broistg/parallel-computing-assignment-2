@@ -67,6 +67,10 @@ struct ListOpStats {
     // OptimisticList (--diag): lock-and-validate attempts, attempts that failed validation (retries), nodes walked by the lock-free search
     // and by the validation walk from the head, failed compare-and-swaps on the retired-node stack.
     uint64_t opt_attempts = 0, opt_retries = 0, opt_find_steps = 0, opt_validate_steps = 0, opt_retire_cas_fail = 0;
+    // OptimisticList (--diag), where the contention is: attempts whose predecessor is the head or the first node, time waiting for the
+    // two locks of an add/remove/contains attempt, pop_min calls with the time waiting for the head lock, for the first node's lock, and
+    // the time the head lock was held.
+    uint64_t opt_near_head = 0, opt_pair_wait_ns = 0, opt_pops = 0, opt_pop_head_wait_ns = 0, opt_pop_first_wait_ns = 0, opt_pop_hold_ns = 0;
     void operator+=(const ListOpStats& o) {
         adds += o.adds; add_dups += o.add_dups; pops += o.pops; pop_empty += o.pop_empty;
         add_ns += o.add_ns; add_samples += o.add_samples; pop_ns += o.pop_ns; pop_samples += o.pop_samples;
@@ -86,6 +90,8 @@ struct ListOpStats {
         advances += o.advances; advance_gap_sum += o.advance_gap_sum; advance_gap_max = std::max(advance_gap_max, o.advance_gap_max); advance_far += o.advance_far;
         opt_attempts += o.opt_attempts; opt_retries += o.opt_retries; opt_find_steps += o.opt_find_steps;
         opt_validate_steps += o.opt_validate_steps; opt_retire_cas_fail += o.opt_retire_cas_fail;
+        opt_near_head += o.opt_near_head; opt_pair_wait_ns += o.opt_pair_wait_ns; opt_pops += o.opt_pops;
+        opt_pop_head_wait_ns += o.opt_pop_head_wait_ns; opt_pop_first_wait_ns += o.opt_pop_first_wait_ns; opt_pop_hold_ns += o.opt_pop_hold_ns;
     }
 };
 

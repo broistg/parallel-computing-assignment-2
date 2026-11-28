@@ -50,7 +50,8 @@ def total_ms(rows):
 
 
 def diag_sums(path):
-    keys = ["lock_acq", "opt_attempts", "opt_retries", "opt_find_steps", "opt_validate_steps", "opt_retire_cas_fail"]
+    keys = ["lock_acq", "lock_wait_ns", "opt_attempts", "opt_retries", "opt_find_steps", "opt_validate_steps", "opt_retire_cas_fail",
+            "opt_near_head", "opt_pair_wait_ns", "opt_pops", "opt_pop_head_wait_ns", "opt_pop_first_wait_ns", "opt_pop_hold_ns"]
     tot = dict.fromkeys(keys, 0)
     if not os.path.exists(path):
         return tot
@@ -163,6 +164,19 @@ def main():
                     d["opt_validate_steps"] / d["opt_attempts"], d["opt_retire_cas_fail"] / max(pops, 1), add_ns, pop_ns))
             else:
                 lines.append("| %s | %s | - | - | - | - | - | %.0f | %.0f |" % (alloc, lst, add_ns, pop_ns))
+    lines += ["", "## Where the optimistic list waits (diagnostic runs; the clock reads add a little time of their own)", "",
+              "| allocator | list | attempts near the head (%) | add/remove lock wait ns / attempt | pop_min head-lock wait ns | pop_min first-node-lock wait ns | head lock held ns / pop | coarse lock wait ns / acquisition |",
+              "|---|---|---|---|---|---|---|---|"]
+    for alloc, _ in allocators:
+        for lst in LISTS:
+            d = diag_sums(os.path.join(outdir, "%s_%s_diag.csv" % (alloc, lst)) + ".diag.csv")
+            if d["opt_attempts"]:
+                pops = max(d["opt_pops"], 1)
+                lines.append("| %s | %s | %.1f | %.0f | %.0f | %.0f | %.0f | - |" % (
+                    alloc, lst, 100.0 * d["opt_near_head"] / d["opt_attempts"], d["opt_pair_wait_ns"] / d["opt_attempts"],
+                    d["opt_pop_head_wait_ns"] / pops, d["opt_pop_first_wait_ns"] / pops, d["opt_pop_hold_ns"] / pops))
+            elif d["lock_acq"]:
+                lines.append("| %s | %s | - | - | - | - | - | %.0f |" % (alloc, lst, d["lock_wait_ns"] / d["lock_acq"]))
     lines += ["", "## Latency per operation (ns, sampled 1 in 8 operations, default allocator)", "",
               "| list | threads | add ns | pop_min ns |", "|---|---|---|---|"]
     for lst in LATENCY_LISTS:
@@ -176,7 +190,9 @@ def main():
     lines += ["", "Reading the table: `attempts / op` counts lock-and-validate rounds of add/remove/contains (pop_min does not validate; WindowedList",
               "also batches, so one op here is one item); `validate steps` is the walk from the head that every attempt performs, `find steps` the",
               "lock-free walk before it.  If validate >> find the validation walk dominates; if retries are high the optimistic walk is being invalidated;",
-              "if the jemalloc rows move relative to the default rows the allocator is involved.", ""]
+              "if the jemalloc rows move relative to the default rows the allocator is involved.",
+              "The wait table tests the contention explanation: a high share of attempts near the head together with long pop_min waits on the head or",
+              "first-node lock means adds and pops fight over the same few nodes.", ""]
     summary = os.path.join(outdir, "opt_diag_summary.md")
     with open(summary, "w") as f:
         f.write("\n".join(lines))
